@@ -27,35 +27,38 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-        body: Stack(children: [
-      Center(
-        child: CircularProgressIndicator(
-          color: AppColors.primaryColor,
-        ),
-      ),
-      StatefulBuilder(builder: (context, setState) {
-        pageState = setState;
-        if (showLoading)
-          return SizedBox.shrink();
-        else {
-          if (applicationBean != null) {
-            if (ApplicationStatusUtils.isRepay(applicationBean!.status!)) {
-              return RepayingPage(
-                refreshClick: getLatestApplication,
-                application: applicationBean!,
-              );
+      body: Stack(
+        children: [
+          const Center(
+            child: CircularProgressIndicator(
+              color: AppColors.primaryColor,
+            ),
+          ),
+          StatefulBuilder(builder: (context, setState) {
+            pageState = setState;
+            if (showLoading) {
+              return const SizedBox.shrink();
+            } else {
+              if (applicationBean != null) {
+                if (ApplicationStatusUtils.isRepay(applicationBean!.status!)) {
+                  return RepayingPage(
+                    refreshClick: getLatestApplication,
+                    application: applicationBean!,
+                  );
+                }
+                return OrderStatusPage(
+                  refreshClick: getLatestApplication,
+                  finishClick: finishiOrder,
+                  application: applicationBean!,
+                );
+              } else {
+                return LoanPage();
+              }
             }
-            return OrderStatusPage(
-              refreshClick: getLatestApplication,
-              finishClick: finishiOrder,
-              application: applicationBean!,
-            );
-          } else {
-            return LoanPage();
-          }
-        }
-      })
-    ]));
+          })
+        ],
+      ),
+    );
   }
 
   @override
@@ -85,16 +88,17 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
 
   Future<bool> getLatestApplication({bool isInit = false}) async {
     await DioManager.getInstance().doRequest<ApplicationBean>(
-        path: Urls.APPLICATION_LATEST,
-        method: DioMethod.GET,
-        showLoading: !showLoading,
-        successCallBack: (result) {
-          applicationBean = result;
-          if (!isInit) {
-            showLoading = false;
-            pageState(() {});
-          }
-        });
+      path: Urls.APPLICATION_LATEST,
+      method: DioMethod.GET,
+      showLoading: !showLoading,
+      successCallBack: (result) {
+        applicationBean = result;
+        if (!isInit) {
+          showLoading = false;
+          pageState(() {});
+        }
+      },
+    );
     return true;
   }
 

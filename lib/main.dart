@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-12 15:15:37
+ * @LastEditTime: 2023-10-17 16:50:17
  * @FilePath: /loannow/lib/main.dart
  */
 import 'package:bot_toast/bot_toast.dart';
@@ -20,14 +20,14 @@ import 'package:loannow/pages/start.dart';
 import 'package:loannow/pages/web.dart';
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark));
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark),
+  );
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
-GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -41,8 +41,7 @@ class MyApp extends StatelessWidget {
       //1. call BotToastInit
       navigatorObservers: [BotToastNavigatorObserver()],
       //2. registered route observer
-      theme:
-          ThemeData(primarySwatch: Colors.blue, backgroundColor: Colors.white),
+      theme: ThemeData(primarySwatch: Colors.blue, backgroundColor: Colors.white),
       routes: {
         RouterNames.START: (context) => StartPage(),
         RouterNames.HOME: (context) => MainPage(),
