@@ -9,6 +9,8 @@ import 'package:loannow/utils/operation_utils.dart';
 import 'package:loannow/widget/titleBar.dart';
 
 class HistoryPage extends StatefulWidget {
+  const HistoryPage({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return HistorypageState();
@@ -26,33 +28,42 @@ class HistorypageState extends State<HistoryPage> {
       body: Column(
         children: [
           TitleBar(title: "History"),
-          Expanded(child: StatefulBuilder(
-            builder: (contex, setState) {
-              listSetter = setState;
-              if (mList.length == 0) {
-                return Padding(
-                    padding: EdgeInsets.only(top: 100),
+          Expanded(
+            child: StatefulBuilder(
+              builder: (contex, setState) {
+                listSetter = setState;
+                // ignore: prefer_is_empty
+                if (mList.length == 0) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 100),
                     child: Column(
                       children: [
                         FractionallySizedBox(
-                            widthFactor: 0.4, child: AspectRatio(aspectRatio: 1 / 1, child: Image.asset("images/img_history_empty.png"))),
+                          widthFactor: 0.4,
+                          child: AspectRatio(
+                            aspectRatio: 1 / 1,
+                            child: Image.asset("images/img_history_empty.png"),
+                          ),
+                        ),
                         Container(
-                            margin: EdgeInsets.only(top: 12),
-                            child: Text(
-                              "No history record",
-                              style: TextStyle(fontSize: 14, color: AppColors.textColorhint),
-                            ))
+                          margin: const EdgeInsets.only(top: 12),
+                          child: const Text(
+                            "No history record",
+                            style: TextStyle(fontSize: 14, color: AppColors.textColorhint),
+                          ),
+                        ),
                       ],
-                    ));
-              }
-              return ListView.separated(
+                    ),
+                  );
+                }
+                return ListView.separated(
                   padding: EdgeInsets.zero,
                   itemCount: mList.length,
                   separatorBuilder: (context, index) {
                     return Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
                       height: 0.5,
                       color: AppColors.dividerColor,
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
                     );
                   },
                   itemBuilder: (context, index) {
@@ -70,48 +81,58 @@ class HistorypageState extends State<HistoryPage> {
                       textColor = Color(0xffF94D3F);
                     }
                     return Container(
-                        padding: EdgeInsets.all(15),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              img,
-                              width: 33,
-                            ),
-                            Expanded(
-                                child: Column(
+                      padding: const EdgeInsets.all(15),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            img,
+                            width: 33,
+                          ),
+                          Expanded(
+                            child: Column(
                               children: [
                                 Container(
-                                    margin: EdgeInsets.only(left: 10, bottom: 5),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                            child: Text(
-                                          "NO.${item.id}",
-                                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: AppColors.textColorLight),
-                                        )),
-                                        Text("${FormatUtils.formatAmount(item.loanAmount)}P",
-                                            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: AppColors.textColorLight))
-                                      ],
-                                    )),
+                                  margin: const EdgeInsets.only(left: 10, bottom: 5),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                          child: Text(
+                                        "NO.${item.id}",
+                                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: AppColors.textColorLight),
+                                      )),
+                                      Text(
+                                        "${FormatUtils.formatAmount(item.loanAmount)}P",
+                                        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: AppColors.textColorLight),
+                                      )
+                                    ],
+                                  ),
+                                ),
                                 Container(
-                                    margin: EdgeInsets.only(left: 10),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                            child: Text(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          // ignore: unnecessary_string_interpolations
                                           "${FormatUtils.formatDate(item.applicationTime!)}",
-                                          style: TextStyle(fontSize: 12, color: AppColors.textColorhint),
-                                        )),
-                                        Text("${item.statusDesc}", style: TextStyle(fontSize: 12, color: textColor))
-                                      ],
-                                    ))
+                                          style: const TextStyle(fontSize: 12, color: AppColors.textColorhint),
+                                        ),
+                                      ),
+                                      Text("${item.statusDesc}", style: TextStyle(fontSize: 12, color: textColor))
+                                    ],
+                                  ),
+                                ),
                               ],
-                            ))
-                          ],
-                        ));
-                  });
-            },
-          ))
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -126,11 +147,12 @@ class HistorypageState extends State<HistoryPage> {
 
   void getData() {
     DioManager.getInstance().doRequest<List<LoanHistoryBean>>(
-        path: Urls.APPLICATION_HISTORY,
-        method: DioMethod.GET,
-        successCallBack: (result) {
-          mList.addAll(result ?? []);
-          listSetter(() {});
-        });
+      path: Urls.APPLICATION_HISTORY,
+      method: DioMethod.GET,
+      successCallBack: (result) {
+        mList.addAll(result ?? []);
+        listSetter(() {});
+      },
+    );
   }
 }
