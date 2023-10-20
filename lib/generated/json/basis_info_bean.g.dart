@@ -1,5 +1,5 @@
-import 'package:loannow/beans/basis_info_bean.dart';
 import 'package:loannow/generated/json/base/json_convert_content.dart';
+import 'package:loannow/beans/basis_info_bean.dart';
 
 BasisInfoBean $BasisInfoBeanFromJson(Map<String, dynamic> json) {
   final BasisInfoBean basisInfoBean = BasisInfoBean();
@@ -23,15 +23,18 @@ BasisInfoBean $BasisInfoBeanFromJson(Map<String, dynamic> json) {
   if (birthday != null) {
     basisInfoBean.birthday = birthday;
   }
-  final int? certificateMaterial = jsonConvert.convert<int>(json['certificateMaterial']);
+  final int? certificateMaterial = jsonConvert.convert<int>(
+      json['certificateMaterial']);
   if (certificateMaterial != null) {
     basisInfoBean.certificateMaterial = certificateMaterial;
   }
-  final String? certificateNo = jsonConvert.convert<String>(json['certificateNo']);
+  final String? certificateNo = jsonConvert.convert<String>(
+      json['certificateNo']);
   if (certificateNo != null) {
     basisInfoBean.certificateNo = certificateNo;
   }
-  final int? certificateType = jsonConvert.convert<int>(json['certificateType']);
+  final int? certificateType = jsonConvert.convert<int>(
+      json['certificateType']);
   if (certificateType != null) {
     basisInfoBean.certificateType = certificateType;
   }
@@ -39,12 +42,17 @@ BasisInfoBean $BasisInfoBeanFromJson(Map<String, dynamic> json) {
   if (companyName != null) {
     basisInfoBean.companyName = companyName;
   }
-  final String? companyTelephone = jsonConvert.convert<String>(json['companyTelephone']);
+  final String? companyTelephone = jsonConvert.convert<String>(
+      json['companyTelephone']);
   if (companyTelephone != null) {
     basisInfoBean.companyTelephone = companyTelephone;
   }
-  final List<BasisInfoContactPersons>? contactPersons =
-      (json['contactPersons'] as List<dynamic>?)?.map((e) => jsonConvert.convert<BasisInfoContactPersons>(e) as BasisInfoContactPersons).toList();
+  final List<
+      BasisInfoContactPersons>? contactPersons = (json['contactPersons'] as List<
+      dynamic>?)?.map(
+          (e) =>
+      jsonConvert.convert<BasisInfoContactPersons>(
+          e) as BasisInfoContactPersons).toList();
   if (contactPersons != null) {
     basisInfoBean.contactPersons = contactPersons;
   }
@@ -124,7 +132,8 @@ BasisInfoBean $BasisInfoBeanFromJson(Map<String, dynamic> json) {
   if (nameFormat != null) {
     basisInfoBean.nameFormat = nameFormat;
   }
-  final int? paymentChannelType = jsonConvert.convert<int>(json['paymentChannelType']);
+  final int? paymentChannelType = jsonConvert.convert<int>(
+      json['paymentChannelType']);
   if (paymentChannelType != null) {
     basisInfoBean.paymentChannelType = paymentChannelType;
   }
@@ -136,11 +145,13 @@ BasisInfoBean $BasisInfoBeanFromJson(Map<String, dynamic> json) {
   if (platform != null) {
     basisInfoBean.platform = platform;
   }
-  final String? positivePhoto = jsonConvert.convert<String>(json['positivePhoto']);
+  final String? positivePhoto = jsonConvert.convert<String>(
+      json['positivePhoto']);
   if (positivePhoto != null) {
     basisInfoBean.positivePhoto = positivePhoto;
   }
-  final String? positivePhotoUrl = jsonConvert.convert<String>(json['positivePhotoUrl']);
+  final String? positivePhotoUrl = jsonConvert.convert<String>(
+      json['positivePhotoUrl']);
   if (positivePhotoUrl != null) {
     basisInfoBean.positivePhotoUrl = positivePhotoUrl;
   }
@@ -148,7 +159,8 @@ BasisInfoBean $BasisInfoBeanFromJson(Map<String, dynamic> json) {
   if (resideAreaId != null) {
     basisInfoBean.resideAreaId = resideAreaId;
   }
-  final String? resideBarangay = jsonConvert.convert<String>(json['resideBarangay']);
+  final String? resideBarangay = jsonConvert.convert<String>(
+      json['resideBarangay']);
   if (resideBarangay != null) {
     basisInfoBean.resideBarangay = resideBarangay;
   }
@@ -156,7 +168,8 @@ BasisInfoBean $BasisInfoBeanFromJson(Map<String, dynamic> json) {
   if (resideCity != null) {
     basisInfoBean.resideCity = resideCity;
   }
-  final String? resideProvince = jsonConvert.convert<String>(json['resideProvince']);
+  final String? resideProvince = jsonConvert.convert<String>(
+      json['resideProvince']);
   if (resideProvince != null) {
     basisInfoBean.resideProvince = resideProvince;
   }
@@ -183,7 +196,8 @@ Map<String, dynamic> $BasisInfoBeanToJson(BasisInfoBean entity) {
   data['certificateType'] = entity.certificateType;
   data['companyName'] = entity.companyName;
   data['companyTelephone'] = entity.companyTelephone;
-  data['contactPersons'] = entity.contactPersons?.map((v) => v.toJson()).toList();
+  data['contactPersons'] =
+      entity.contactPersons?.map((v) => v.toJson()).toList();
   data['deviceId'] = entity.deviceId;
   data['education'] = entity.education;
   data['email'] = entity.email;
@@ -306,7 +320,8 @@ extension BasisInfoBeanExtension on BasisInfoBean {
   }
 }
 
-BasisInfoContactPersons $BasisInfoContactPersonsFromJson(Map<String, dynamic> json) {
+BasisInfoContactPersons $BasisInfoContactPersonsFromJson(
+    Map<String, dynamic> json) {
   final BasisInfoContactPersons basisInfoContactPersons = BasisInfoContactPersons();
   final int? basisInfoId = jsonConvert.convert<int>(json['basisInfoId']);
   if (basisInfoId != null) {
@@ -324,7 +339,8 @@ BasisInfoContactPersons $BasisInfoContactPersonsFromJson(Map<String, dynamic> js
   if (name != null) {
     basisInfoContactPersons.name = name;
   }
-  final String? relationship = jsonConvert.convert<String>(json['relationship']);
+  final String? relationship = jsonConvert.convert<String>(
+      json['relationship']);
   if (relationship != null) {
     basisInfoContactPersons.relationship = relationship;
   }
@@ -332,7 +348,8 @@ BasisInfoContactPersons $BasisInfoContactPersonsFromJson(Map<String, dynamic> js
   if (telephoneNo != null) {
     basisInfoContactPersons.telephoneNo = telephoneNo;
   }
-  final int? telephoneNoHash = jsonConvert.convert<int>(json['telephoneNoHash']);
+  final int? telephoneNoHash = jsonConvert.convert<int>(
+      json['telephoneNoHash']);
   if (telephoneNoHash != null) {
     basisInfoContactPersons.telephoneNoHash = telephoneNoHash;
   }
@@ -347,7 +364,8 @@ BasisInfoContactPersons $BasisInfoContactPersonsFromJson(Map<String, dynamic> js
   return basisInfoContactPersons;
 }
 
-Map<String, dynamic> $BasisInfoContactPersonsToJson(BasisInfoContactPersons entity) {
+Map<String, dynamic> $BasisInfoContactPersonsToJson(
+    BasisInfoContactPersons entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
   data['basisInfoId'] = entity.basisInfoId;
   data['createTime'] = entity.createTime;

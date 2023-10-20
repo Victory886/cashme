@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-17 17:11:26
+ * @LastEditTime: 2023-10-19 22:47:43
  * @FilePath: /loannow/lib/widget/titleBar.dart
  */
 import 'package:flutter/material.dart';
@@ -46,7 +46,7 @@ class TitleBarState extends State<TitleBar> {
               bottom: BorderSide(color: Color(0xFFE9E9E9), width: 0.5, style: BorderStyle.solid),
             ),
           ),
-          height: 45,
+          height: 44,
           child: Stack(
             children: [
               Align(
@@ -89,9 +89,7 @@ class TitleBarState extends State<TitleBar> {
                     },
                     child: Container(
                       padding: const EdgeInsets.all(13),
-                      child: Image.asset(
-                        widget.rightImage!,
-                      ),
+                      child: Image.asset(widget.rightImage!),
                     ),
                   ),
                 ),

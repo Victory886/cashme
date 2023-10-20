@@ -96,14 +96,23 @@ class HistorypageState extends State<HistoryPage> {
                                   child: Row(
                                     children: [
                                       Expanded(
-                                          child: Text(
-                                        "NO.${item.id}",
-                                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: AppColors.textColorLight),
-                                      )),
+                                        child: Text(
+                                          "NO.${item.id}",
+                                          style: const TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.textColorLight,
+                                          ),
+                                        ),
+                                      ),
                                       Text(
                                         "${FormatUtils.formatAmount(item.loanAmount)}P",
-                                        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: AppColors.textColorLight),
-                                      )
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15,
+                                          color: AppColors.textColorLight,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),

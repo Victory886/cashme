@@ -1,9 +1,10 @@
-import 'package:loannow/beans/user_info_bean.dart';
 import 'package:loannow/generated/json/base/json_convert_content.dart';
+import 'package:loannow/beans/user_info_bean.dart';
 
 UserInfoBean $UserInfoBeanFromJson(Map<String, dynamic> json) {
   final UserInfoBean userInfoBean = UserInfoBean();
-  final UserInfoCreditInfo? creditInfo = jsonConvert.convert<UserInfoCreditInfo>(json['creditInfo']);
+  final UserInfoCreditInfo? creditInfo = jsonConvert.convert<
+      UserInfoCreditInfo>(json['creditInfo']);
   if (creditInfo != null) {
     userInfoBean.creditInfo = creditInfo;
   }
@@ -31,7 +32,8 @@ UserInfoBean $UserInfoBeanFromJson(Map<String, dynamic> json) {
   if (localIp != null) {
     userInfoBean.localIp = localIp;
   }
-  final int? membershipPromptLevel = jsonConvert.convert<int>(json['membershipPromptLevel']);
+  final int? membershipPromptLevel = jsonConvert.convert<int>(
+      json['membershipPromptLevel']);
   if (membershipPromptLevel != null) {
     userInfoBean.membershipPromptLevel = membershipPromptLevel;
   }
@@ -43,7 +45,8 @@ UserInfoBean $UserInfoBeanFromJson(Map<String, dynamic> json) {
   if (sourcePlatform != null) {
     userInfoBean.sourcePlatform = sourcePlatform;
   }
-  final String? sourceProductVersion = jsonConvert.convert<String>(json['sourceProductVersion']);
+  final String? sourceProductVersion = jsonConvert.convert<String>(
+      json['sourceProductVersion']);
   if (sourceProductVersion != null) {
     userInfoBean.sourceProductVersion = sourceProductVersion;
   }
@@ -59,7 +62,8 @@ UserInfoBean $UserInfoBeanFromJson(Map<String, dynamic> json) {
   if (userLevel != null) {
     userInfoBean.userLevel = userLevel;
   }
-  final String? userLevelName = jsonConvert.convert<String>(json['userLevelName']);
+  final String? userLevelName = jsonConvert.convert<String>(
+      json['userLevelName']);
   if (userLevelName != null) {
     userInfoBean.userLevelName = userLevelName;
   }
@@ -118,7 +122,8 @@ extension UserInfoBeanExtension on UserInfoBean {
       ..isNew = isNew ?? this.isNew
       ..lastLoginTime = lastLoginTime ?? this.lastLoginTime
       ..localIp = localIp ?? this.localIp
-      ..membershipPromptLevel = membershipPromptLevel ?? this.membershipPromptLevel
+      ..membershipPromptLevel = membershipPromptLevel ??
+          this.membershipPromptLevel
       ..referrer = referrer ?? this.referrer
       ..sourcePlatform = sourcePlatform ?? this.sourcePlatform
       ..sourceProductVersion = sourceProductVersion ?? this.sourceProductVersion
@@ -132,7 +137,8 @@ extension UserInfoBeanExtension on UserInfoBean {
 
 UserInfoCreditInfo $UserInfoCreditInfoFromJson(Map<String, dynamic> json) {
   final UserInfoCreditInfo userInfoCreditInfo = UserInfoCreditInfo();
-  final UserInfoCreditInfoCurrentLevel? currentLevel = jsonConvert.convert<UserInfoCreditInfoCurrentLevel>(json['currentLevel']);
+  final UserInfoCreditInfoCurrentLevel? currentLevel = jsonConvert.convert<
+      UserInfoCreditInfoCurrentLevel>(json['currentLevel']);
   if (currentLevel != null) {
     userInfoCreditInfo.currentLevel = currentLevel;
   }
@@ -140,7 +146,8 @@ UserInfoCreditInfo $UserInfoCreditInfoFromJson(Map<String, dynamic> json) {
   if (currentScore != null) {
     userInfoCreditInfo.currentScore = currentScore;
   }
-  final UserInfoCreditInfoNextLevel? nextLevel = jsonConvert.convert<UserInfoCreditInfoNextLevel>(json['nextLevel']);
+  final UserInfoCreditInfoNextLevel? nextLevel = jsonConvert.convert<
+      UserInfoCreditInfoNextLevel>(json['nextLevel']);
   if (nextLevel != null) {
     userInfoCreditInfo.nextLevel = nextLevel;
   }
@@ -168,13 +175,16 @@ extension UserInfoCreditInfoExtension on UserInfoCreditInfo {
   }
 }
 
-UserInfoCreditInfoCurrentLevel $UserInfoCreditInfoCurrentLevelFromJson(Map<String, dynamic> json) {
+UserInfoCreditInfoCurrentLevel $UserInfoCreditInfoCurrentLevelFromJson(
+    Map<String, dynamic> json) {
   final UserInfoCreditInfoCurrentLevel userInfoCreditInfoCurrentLevel = UserInfoCreditInfoCurrentLevel();
-  final int? creditScoreLower = jsonConvert.convert<int>(json['creditScoreLower']);
+  final int? creditScoreLower = jsonConvert.convert<int>(
+      json['creditScoreLower']);
   if (creditScoreLower != null) {
     userInfoCreditInfoCurrentLevel.creditScoreLower = creditScoreLower;
   }
-  final int? creditScoreUpper = jsonConvert.convert<int>(json['creditScoreUpper']);
+  final int? creditScoreUpper = jsonConvert.convert<int>(
+      json['creditScoreUpper']);
   if (creditScoreUpper != null) {
     userInfoCreditInfoCurrentLevel.creditScoreUpper = creditScoreUpper;
   }
@@ -205,7 +215,8 @@ UserInfoCreditInfoCurrentLevel $UserInfoCreditInfoCurrentLevelFromJson(Map<Strin
   return userInfoCreditInfoCurrentLevel;
 }
 
-Map<String, dynamic> $UserInfoCreditInfoCurrentLevelToJson(UserInfoCreditInfoCurrentLevel entity) {
+Map<String, dynamic> $UserInfoCreditInfoCurrentLevelToJson(
+    UserInfoCreditInfoCurrentLevel entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
   data['creditScoreLower'] = entity.creditScoreLower;
   data['creditScoreUpper'] = entity.creditScoreUpper;
@@ -241,13 +252,16 @@ extension UserInfoCreditInfoCurrentLevelExtension on UserInfoCreditInfoCurrentLe
   }
 }
 
-UserInfoCreditInfoNextLevel $UserInfoCreditInfoNextLevelFromJson(Map<String, dynamic> json) {
+UserInfoCreditInfoNextLevel $UserInfoCreditInfoNextLevelFromJson(
+    Map<String, dynamic> json) {
   final UserInfoCreditInfoNextLevel userInfoCreditInfoNextLevel = UserInfoCreditInfoNextLevel();
-  final int? creditScoreLower = jsonConvert.convert<int>(json['creditScoreLower']);
+  final int? creditScoreLower = jsonConvert.convert<int>(
+      json['creditScoreLower']);
   if (creditScoreLower != null) {
     userInfoCreditInfoNextLevel.creditScoreLower = creditScoreLower;
   }
-  final int? creditScoreUpper = jsonConvert.convert<int>(json['creditScoreUpper']);
+  final int? creditScoreUpper = jsonConvert.convert<int>(
+      json['creditScoreUpper']);
   if (creditScoreUpper != null) {
     userInfoCreditInfoNextLevel.creditScoreUpper = creditScoreUpper;
   }
@@ -278,7 +292,8 @@ UserInfoCreditInfoNextLevel $UserInfoCreditInfoNextLevelFromJson(Map<String, dyn
   return userInfoCreditInfoNextLevel;
 }
 
-Map<String, dynamic> $UserInfoCreditInfoNextLevelToJson(UserInfoCreditInfoNextLevel entity) {
+Map<String, dynamic> $UserInfoCreditInfoNextLevelToJson(
+    UserInfoCreditInfoNextLevel entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
   data['creditScoreLower'] = entity.creditScoreLower;
   data['creditScoreUpper'] = entity.creditScoreUpper;

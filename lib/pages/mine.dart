@@ -71,10 +71,15 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
               ),
               Container(
                 margin: const EdgeInsets.only(top: 25, bottom: 5),
-                child: StatefulBuilder(builder: (context, setState) {
-                  phoneState = setState;
-                  return Text("Hi.${phone}", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: AppColors.textColor));
-                }),
+                child: StatefulBuilder(
+                  builder: (context, setState) {
+                    phoneState = setState;
+                    return Text(
+                      "Hi.$phone",
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: AppColors.textColor),
+                    );
+                  },
+                ),
               ),
               Container(
                 margin: const EdgeInsets.only(bottom: 25),
@@ -101,7 +106,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                   Navigator.pushNamed(
                     context,
                     RouterNames.WEB,
-                    arguments: {'url': Urls.WEB_URL_LOAN},
+                    arguments: {'url': Urls.WEB_URL_LOAN, 'showTitle': true},
                   );
                 },
               ),
@@ -179,53 +184,99 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
           padding: const EdgeInsets.only(top: 10),
           child: InkWell(
             onTap: () {
+              Navigator.pop(context);
               PhoneUtils.callPhone(phones.phone);
             },
-            child: Row(
-              children: [
-                Text(
-                  phones.phoneChannel ?? '',
-                  style: const TextStyle(fontSize: 16, color: AppColors.textColorhint),
-                ),
-                const Expanded(child: SizedBox.shrink()),
-                Text(
-                  phones.phone ?? '',
-                  style: const TextStyle(fontSize: 16, color: Color(0XFF30C67F)),
-                )
-              ],
+            child: Container(
+              height: 50,
+              color: Colors.red,
+              margin: const EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              child: Row(
+                children: [
+                  Text(
+                    phones.phoneChannel ?? '',
+                    style: const TextStyle(fontSize: 16, color: AppColors.textColorhint),
+                  ),
+                  const Expanded(child: SizedBox.shrink()),
+                  Text(
+                    phones.phone ?? '',
+                    style: const TextStyle(fontSize: 16, color: Color(0XFF30C67F)),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       );
     }
-    showDialog(
+
+    showModalBottomSheet(
       context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: Column(
+      backgroundColor: Colors.transparent,
+      barrierColor: Colors.transparent,
+      isDismissible: true,
+      // 点击外部区域是否关闭弹窗，默认true
+      clipBehavior: Clip.none,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Align(
-                  alignment: Alignment.centerRight,
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Image.asset(
-                        "images/ic_close.png",
-                        width: 15,
-                      ))),
-              const Text(
-                "Hotline",
-                style: TextStyle(fontSize: 16, color: AppColors.textColor, fontWeight: FontWeight.bold),
+              ...childs,
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  height: 60,
+                  color: Colors.blue,
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.all(15),
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ),
               ),
-              ...childs
             ],
           ),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         );
       },
     );
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return AlertDialog(
+    //       content: Column(
+    //         mainAxisSize: MainAxisSize.min,
+    //         children: [
+    //           Align(
+    //             alignment: Alignment.centerRight,
+    //             child: InkWell(
+    //               onTap: () {
+    //                 Navigator.pop(context);
+    //               },
+    //               child: Image.asset(
+    //                 "images/ic_close.png",
+    //                 width: 15,
+    //               ),
+    //             ),
+    //           ),
+    //           const Text(
+    //             "Hotline",
+    //             style: TextStyle(fontSize: 16, color: AppColors.textColor, fontWeight: FontWeight.bold),
+    //           ),
+    //           ...childs
+    //         ],
+    //       ),
+    //       shape: RoundedRectangleBorder(
+    //         borderRadius: BorderRadius.circular(15),
+    //       ),
+    //     );
+    //   },
+    // );
   }
 
   @override

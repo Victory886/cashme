@@ -2,9 +2,11 @@
  * @Author: Terry
  * @Date: 2023-10-13 16:29:57
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-16 16:01:43
+ * @LastEditTime: 2023-10-17 18:13:28
  * @FilePath: /loannow/lib/utils/device_utils.dart
  */
+import 'dart:io';
+
 import 'package:flutter_device_core/flutter_device_core.dart';
 import 'package:loannow/utils/sp_utils.dart';
 
@@ -37,8 +39,11 @@ class DeviceUtils {
   }
 
   static Future<String> getSmsList() async {
-    var smsList = await FlutterDeviceCore().getSmsList();
-    return smsList ?? "[]";
+    if (Platform.isAndroid) {
+      var smsList = await FlutterDeviceCore().getSmsList();
+      return smsList ?? "[]";
+    }
+    return "[]";
   }
 
   static Future<String> getInstallAppList() async {

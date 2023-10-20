@@ -1,5 +1,5 @@
-import 'package:loannow/beans/application_bean.dart';
 import 'package:loannow/generated/json/base/json_convert_content.dart';
+import 'package:loannow/beans/application_bean.dart';
 
 ApplicationBean $ApplicationBeanFromJson(Map<String, dynamic> json) {
   final ApplicationBean applicationBean = ApplicationBean();
@@ -7,7 +7,8 @@ ApplicationBean $ApplicationBeanFromJson(Map<String, dynamic> json) {
   if (accountAmount != null) {
     applicationBean.accountAmount = accountAmount;
   }
-  final int? accountManageExpense = jsonConvert.convert<int>(json['accountManageExpense']);
+  final int? accountManageExpense = jsonConvert.convert<int>(
+      json['accountManageExpense']);
   if (accountManageExpense != null) {
     applicationBean.accountManageExpense = accountManageExpense;
   }
@@ -15,15 +16,18 @@ ApplicationBean $ApplicationBeanFromJson(Map<String, dynamic> json) {
   if (appInfoId != null) {
     applicationBean.appInfoId = appInfoId;
   }
-  final int? applicationTime = jsonConvert.convert<int>(json['applicationTime']);
+  final int? applicationTime = jsonConvert.convert<int>(
+      json['applicationTime']);
   if (applicationTime != null) {
     applicationBean.applicationTime = applicationTime;
   }
-  final int? auditServiceExpense = jsonConvert.convert<int>(json['auditServiceExpense']);
+  final int? auditServiceExpense = jsonConvert.convert<int>(
+      json['auditServiceExpense']);
   if (auditServiceExpense != null) {
     applicationBean.auditServiceExpense = auditServiceExpense;
   }
-  final int? couponDeduction = jsonConvert.convert<int>(json['couponDeduction']);
+  final int? couponDeduction = jsonConvert.convert<int>(
+      json['couponDeduction']);
   if (couponDeduction != null) {
     applicationBean.couponDeduction = couponDeduction;
   }
@@ -31,7 +35,8 @@ ApplicationBean $ApplicationBeanFromJson(Map<String, dynamic> json) {
   if (deviceId != null) {
     applicationBean.deviceId = deviceId;
   }
-  final bool? facebookUpdate = jsonConvert.convert<bool>(json['facebookUpdate']);
+  final bool? facebookUpdate = jsonConvert.convert<bool>(
+      json['facebookUpdate']);
   if (facebookUpdate != null) {
     applicationBean.facebookUpdate = facebookUpdate;
   }
@@ -51,7 +56,8 @@ ApplicationBean $ApplicationBeanFromJson(Map<String, dynamic> json) {
   if (geoLatitude != null) {
     applicationBean.geoLatitude = geoLatitude;
   }
-  final double? geoLongitude = jsonConvert.convert<double>(json['geoLongitude']);
+  final double? geoLongitude = jsonConvert.convert<double>(
+      json['geoLongitude']);
   if (geoLongitude != null) {
     applicationBean.geoLongitude = geoLongitude;
   }
@@ -71,11 +77,13 @@ ApplicationBean $ApplicationBeanFromJson(Map<String, dynamic> json) {
   if (loanAmount != null) {
     applicationBean.loanAmount = loanAmount;
   }
-  final ApplicationLoanBasisInfo? loanBasisInfo = jsonConvert.convert<ApplicationLoanBasisInfo>(json['loanBasisInfo']);
+  final ApplicationLoanBasisInfo? loanBasisInfo = jsonConvert.convert<
+      ApplicationLoanBasisInfo>(json['loanBasisInfo']);
   if (loanBasisInfo != null) {
     applicationBean.loanBasisInfo = loanBasisInfo;
   }
-  final int? loanBasisInfoId = jsonConvert.convert<int>(json['loanBasisInfoId']);
+  final int? loanBasisInfoId = jsonConvert.convert<int>(
+      json['loanBasisInfoId']);
   if (loanBasisInfoId != null) {
     applicationBean.loanBasisInfoId = loanBasisInfoId;
   }
@@ -91,7 +99,8 @@ ApplicationBean $ApplicationBeanFromJson(Map<String, dynamic> json) {
   if (memberId != null) {
     applicationBean.memberId = memberId;
   }
-  final ApplicationOrderInfo? orderInfo = jsonConvert.convert<ApplicationOrderInfo>(json['orderInfo']);
+  final ApplicationOrderInfo? orderInfo = jsonConvert.convert<
+      ApplicationOrderInfo>(json['orderInfo']);
   if (orderInfo != null) {
     applicationBean.orderInfo = orderInfo;
   }
@@ -103,7 +112,8 @@ ApplicationBean $ApplicationBeanFromJson(Map<String, dynamic> json) {
   if (reloan != null) {
     applicationBean.reloan = reloan;
   }
-  final int? sRepaymentAmount = jsonConvert.convert<int>(json['sRepaymentAmount']);
+  final int? sRepaymentAmount = jsonConvert.convert<int>(
+      json['sRepaymentAmount']);
   if (sRepaymentAmount != null) {
     applicationBean.sRepaymentAmount = sRepaymentAmount;
   }
@@ -115,7 +125,8 @@ ApplicationBean $ApplicationBeanFromJson(Map<String, dynamic> json) {
   if (statusDesc != null) {
     applicationBean.statusDesc = statusDesc;
   }
-  final bool? telephoneAudit = jsonConvert.convert<bool>(json['telephoneAudit']);
+  final bool? telephoneAudit = jsonConvert.convert<bool>(
+      json['telephoneAudit']);
   if (telephoneAudit != null) {
     applicationBean.telephoneAudit = telephoneAudit;
   }
@@ -249,7 +260,8 @@ extension ApplicationBeanExtension on ApplicationBean {
   }
 }
 
-ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> json) {
+ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(
+    Map<String, dynamic> json) {
   final ApplicationLoanBasisInfo applicationLoanBasisInfo = ApplicationLoanBasisInfo();
   final String? accountNo = jsonConvert.convert<String>(json['accountNo']);
   if (accountNo != null) {
@@ -291,15 +303,18 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   if (birthday != null) {
     applicationLoanBasisInfo.birthday = birthday;
   }
-  final int? certificateMaterial = jsonConvert.convert<int>(json['certificateMaterial']);
+  final int? certificateMaterial = jsonConvert.convert<int>(
+      json['certificateMaterial']);
   if (certificateMaterial != null) {
     applicationLoanBasisInfo.certificateMaterial = certificateMaterial;
   }
-  final String? certificateNo = jsonConvert.convert<String>(json['certificateNo']);
+  final String? certificateNo = jsonConvert.convert<String>(
+      json['certificateNo']);
   if (certificateNo != null) {
     applicationLoanBasisInfo.certificateNo = certificateNo;
   }
-  final int? certificateType = jsonConvert.convert<int>(json['certificateType']);
+  final int? certificateType = jsonConvert.convert<int>(
+      json['certificateType']);
   if (certificateType != null) {
     applicationLoanBasisInfo.certificateType = certificateType;
   }
@@ -315,7 +330,8 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   if (cityName != null) {
     applicationLoanBasisInfo.cityName = cityName;
   }
-  final String? companyAddress = jsonConvert.convert<String>(json['companyAddress']);
+  final String? companyAddress = jsonConvert.convert<String>(
+      json['companyAddress']);
   if (companyAddress != null) {
     applicationLoanBasisInfo.companyAddress = companyAddress;
   }
@@ -323,7 +339,8 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   if (companyAreaId != null) {
     applicationLoanBasisInfo.companyAreaId = companyAreaId;
   }
-  final String? companyBarangay = jsonConvert.convert<String>(json['companyBarangay']);
+  final String? companyBarangay = jsonConvert.convert<String>(
+      json['companyBarangay']);
   if (companyBarangay != null) {
     applicationLoanBasisInfo.companyBarangay = companyBarangay;
   }
@@ -335,15 +352,19 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   if (companyName != null) {
     applicationLoanBasisInfo.companyName = companyName;
   }
-  final String? companyProvince = jsonConvert.convert<String>(json['companyProvince']);
+  final String? companyProvince = jsonConvert.convert<String>(
+      json['companyProvince']);
   if (companyProvince != null) {
     applicationLoanBasisInfo.companyProvince = companyProvince;
   }
-  final String? companyTelephone = jsonConvert.convert<String>(json['companyTelephone']);
+  final String? companyTelephone = jsonConvert.convert<String>(
+      json['companyTelephone']);
   if (companyTelephone != null) {
     applicationLoanBasisInfo.companyTelephone = companyTelephone;
   }
-  final List<dynamic>? contactPersons = (json['contactPersons'] as List<dynamic>?)?.map((e) => e).toList();
+  final List<dynamic>? contactPersons = (json['contactPersons'] as List<
+      dynamic>?)?.map(
+          (e) => e).toList();
   if (contactPersons != null) {
     applicationLoanBasisInfo.contactPersons = contactPersons;
   }
@@ -367,11 +388,13 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   if (firstName != null) {
     applicationLoanBasisInfo.firstName = firstName;
   }
-  final String? handheldPhoto = jsonConvert.convert<String>(json['handheldPhoto']);
+  final String? handheldPhoto = jsonConvert.convert<String>(
+      json['handheldPhoto']);
   if (handheldPhoto != null) {
     applicationLoanBasisInfo.handheldPhoto = handheldPhoto;
   }
-  final String? handheldPhotoUrl = jsonConvert.convert<String>(json['handheldPhotoUrl']);
+  final String? handheldPhotoUrl = jsonConvert.convert<String>(
+      json['handheldPhotoUrl']);
   if (handheldPhotoUrl != null) {
     applicationLoanBasisInfo.handheldPhotoUrl = handheldPhotoUrl;
   }
@@ -387,7 +410,8 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   if (incomeId != null) {
     applicationLoanBasisInfo.incomeId = incomeId;
   }
-  final bool? individualVerified = jsonConvert.convert<bool>(json['individualVerified']);
+  final bool? individualVerified = jsonConvert.convert<bool>(
+      json['individualVerified']);
   if (individualVerified != null) {
     applicationLoanBasisInfo.individualVerified = individualVerified;
   }
@@ -427,7 +451,8 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   if (middleName != null) {
     applicationLoanBasisInfo.middleName = middleName;
   }
-  final String? motherMaidenName = jsonConvert.convert<String>(json['motherMaidenName']);
+  final String? motherMaidenName = jsonConvert.convert<String>(
+      json['motherMaidenName']);
   if (motherMaidenName != null) {
     applicationLoanBasisInfo.motherMaidenName = motherMaidenName;
   }
@@ -447,7 +472,8 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   if (payDay2 != null) {
     applicationLoanBasisInfo.payDay2 = payDay2;
   }
-  final int? paymentChannelType = jsonConvert.convert<int>(json['paymentChannelType']);
+  final int? paymentChannelType = jsonConvert.convert<int>(
+      json['paymentChannelType']);
   if (paymentChannelType != null) {
     applicationLoanBasisInfo.paymentChannelType = paymentChannelType;
   }
@@ -463,11 +489,13 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   if (provinceId != null) {
     applicationLoanBasisInfo.provinceId = provinceId;
   }
-  final String? provinceName = jsonConvert.convert<String>(json['provinceName']);
+  final String? provinceName = jsonConvert.convert<String>(
+      json['provinceName']);
   if (provinceName != null) {
     applicationLoanBasisInfo.provinceName = provinceName;
   }
-  final String? resideAddress = jsonConvert.convert<String>(json['resideAddress']);
+  final String? resideAddress = jsonConvert.convert<String>(
+      json['resideAddress']);
   if (resideAddress != null) {
     applicationLoanBasisInfo.resideAddress = resideAddress;
   }
@@ -475,7 +503,8 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   if (resideAreaId != null) {
     applicationLoanBasisInfo.resideAreaId = resideAreaId;
   }
-  final String? resideBarangay = jsonConvert.convert<String>(json['resideBarangay']);
+  final String? resideBarangay = jsonConvert.convert<String>(
+      json['resideBarangay']);
   if (resideBarangay != null) {
     applicationLoanBasisInfo.resideBarangay = resideBarangay;
   }
@@ -483,7 +512,8 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   if (resideCity != null) {
     applicationLoanBasisInfo.resideCity = resideCity;
   }
-  final String? resideProvince = jsonConvert.convert<String>(json['resideProvince']);
+  final String? resideProvince = jsonConvert.convert<String>(
+      json['resideProvince']);
   if (resideProvince != null) {
     applicationLoanBasisInfo.resideProvince = resideProvince;
   }
@@ -491,11 +521,13 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   if (resideTime != null) {
     applicationLoanBasisInfo.resideTime = resideTime;
   }
-  final String? salaryRecordPhoto = jsonConvert.convert<String>(json['salaryRecordPhoto']);
+  final String? salaryRecordPhoto = jsonConvert.convert<String>(
+      json['salaryRecordPhoto']);
   if (salaryRecordPhoto != null) {
     applicationLoanBasisInfo.salaryRecordPhoto = salaryRecordPhoto;
   }
-  final String? salaryRecordPhotoUrl = jsonConvert.convert<String>(json['salaryRecordPhotoUrl']);
+  final String? salaryRecordPhotoUrl = jsonConvert.convert<String>(
+      json['salaryRecordPhotoUrl']);
   if (salaryRecordPhotoUrl != null) {
     applicationLoanBasisInfo.salaryRecordPhotoUrl = salaryRecordPhotoUrl;
   }
@@ -510,7 +542,8 @@ ApplicationLoanBasisInfo $ApplicationLoanBasisInfoFromJson(Map<String, dynamic> 
   return applicationLoanBasisInfo;
 }
 
-Map<String, dynamic> $ApplicationLoanBasisInfoToJson(ApplicationLoanBasisInfo entity) {
+Map<String, dynamic> $ApplicationLoanBasisInfoToJson(
+    ApplicationLoanBasisInfo entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
   data['accountNo'] = entity.accountNo;
   data['appVersion'] = entity.appVersion;
@@ -716,7 +749,8 @@ extension ApplicationLoanBasisInfoExtension on ApplicationLoanBasisInfo {
 
 ApplicationOrderInfo $ApplicationOrderInfoFromJson(Map<String, dynamic> json) {
   final ApplicationOrderInfo applicationOrderInfo = ApplicationOrderInfo();
-  final int? alreadyRepaymentAmount = jsonConvert.convert<int>(json['alreadyRepaymentAmount']);
+  final int? alreadyRepaymentAmount = jsonConvert.convert<int>(
+      json['alreadyRepaymentAmount']);
   if (alreadyRepaymentAmount != null) {
     applicationOrderInfo.alreadyRepaymentAmount = alreadyRepaymentAmount;
   }
@@ -732,11 +766,13 @@ ApplicationOrderInfo $ApplicationOrderInfoFromJson(Map<String, dynamic> json) {
   if (coLoan != null) {
     applicationOrderInfo.coLoan = coLoan;
   }
-  final int? collectionBackLevel = jsonConvert.convert<int>(json['collectionBackLevel']);
+  final int? collectionBackLevel = jsonConvert.convert<int>(
+      json['collectionBackLevel']);
   if (collectionBackLevel != null) {
     applicationOrderInfo.collectionBackLevel = collectionBackLevel;
   }
-  final int? collectionStatus = jsonConvert.convert<int>(json['collectionStatus']);
+  final int? collectionStatus = jsonConvert.convert<int>(
+      json['collectionStatus']);
   if (collectionStatus != null) {
     applicationOrderInfo.collectionStatus = collectionStatus;
   }
@@ -748,11 +784,13 @@ ApplicationOrderInfo $ApplicationOrderInfoFromJson(Map<String, dynamic> json) {
   if (delay != null) {
     applicationOrderInfo.delay = delay;
   }
-  final double? delayTaxRate = jsonConvert.convert<double>(json['delayTaxRate']);
+  final double? delayTaxRate = jsonConvert.convert<double>(
+      json['delayTaxRate']);
   if (delayTaxRate != null) {
     applicationOrderInfo.delayTaxRate = delayTaxRate;
   }
-  final int? exemptOverduePayment = jsonConvert.convert<int>(json['exemptOverduePayment']);
+  final int? exemptOverduePayment = jsonConvert.convert<int>(
+      json['exemptOverduePayment']);
   if (exemptOverduePayment != null) {
     applicationOrderInfo.exemptOverduePayment = exemptOverduePayment;
   }
@@ -764,7 +802,8 @@ ApplicationOrderInfo $ApplicationOrderInfoFromJson(Map<String, dynamic> json) {
   if (id != null) {
     applicationOrderInfo.id = id;
   }
-  final int? loanBasisInfoId = jsonConvert.convert<int>(json['loanBasisInfoId']);
+  final int? loanBasisInfoId = jsonConvert.convert<int>(
+      json['loanBasisInfoId']);
   if (loanBasisInfoId != null) {
     applicationOrderInfo.loanBasisInfoId = loanBasisInfoId;
   }
@@ -776,7 +815,8 @@ ApplicationOrderInfo $ApplicationOrderInfoFromJson(Map<String, dynamic> json) {
   if (memberId != null) {
     applicationOrderInfo.memberId = memberId;
   }
-  final int? originalDueDate = jsonConvert.convert<int>(json['originalDueDate']);
+  final int? originalDueDate = jsonConvert.convert<int>(
+      json['originalDueDate']);
   if (originalDueDate != null) {
     applicationOrderInfo.originalDueDate = originalDueDate;
   }
@@ -788,15 +828,18 @@ ApplicationOrderInfo $ApplicationOrderInfoFromJson(Map<String, dynamic> json) {
   if (overdueDays != null) {
     applicationOrderInfo.overdueDays = overdueDays;
   }
-  final int? overdueDelayTax = jsonConvert.convert<int>(json['overdueDelayTax']);
+  final int? overdueDelayTax = jsonConvert.convert<int>(
+      json['overdueDelayTax']);
   if (overdueDelayTax != null) {
     applicationOrderInfo.overdueDelayTax = overdueDelayTax;
   }
-  final int? overdueDiscountAmount = jsonConvert.convert<int>(json['overdueDiscountAmount']);
+  final int? overdueDiscountAmount = jsonConvert.convert<int>(
+      json['overdueDiscountAmount']);
   if (overdueDiscountAmount != null) {
     applicationOrderInfo.overdueDiscountAmount = overdueDiscountAmount;
   }
-  final int? overdueInterest = jsonConvert.convert<int>(json['overdueInterest']);
+  final int? overdueInterest = jsonConvert.convert<int>(
+      json['overdueInterest']);
   if (overdueInterest != null) {
     applicationOrderInfo.overdueInterest = overdueInterest;
   }
@@ -808,7 +851,8 @@ ApplicationOrderInfo $ApplicationOrderInfoFromJson(Map<String, dynamic> json) {
   if (overduePayment != null) {
     applicationOrderInfo.overduePayment = overduePayment;
   }
-  final int? overduePrincipal = jsonConvert.convert<int>(json['overduePrincipal']);
+  final int? overduePrincipal = jsonConvert.convert<int>(
+      json['overduePrincipal']);
   if (overduePrincipal != null) {
     applicationOrderInfo.overduePrincipal = overduePrincipal;
   }
@@ -816,7 +860,8 @@ ApplicationOrderInfo $ApplicationOrderInfoFromJson(Map<String, dynamic> json) {
   if (paymentCode != null) {
     applicationOrderInfo.paymentCode = paymentCode;
   }
-  final ApplicationOrderInfoPaymentInfo? paymentInfo = jsonConvert.convert<ApplicationOrderInfoPaymentInfo>(json['paymentInfo']);
+  final ApplicationOrderInfoPaymentInfo? paymentInfo = jsonConvert.convert<
+      ApplicationOrderInfoPaymentInfo>(json['paymentInfo']);
   if (paymentInfo != null) {
     applicationOrderInfo.paymentInfo = paymentInfo;
   }
@@ -824,19 +869,23 @@ ApplicationOrderInfo $ApplicationOrderInfoFromJson(Map<String, dynamic> json) {
   if (paymentRate != null) {
     applicationOrderInfo.paymentRate = paymentRate;
   }
-  final double? penaltyCeiling = jsonConvert.convert<double>(json['penaltyCeiling']);
+  final double? penaltyCeiling = jsonConvert.convert<double>(
+      json['penaltyCeiling']);
   if (penaltyCeiling != null) {
     applicationOrderInfo.penaltyCeiling = penaltyCeiling;
   }
-  final String? repaymentCode = jsonConvert.convert<String>(json['repaymentCode']);
+  final String? repaymentCode = jsonConvert.convert<String>(
+      json['repaymentCode']);
   if (repaymentCode != null) {
     applicationOrderInfo.repaymentCode = repaymentCode;
   }
-  final ApplicationOrderInfoRepaymentInfo? repaymentInfo = jsonConvert.convert<ApplicationOrderInfoRepaymentInfo>(json['repaymentInfo']);
+  final ApplicationOrderInfoRepaymentInfo? repaymentInfo = jsonConvert.convert<
+      ApplicationOrderInfoRepaymentInfo>(json['repaymentInfo']);
   if (repaymentInfo != null) {
     applicationOrderInfo.repaymentInfo = repaymentInfo;
   }
-  final int? repaymentRemainAmount = jsonConvert.convert<int>(json['repaymentRemainAmount']);
+  final int? repaymentRemainAmount = jsonConvert.convert<int>(
+      json['repaymentRemainAmount']);
   if (repaymentRemainAmount != null) {
     applicationOrderInfo.repaymentRemainAmount = repaymentRemainAmount;
   }
@@ -848,7 +897,8 @@ ApplicationOrderInfo $ApplicationOrderInfoFromJson(Map<String, dynamic> json) {
   if (status != null) {
     applicationOrderInfo.status = status;
   }
-  final int? unRepaymentAmount = jsonConvert.convert<int>(json['unRepaymentAmount']);
+  final int? unRepaymentAmount = jsonConvert.convert<int>(
+      json['unRepaymentAmount']);
   if (unRepaymentAmount != null) {
     applicationOrderInfo.unRepaymentAmount = unRepaymentAmount;
   }
@@ -938,7 +988,8 @@ extension ApplicationOrderInfoExtension on ApplicationOrderInfo {
     int? withdrawalTime,
   }) {
     return ApplicationOrderInfo()
-      ..alreadyRepaymentAmount = alreadyRepaymentAmount ?? this.alreadyRepaymentAmount
+      ..alreadyRepaymentAmount = alreadyRepaymentAmount ??
+          this.alreadyRepaymentAmount
       ..applicationId = applicationId ?? this.applicationId
       ..arrivalDate = arrivalDate ?? this.arrivalDate
       ..coLoan = coLoan ?? this.coLoan
@@ -957,7 +1008,8 @@ extension ApplicationOrderInfoExtension on ApplicationOrderInfo {
       ..overdueAmount = overdueAmount ?? this.overdueAmount
       ..overdueDays = overdueDays ?? this.overdueDays
       ..overdueDelayTax = overdueDelayTax ?? this.overdueDelayTax
-      ..overdueDiscountAmount = overdueDiscountAmount ?? this.overdueDiscountAmount
+      ..overdueDiscountAmount = overdueDiscountAmount ??
+          this.overdueDiscountAmount
       ..overdueInterest = overdueInterest ?? this.overdueInterest
       ..overdueLevelId = overdueLevelId ?? this.overdueLevelId
       ..overduePayment = overduePayment ?? this.overduePayment
@@ -968,7 +1020,8 @@ extension ApplicationOrderInfoExtension on ApplicationOrderInfo {
       ..penaltyCeiling = penaltyCeiling ?? this.penaltyCeiling
       ..repaymentCode = repaymentCode ?? this.repaymentCode
       ..repaymentInfo = repaymentInfo ?? this.repaymentInfo
-      ..repaymentRemainAmount = repaymentRemainAmount ?? this.repaymentRemainAmount
+      ..repaymentRemainAmount = repaymentRemainAmount ??
+          this.repaymentRemainAmount
       ..sRepaymentTime = sRepaymentTime ?? this.sRepaymentTime
       ..status = status ?? this.status
       ..unRepaymentAmount = unRepaymentAmount ?? this.unRepaymentAmount
@@ -976,7 +1029,8 @@ extension ApplicationOrderInfoExtension on ApplicationOrderInfo {
   }
 }
 
-ApplicationOrderInfoPaymentInfo $ApplicationOrderInfoPaymentInfoFromJson(Map<String, dynamic> json) {
+ApplicationOrderInfoPaymentInfo $ApplicationOrderInfoPaymentInfoFromJson(
+    Map<String, dynamic> json) {
   final ApplicationOrderInfoPaymentInfo applicationOrderInfoPaymentInfo = ApplicationOrderInfoPaymentInfo();
   final String? helpUrl = jsonConvert.convert<String>(json['helpUrl']);
   if (helpUrl != null) {
@@ -997,7 +1051,8 @@ ApplicationOrderInfoPaymentInfo $ApplicationOrderInfoPaymentInfoFromJson(Map<Str
   return applicationOrderInfoPaymentInfo;
 }
 
-Map<String, dynamic> $ApplicationOrderInfoPaymentInfoToJson(ApplicationOrderInfoPaymentInfo entity) {
+Map<String, dynamic> $ApplicationOrderInfoPaymentInfoToJson(
+    ApplicationOrderInfoPaymentInfo entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
   data['helpUrl'] = entity.helpUrl;
   data['paymentCode'] = entity.paymentCode;
@@ -1021,7 +1076,8 @@ extension ApplicationOrderInfoPaymentInfoExtension on ApplicationOrderInfoPaymen
   }
 }
 
-ApplicationOrderInfoRepaymentInfo $ApplicationOrderInfoRepaymentInfoFromJson(Map<String, dynamic> json) {
+ApplicationOrderInfoRepaymentInfo $ApplicationOrderInfoRepaymentInfoFromJson(
+    Map<String, dynamic> json) {
   final ApplicationOrderInfoRepaymentInfo applicationOrderInfoRepaymentInfo = ApplicationOrderInfoRepaymentInfo();
   final String? helpUrl = jsonConvert.convert<String>(json['helpUrl']);
   if (helpUrl != null) {
@@ -1031,14 +1087,16 @@ ApplicationOrderInfoRepaymentInfo $ApplicationOrderInfoRepaymentInfoFromJson(Map
   if (proxyId != null) {
     applicationOrderInfoRepaymentInfo.proxyId = proxyId;
   }
-  final String? repaymentCode = jsonConvert.convert<String>(json['repaymentCode']);
+  final String? repaymentCode = jsonConvert.convert<String>(
+      json['repaymentCode']);
   if (repaymentCode != null) {
     applicationOrderInfoRepaymentInfo.repaymentCode = repaymentCode;
   }
   return applicationOrderInfoRepaymentInfo;
 }
 
-Map<String, dynamic> $ApplicationOrderInfoRepaymentInfoToJson(ApplicationOrderInfoRepaymentInfo entity) {
+Map<String, dynamic> $ApplicationOrderInfoRepaymentInfoToJson(
+    ApplicationOrderInfoRepaymentInfo entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
   data['helpUrl'] = entity.helpUrl;
   data['proxyId'] = entity.proxyId;

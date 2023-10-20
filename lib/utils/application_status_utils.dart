@@ -1,9 +1,7 @@
+// ignore_for_file: non_constant_identifier_names
+
 class ApplicationStatusUtils {
-  static var ApplicationExamineStatus = [
-    ApplicationStatus.APPLYING.status,
-    ApplicationStatus.FIRST_EXAMINE.status,
-    ApplicationStatus.REEXAMINE.status
-  ];
+  static var ApplicationExamineStatus = [ApplicationStatus.APPLYING.status, ApplicationStatus.FIRST_EXAMINE.status, ApplicationStatus.REEXAMINE.status];
 
   static var ApplicationRefuseStatus = [
     ApplicationStatus.REFUSEED.status,

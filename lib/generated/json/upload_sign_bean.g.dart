@@ -1,17 +1,20 @@
-import 'package:loannow/beans/upload_sign_bean.dart';
 import 'package:loannow/generated/json/base/json_convert_content.dart';
+import 'package:loannow/beans/upload_sign_bean.dart';
 
 UploadSignBean $UploadSignBeanFromJson(Map<String, dynamic> json) {
   final UploadSignBean uploadSignBean = UploadSignBean();
-  final bool? appInstallStatus = jsonConvert.convert<bool>(json['appInstallStatus']);
+  final bool? appInstallStatus = jsonConvert.convert<bool>(
+      json['appInstallStatus']);
   if (appInstallStatus != null) {
     uploadSignBean.appInstallStatus = appInstallStatus;
   }
-  final bool? contactListStatus = jsonConvert.convert<bool>(json['contactListStatus']);
+  final bool? contactListStatus = jsonConvert.convert<bool>(
+      json['contactListStatus']);
   if (contactListStatus != null) {
     uploadSignBean.contactListStatus = contactListStatus;
   }
-  final bool? noteRecordStatus = jsonConvert.convert<bool>(json['noteRecordStatus']);
+  final bool? noteRecordStatus = jsonConvert.convert<bool>(
+      json['noteRecordStatus']);
   if (noteRecordStatus != null) {
     uploadSignBean.noteRecordStatus = noteRecordStatus;
   }

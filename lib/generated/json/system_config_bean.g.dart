@@ -1,18 +1,22 @@
-import 'package:loannow/beans/system_config_bean.dart';
 import 'package:loannow/generated/json/base/json_convert_content.dart';
+import 'package:loannow/beans/system_config_bean.dart';
 
 SystemConfigBean $SystemConfigBeanFromJson(Map<String, dynamic> json) {
   final SystemConfigBean systemConfigBean = SystemConfigBean();
-  final SystemConfigDictInfo? dictInfo = jsonConvert.convert<SystemConfigDictInfo>(json['dictInfo']);
+  final SystemConfigDictInfo? dictInfo = jsonConvert.convert<
+      SystemConfigDictInfo>(json['dictInfo']);
   if (dictInfo != null) {
     systemConfigBean.dictInfo = dictInfo;
   }
-  final List<String>? testPhones = (json['testPhones'] as List<dynamic>?)?.map((e) => jsonConvert.convert<String>(e) as String).toList();
+  final List<String>? testPhones = (json['testPhones'] as List<dynamic>?)?.map(
+          (e) => jsonConvert.convert<String>(e) as String).toList();
   if (testPhones != null) {
     systemConfigBean.testPhones = testPhones;
   }
-  final List<String>? thirdPartBuriedPoints =
-      (json['thirdPartBuriedPoints'] as List<dynamic>?)?.map((e) => jsonConvert.convert<String>(e) as String).toList();
+  final List<
+      String>? thirdPartBuriedPoints = (json['thirdPartBuriedPoints'] as List<
+      dynamic>?)?.map(
+          (e) => jsonConvert.convert<String>(e) as String).toList();
   if (thirdPartBuriedPoints != null) {
     systemConfigBean.thirdPartBuriedPoints = thirdPartBuriedPoints;
   }
@@ -36,31 +40,39 @@ extension SystemConfigBeanExtension on SystemConfigBean {
     return SystemConfigBean()
       ..dictInfo = dictInfo ?? this.dictInfo
       ..testPhones = testPhones ?? this.testPhones
-      ..thirdPartBuriedPoints = thirdPartBuriedPoints ?? this.thirdPartBuriedPoints;
+      ..thirdPartBuriedPoints = thirdPartBuriedPoints ??
+          this.thirdPartBuriedPoints;
   }
 }
 
 SystemConfigDictInfo $SystemConfigDictInfoFromJson(Map<String, dynamic> json) {
   final SystemConfigDictInfo systemConfigDictInfo = SystemConfigDictInfo();
-  final String? customerServicePhone = jsonConvert.convert<String>(json['customerServicePhone']);
+  final String? customerServicePhone = jsonConvert.convert<String>(
+      json['customerServicePhone']);
   if (customerServicePhone != null) {
     systemConfigDictInfo.customerServicePhone = customerServicePhone;
   }
-  final String? feedbackEmail = jsonConvert.convert<String>(json['feedbackEmail']);
+  final String? feedbackEmail = jsonConvert.convert<String>(
+      json['feedbackEmail']);
   if (feedbackEmail != null) {
     systemConfigDictInfo.feedbackEmail = feedbackEmail;
   }
-  final String? messagerAccount = jsonConvert.convert<String>(json['messagerAccount']);
+  final String? messagerAccount = jsonConvert.convert<String>(
+      json['messagerAccount']);
   if (messagerAccount != null) {
     systemConfigDictInfo.messagerAccount = messagerAccount;
   }
-  final int? riskWaitingTime = jsonConvert.convert<int>(json['riskWaitingTime']);
+  final int? riskWaitingTime = jsonConvert.convert<int>(
+      json['riskWaitingTime']);
   if (riskWaitingTime != null) {
     systemConfigDictInfo.riskWaitingTime = riskWaitingTime;
   }
-  final List<SystemConfigDictInfoServicePhones>? servicePhones = (json['servicePhones'] as List<dynamic>?)
-      ?.map((e) => jsonConvert.convert<SystemConfigDictInfoServicePhones>(e) as SystemConfigDictInfoServicePhones)
-      .toList();
+  final List<
+      SystemConfigDictInfoServicePhones>? servicePhones = (json['servicePhones'] as List<
+      dynamic>?)?.map(
+          (e) =>
+      jsonConvert.convert<SystemConfigDictInfoServicePhones>(
+          e) as SystemConfigDictInfoServicePhones).toList();
   if (servicePhones != null) {
     systemConfigDictInfo.servicePhones = servicePhones;
   }
@@ -94,20 +106,23 @@ extension SystemConfigDictInfoExtension on SystemConfigDictInfo {
   }
 }
 
-SystemConfigDictInfoServicePhones $SystemConfigDictInfoServicePhonesFromJson(Map<String, dynamic> json) {
+SystemConfigDictInfoServicePhones $SystemConfigDictInfoServicePhonesFromJson(
+    Map<String, dynamic> json) {
   final SystemConfigDictInfoServicePhones systemConfigDictInfoServicePhones = SystemConfigDictInfoServicePhones();
   final String? phone = jsonConvert.convert<String>(json['phone']);
   if (phone != null) {
     systemConfigDictInfoServicePhones.phone = phone;
   }
-  final String? phoneChannel = jsonConvert.convert<String>(json['phoneChannel']);
+  final String? phoneChannel = jsonConvert.convert<String>(
+      json['phoneChannel']);
   if (phoneChannel != null) {
     systemConfigDictInfoServicePhones.phoneChannel = phoneChannel;
   }
   return systemConfigDictInfoServicePhones;
 }
 
-Map<String, dynamic> $SystemConfigDictInfoServicePhonesToJson(SystemConfigDictInfoServicePhones entity) {
+Map<String, dynamic> $SystemConfigDictInfoServicePhonesToJson(
+    SystemConfigDictInfoServicePhones entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
   data['phone'] = entity.phone;
   data['phoneChannel'] = entity.phoneChannel;

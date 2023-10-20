@@ -1,5 +1,5 @@
-import 'package:loannow/beans/login_info_bean.dart';
 import 'package:loannow/generated/json/base/json_convert_content.dart';
+import 'package:loannow/beans/login_info_bean.dart';
 
 LoginInfoBean $LoginInfoBeanFromJson(Map<String, dynamic> json) {
   final LoginInfoBean loginInfoBean = LoginInfoBean();

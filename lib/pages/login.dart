@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
@@ -48,153 +49,204 @@ class LoginPageState extends State<LoginPage> {
             },
           ),
           Expanded(
-              child: ListView(
-            padding: EdgeInsets.only(left: 15, right: 15, top: 30, bottom: 60),
-            children: [
-              Text(
-                "Login / Register",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: AppColors.textColor),
-              ),
-              Padding(
+            child: ListView(
+              padding: const EdgeInsets.only(left: 15, right: 15, top: 30, bottom: 60),
+              children: [
+                const Text(
+                  "Login / Register",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: AppColors.textColor),
+                ),
+                const Padding(
                   padding: EdgeInsets.only(top: 5),
                   child: Text(
                     "This number is your Viber account by default.If necessary, we will contact you in viber",
                     style: TextStyle(fontSize: 12, color: AppColors.textColorLight),
-                  )),
-              Container(
-                  margin: EdgeInsets.only(top: 30),
-                  child: Stack(alignment: Alignment.center, children: [
-                    Row(children: [
-                      Image.asset(
-                        "images/ic_ph_flag.png",
-                        width: 15,
-                      ),
-                      Container(width: 30, alignment: Alignment.center, child: Text("+63"))
-                    ]),
-                    TextField(
-                      controller: phoneController,
-                      keyboardType: TextInputType.number,
-                      maxLines: 1,
-                      maxLength: 12,
-                      focusNode: phoneFocus,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(left: 50),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.primaryColor, width: 0.5),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.dividerColor, width: 0.5),
-                        ),
-                        counterText: '',
-                        hintText: "Enter your phone number",
-                        hintStyle: TextStyle(color: Color(0xFF999999), fontSize: 14),
-                      ),
-                      onChanged: checkConfirmStatus,
-                    )
-                  ])),
-              Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: Stack(alignment: Alignment.center, children: [
-                    TextField(
-                      keyboardType: TextInputType.number,
-                      controller: codeController,
-                      maxLines: 1,
-                      maxLength: 4,
-                      decoration: InputDecoration(
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.primaryColor, width: 0.5),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.dividerColor, width: 0.5),
-                        ),
-                        counterText: '',
-                        hintStyle: TextStyle(color: Color(0xFF999999), fontSize: 14),
-                        hintText: "verification code",
-                      ),
-                      onChanged: checkConfirmStatus,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: StatefulBuilder(
-                        builder: (context, setState) {
-                          countState = setState;
-                          return InkWell(
-                              onTap: getCode, child: Text(count == Constans.CODE_COUNT_TIME ? "Send" : "${count}s", style: TextStyle(color: AppColors.primaryColor, fontWeight: FontWeight.w600)));
-                        },
-                      ),
-                    )
-                  ])),
-              StatefulBuilder(builder: (context, setState) {
-                codeErrorState = setState;
-                if (codeError) {
-                  return Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 30),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Row(
                         children: [
                           Image.asset(
-                            "images/ic_info_red.png",
+                            "images/ic_ph_flag.png",
                             width: 15,
                           ),
-                          Container(margin: EdgeInsets.only(left: 5), child: Text("Verification code error", style: TextStyle(color: Color(0xFFF94D3F))))
+                          Container(width: 30, alignment: Alignment.center, child: const Text("+63"))
                         ],
-                      ));
-                } else {
-                  return SizedBox.shrink();
-                }
-              }),
-              StatefulBuilder(builder: (context, setState) {
-                voiceCodeState = setState;
-                if (showVoice)
-                  return Align(
-                      alignment: Alignment.centerRight,
-                      child: InkWell(
+                      ),
+                      TextField(
+                        controller: phoneController,
+                        keyboardType: TextInputType.number,
+                        maxLines: 1,
+                        maxLength: 12,
+                        focusNode: phoneFocus,
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(left: 50),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppColors.primaryColor, width: 0.5),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppColors.dividerColor, width: 0.5),
+                          ),
+                          counterText: '',
+                          hintText: "Enter your phone number",
+                          hintStyle: TextStyle(color: Color(0xFF999999), fontSize: 14),
+                        ),
+                        onChanged: checkConfirmStatus,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      TextField(
+                        keyboardType: TextInputType.number,
+                        controller: codeController,
+                        maxLines: 1,
+                        maxLength: 4,
+                        decoration: const InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppColors.primaryColor, width: 0.5),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppColors.dividerColor, width: 0.5),
+                          ),
+                          counterText: '',
+                          hintStyle: TextStyle(color: Color(0xFF999999), fontSize: 14),
+                          hintText: "verification code",
+                        ),
+                        onChanged: checkConfirmStatus,
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: StatefulBuilder(
+                          builder: (context, setState) {
+                            countState = setState;
+                            return InkWell(
+                              onTap: getCode,
+                              child: Text(
+                                count == Constans.CODE_COUNT_TIME ? "Send" : "${count}s",
+                                style: const TextStyle(color: AppColors.primaryColor, fontWeight: FontWeight.w600),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                StatefulBuilder(
+                  builder: (context, setState) {
+                    codeErrorState = setState;
+                    if (codeError) {
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "images/ic_info_red.png",
+                              width: 15,
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 5),
+                              child: const Text(
+                                "Verification code error",
+                                style: TextStyle(
+                                  color: Color(0xFFF94D3F),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  },
+                ),
+                StatefulBuilder(
+                  builder: (context, setState) {
+                    voiceCodeState = setState;
+                    if (showVoice) {
+                      return Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
                           onTap: showVoiceDialog,
                           child: Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Text(
                               "Use voice verification code",
-                              style: TextStyle(color: count == Constans.CODE_COUNT_TIME ? AppColors.primaryColor : AppColors.textColorhint, fontWeight: FontWeight.w600),
+                              style: TextStyle(
+                                color: count == Constans.CODE_COUNT_TIME ? AppColors.primaryColor : AppColors.textColorhint,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          )));
-                else
-                  return SizedBox.shrink();
-              }),
-              Container(
-                  margin: EdgeInsets.only(top: 60, bottom: 20),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  },
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 60, bottom: 20),
                   child: InkWell(
-                      onTap: changeChecked,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                              margin: EdgeInsets.only(right: 10),
-                              child: StatefulBuilder(builder: (context, setState) {
-                                checkedState = setState;
-                                return Image.asset(
-                                  checked ? "images/ic_checked.png" : "images/ic_check.png",
-                                  width: 20,
-                                );
-                              })),
-                          RichText(
-                              text: TextSpan(children: [
-                            TextSpan(text: "Read and agree", style: TextStyle(color: Color(0xFF7F8390))),
-                            TextSpan(
+                    onTap: changeChecked,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(right: 10),
+                          child: StatefulBuilder(
+                            builder: (context, setState) {
+                              checkedState = setState;
+                              return Image.asset(
+                                checked ? "images/ic_checked.png" : "images/ic_check.png",
+                                width: 20,
+                              );
+                            },
+                          ),
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              const TextSpan(text: "Read and agree", style: TextStyle(color: Color(0xFF7F8390))),
+                              TextSpan(
                                 text: " Privacy Policy",
-                                style: TextStyle(color: Color(0xFF3E59A5)),
+                                style: const TextStyle(color: Color(0xFF3E59A5)),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Navigator.pushNamed(context, RouterNames.WEB, arguments: {'url': Urls.WEB_URL_PRIVACY});
-                                  }),
-                          ]))
-                        ],
-                      ))),
-              StatefulBuilder(builder: (context, setState) {
-                confirmButtonState = setState;
-                return Button(text: "Confirm", disabled: confirmButtonDisable, onClick: loginCheck);
-              })
-            ],
-          )),
+                                    Navigator.pushNamed(
+                                      context,
+                                      RouterNames.WEB,
+                                      arguments: {'url': Urls.WEB_URL_PRIVACY},
+                                    );
+                                  },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                StatefulBuilder(
+                  builder: (context, setState) {
+                    confirmButtonState = setState;
+                    return Button(text: "Confirm", disabled: confirmButtonDisable, onClick: loginCheck);
+                  },
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -214,7 +266,7 @@ class LoginPageState extends State<LoginPage> {
 
   void startCount() {
     if (count == Constans.CODE_COUNT_TIME)
-      timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      timer = Timer.periodic(const Duration(seconds: 1), (timer) {
         count--;
         if (count <= 0) {
           timer.cancel();
@@ -235,13 +287,14 @@ class LoginPageState extends State<LoginPage> {
     if (count != Constans.CODE_COUNT_TIME) return;
     OperationUtils.saveOperation(OperationCode.SHOW_VOICE_DIALOG);
     DialogUtils.showCustomerDialog(
-        context: context,
-        title: "Receive voice verification code",
-        content: "About to call you, \nplease input the 6-digit verification code you‘ve heard",
-        confirmClick: () {
-          Navigator.pop(context);
-          getCode(isVoice: true);
-        });
+      context: context,
+      title: "Receive voice verification code",
+      content: "About to call you, \nplease input the 6-digit verification code you‘ve heard",
+      confirmClick: () {
+        Navigator.pop(context);
+        getCode(isVoice: true);
+      },
+    );
   }
 
   void getCode({bool? isVoice}) {
@@ -258,28 +311,30 @@ class LoginPageState extends State<LoginPage> {
     if (isVoice ?? false) {
       OperationUtils.saveOperation(OperationCode.SEND_VOICE_CODE);
       DioManager.getInstance().doRequest(
-          path: Urls.LOGIN_VERFIFY_CODE_VOICE,
-          method: DioMethod.POST,
-          bodyParams: params,
-          successCallBack: (result) {
-            OperationUtils.saveOperation(OperationCode.SEND_VOICE_CODE_SUCCESS);
-            startCount();
-          });
+        path: Urls.LOGIN_VERFIFY_CODE_VOICE,
+        method: DioMethod.POST,
+        bodyParams: params,
+        successCallBack: (result) {
+          OperationUtils.saveOperation(OperationCode.SEND_VOICE_CODE_SUCCESS);
+          startCount();
+        },
+      );
     } else {
       OperationUtils.saveOperation(OperationCode.LOGIN_SEND_CODE);
       DioManager.getInstance().doRequest<String>(
-          path: Urls.LOGIN_VERFIFY_CODE,
-          method: DioMethod.GET,
-          urlParams: params,
-          successCallBack: (result) {
-            OperationUtils.saveOperation(OperationCode.LOGIN_CODE_SUCCESS);
-            codeController.value = codeController.value.copyWith(text: result.toString());
-            checkConfirmStatus("");
-            startCount();
-          },
-          failCallBack: (result) {
-            OperationUtils.saveOperation(OperationCode.LOGIN_CODE_FAIL);
-          });
+        path: Urls.LOGIN_VERFIFY_CODE,
+        method: DioMethod.GET,
+        urlParams: params,
+        successCallBack: (result) {
+          OperationUtils.saveOperation(OperationCode.LOGIN_CODE_SUCCESS);
+          codeController.value = codeController.value.copyWith(text: result.toString());
+          checkConfirmStatus("");
+          startCount();
+        },
+        failCallBack: (result) {
+          OperationUtils.saveOperation(OperationCode.LOGIN_CODE_FAIL);
+        },
+      );
     }
   }
 
@@ -294,24 +349,36 @@ class LoginPageState extends State<LoginPage> {
       phoneFocus.requestFocus();
       return;
     }
-    try {
-      var status = await Permission.phone.request();
-      if (status.isPermanentlyDenied) {
-        showPermissionDialog();
-        return;
-      }
-      if (!status.isGranted) {
-        BotToast.showText(text: "Permission Denied");
-        return;
-      }
-    } catch (e) {}
+    if (Platform.isAndroid) {
+      try {
+        var status = await Permission.phone.request();
+        if (status.isPermanentlyDenied) {
+          showPermissionDialog();
+          return;
+        }
+        if (!status.isGranted) {
+          BotToast.showText(text: "Permission Denied");
+          return;
+        }
+        // ignore: empty_catches
+      } catch (e) {}
+    }
+
     OperationUtils.saveOperation(OperationCode.LOGON_CLICK);
-    Future.wait([login(), getDeviceInfo()]).then((results) => {
-          if (results[0] == true)
-            {
-              DioManager.getInstance().doRequest<dynamic>(path: Urls.DEVICE_SAVE, method: DioMethod.POST, bodyParams: results[1], showLoading: false, successCallBack: (result) {}),
-            }
-        });
+    Future.wait([login(), getDeviceInfo()]).then(
+      (results) => {
+        if (results[0] == true)
+          {
+            DioManager.getInstance().doRequest<dynamic>(
+              path: Urls.DEVICE_SAVE,
+              method: DioMethod.POST,
+              bodyParams: results[1],
+              showLoading: false,
+              successCallBack: (result) {},
+            ),
+          }
+      },
+    );
   }
 
   Future<bool> login() async {
@@ -321,25 +388,27 @@ class LoginPageState extends State<LoginPage> {
     };
     bool success = false;
     await DioManager.getInstance().doRequest<LoginInfoBean>(
-        path: Urls.SIGN_IN,
-        method: DioMethod.GET,
-        urlParams: params,
-        showErrorMsg: false,
-        successCallBack: (result) {
-          if (result != null) {
-            SpUtils.saveToken(result!.token!).then((value) => getUserInfo());
-            if (result.newUser ?? false) {
-              OperationUtils.saveOperation(OperationCode.REGIST);
-            } else {
-              OperationUtils.saveOperation(OperationCode.LOGIN);
-            }
+      path: Urls.SIGN_IN,
+      method: DioMethod.GET,
+      urlParams: params,
+      showErrorMsg: false,
+      successCallBack: (result) {
+        if (result != null) {
+          SpUtils.saveToken(result!.token!).then((value) => getUserInfo());
+          SpUtils.saveLoginInfo(result);
+          if (result.newUser ?? false) {
+            OperationUtils.saveOperation(OperationCode.REGIST);
+          } else {
+            OperationUtils.saveOperation(OperationCode.LOGIN);
           }
-          success = true;
-        },
-        failCallBack: (result) {
-          codeError = true;
-          codeErrorState(() {});
-        });
+        }
+        success = true;
+      },
+      failCallBack: (result) {
+        codeError = true;
+        codeErrorState(() {});
+      },
+    );
     return success;
   }
 
@@ -350,12 +419,13 @@ class LoginPageState extends State<LoginPage> {
 
   void getUserInfo() {
     DioManager.getInstance().doRequest<UserInfoBean>(
-        path: Urls.USER_INFO,
-        method: DioMethod.GET,
-        successCallBack: (result) {
-          SpUtils.saveUserInfo(result!);
-          goHome(true);
-        });
+      path: Urls.USER_INFO,
+      method: DioMethod.GET,
+      successCallBack: (result) {
+        SpUtils.saveUserInfo(result!);
+        goHome(true);
+      },
+    );
   }
 
   void goHome(bool loginSuccess) {

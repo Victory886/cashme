@@ -13,6 +13,7 @@ import 'package:loannow/beans/login_info_bean.dart';
 import 'package:loannow/beans/system_config_bean.dart';
 import 'package:loannow/beans/upload_sign_bean.dart';
 import 'package:loannow/beans/user_info_bean.dart';
+import 'package:loannow/generated/js_model.dart';
 
 JsonConvert jsonConvert = JsonConvert();
 
@@ -22,28 +23,26 @@ typedef ConvertExceptionHandler = void Function(Object error, StackTrace stackTr
 
 class JsonConvert {
   static ConvertExceptionHandler? onError;
+  JsonConvertClassCollection convertFuncMap = JsonConvertClassCollection();
 
-  static Map<String, JsonConvertFunction> get convertFuncMap => {
-        (AccountDeleteBean).toString(): AccountDeleteBean.fromJson,
-        (ApplicationBean).toString(): ApplicationBean.fromJson,
-        (ApplicationLoanBasisInfo).toString(): ApplicationLoanBasisInfo.fromJson,
-        (ApplicationOrderInfo).toString(): ApplicationOrderInfo.fromJson,
-        (ApplicationOrderInfoPaymentInfo).toString(): ApplicationOrderInfoPaymentInfo.fromJson,
-        (ApplicationOrderInfoRepaymentInfo).toString(): ApplicationOrderInfoRepaymentInfo.fromJson,
-        (BasisInfoBean).toString(): BasisInfoBean.fromJson,
-        (BasisInfoContactPersons).toString(): BasisInfoContactPersons.fromJson,
-        (IpCheckBean).toString(): IpCheckBean.fromJson,
-        (LoanHistoryBean).toString(): LoanHistoryBean.fromJson,
-        (LoginInfoBean).toString(): LoginInfoBean.fromJson,
-        (SystemConfigBean).toString(): SystemConfigBean.fromJson,
-        (SystemConfigDictInfo).toString(): SystemConfigDictInfo.fromJson,
-        (SystemConfigDictInfoServicePhones).toString(): SystemConfigDictInfoServicePhones.fromJson,
-        (UploadSignBean).toString(): UploadSignBean.fromJson,
-        (UserInfoBean).toString(): UserInfoBean.fromJson,
-        (UserInfoCreditInfo).toString(): UserInfoCreditInfo.fromJson,
-        (UserInfoCreditInfoCurrentLevel).toString(): UserInfoCreditInfoCurrentLevel.fromJson,
-        (UserInfoCreditInfoNextLevel).toString(): UserInfoCreditInfoNextLevel.fromJson,
-      };
+  /// When you are in the development, to generate a new model class, hot-reload doesn't find new generation model class, you can build on MaterialApp method called jsonConvert. ReassembleConvertFuncMap (); This method only works in a development environment
+  /// https://flutter.cn/docs/development/tools/hot-reload
+  /// class MyApp extends StatelessWidget {
+  ///    const MyApp({Key? key})
+  ///        : super(key: key);
+  ///
+  ///    @override
+  ///    Widget build(BuildContext context) {
+  ///      jsonConvert.reassembleConvertFuncMap();
+  ///      return MaterialApp();
+  ///    }
+  /// }
+  void reassembleConvertFuncMap() {
+    bool isReleaseMode = const bool.fromEnvironment('dart.vm.product');
+    if (!isReleaseMode) {
+      convertFuncMap = JsonConvertClassCollection();
+    }
+  }
 
   T? convert<T>(dynamic value, {EnumConvertFunction? enumConvert}) {
     if (value == null) {
@@ -125,7 +124,7 @@ class JsonConvert {
         }
         return convertFuncMap[type]!(Map<String, dynamic>.from(value)) as T;
       } else {
-        throw UnimplementedError('$type unimplemented');
+        throw UnimplementedError('$type unimplemented,you can try running the app again');
       }
     }
   }
@@ -174,6 +173,7 @@ class JsonConvert {
     if (<SystemConfigDictInfoServicePhones>[] is M) {
       return data.map<SystemConfigDictInfoServicePhones>((Map<String, dynamic> e) => SystemConfigDictInfoServicePhones.fromJson(e)).toList() as M;
     }
+
     if (<UploadSignBean>[] is M) {
       return data.map<UploadSignBean>((Map<String, dynamic> e) => UploadSignBean.fromJson(e)).toList() as M;
     }
@@ -188,6 +188,12 @@ class JsonConvert {
     }
     if (<UserInfoCreditInfoNextLevel>[] is M) {
       return data.map<UserInfoCreditInfoNextLevel>((Map<String, dynamic> e) => UserInfoCreditInfoNextLevel.fromJson(e)).toList() as M;
+    }
+    if (<JsModel>[] is M) {
+      return data.map<JsModel>((Map<String, dynamic> e) => JsModel.fromJson(e)).toList() as M;
+    }
+    if (<JsModelData>[] is M) {
+      return data.map<JsModelData>((Map<String, dynamic> e) => JsModelData.fromJson(e)).toList() as M;
     }
 
     debugPrint("${M.toString()} not found");
@@ -204,5 +210,39 @@ class JsonConvert {
     } else {
       return jsonConvert.convert<M>(json);
     }
+  }
+}
+
+class JsonConvertClassCollection {
+  Map<String, JsonConvertFunction> convertFuncMap = {
+    (AccountDeleteBean).toString(): AccountDeleteBean.fromJson,
+    (ApplicationBean).toString(): ApplicationBean.fromJson,
+    (ApplicationLoanBasisInfo).toString(): ApplicationLoanBasisInfo.fromJson,
+    (ApplicationOrderInfo).toString(): ApplicationOrderInfo.fromJson,
+    (ApplicationOrderInfoPaymentInfo).toString(): ApplicationOrderInfoPaymentInfo.fromJson,
+    (ApplicationOrderInfoRepaymentInfo).toString(): ApplicationOrderInfoRepaymentInfo.fromJson,
+    (BasisInfoBean).toString(): BasisInfoBean.fromJson,
+    (BasisInfoContactPersons).toString(): BasisInfoContactPersons.fromJson,
+    (IpCheckBean).toString(): IpCheckBean.fromJson,
+    (LoanHistoryBean).toString(): LoanHistoryBean.fromJson,
+    (LoginInfoBean).toString(): LoginInfoBean.fromJson,
+    (SystemConfigBean).toString(): SystemConfigBean.fromJson,
+    (SystemConfigDictInfo).toString(): SystemConfigDictInfo.fromJson,
+    (SystemConfigDictInfoServicePhones).toString(): SystemConfigDictInfoServicePhones.fromJson,
+    (UploadSignBean).toString(): UploadSignBean.fromJson,
+    (UserInfoBean).toString(): UserInfoBean.fromJson,
+    (UserInfoCreditInfo).toString(): UserInfoCreditInfo.fromJson,
+    (UserInfoCreditInfoCurrentLevel).toString(): UserInfoCreditInfoCurrentLevel.fromJson,
+    (UserInfoCreditInfoNextLevel).toString(): UserInfoCreditInfoNextLevel.fromJson,
+    (JsModel).toString(): JsModel.fromJson,
+    (JsModelData).toString(): JsModelData.fromJson,
+  };
+
+  bool containsKey(String type) {
+    return convertFuncMap.containsKey(type);
+  }
+
+  JsonConvertFunction? operator [](String key) {
+    return convertFuncMap[key];
   }
 }

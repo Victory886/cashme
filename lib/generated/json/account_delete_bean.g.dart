@@ -1,12 +1,5 @@
-/*
- * @Author: Terry
- * @Date: 2023-10-12 15:05:06
- * @LastEditors: Terry
- * @LastEditTime: 2023-10-13 16:12:07
- * @FilePath: /loannow/lib/generated/json/account_delete_bean.g.dart
- */
-import 'package:loannow/beans/account_delete_bean.dart';
 import 'package:loannow/generated/json/base/json_convert_content.dart';
+import 'package:loannow/beans/account_delete_bean.dart';
 
 AccountDeleteBean $AccountDeleteBeanFromJson(Map<String, dynamic> json) {
   final AccountDeleteBean accountDeleteBean = AccountDeleteBean();

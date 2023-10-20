@@ -1,9 +1,10 @@
-import 'package:loannow/beans/loan_history_bean.dart';
 import 'package:loannow/generated/json/base/json_convert_content.dart';
+import 'package:loannow/beans/loan_history_bean.dart';
 
 LoanHistoryBean $LoanHistoryBeanFromJson(Map<String, dynamic> json) {
   final LoanHistoryBean loanHistoryBean = LoanHistoryBean();
-  final int? applicationTime = jsonConvert.convert<int>(json['applicationTime']);
+  final int? applicationTime = jsonConvert.convert<int>(
+      json['applicationTime']);
   if (applicationTime != null) {
     loanHistoryBean.applicationTime = applicationTime;
   }
@@ -15,7 +16,8 @@ LoanHistoryBean $LoanHistoryBeanFromJson(Map<String, dynamic> json) {
   if (loanAmount != null) {
     loanHistoryBean.loanAmount = loanAmount;
   }
-  final int? loanBasisInfoId = jsonConvert.convert<int>(json['loanBasisInfoId']);
+  final int? loanBasisInfoId = jsonConvert.convert<int>(
+      json['loanBasisInfoId']);
   if (loanBasisInfoId != null) {
     loanHistoryBean.loanBasisInfoId = loanBasisInfoId;
   }

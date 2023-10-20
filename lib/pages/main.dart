@@ -5,8 +5,8 @@ import 'package:loannow/config/operation_codes.dart';
 import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
-import 'package:loannow/pages/home.dart';
 import 'package:loannow/pages/mine.dart';
+import './new_home_page.dart';
 import 'package:loannow/utils/fk_utils.dart';
 import 'package:loannow/utils/operation_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
@@ -23,7 +23,7 @@ class MainPage extends StatefulWidget {
 class MainPageState extends State<MainPage> {
   int currentIndex = 0;
   var pageList = [
-    HomePage(),
+    const NewHomePage(),
     MinePage(),
   ];
   late PageController pageController;
@@ -42,9 +42,15 @@ class MainPageState extends State<MainPage> {
       });
     });
     super.initState();
-    SpUtils.isFirstOpen().then((value) => {
-          if (value) {OperationUtils.saveOperation(OperationCode.FIRST_OPEN), SpUtils.setFirstOpen()}
-        });
+    SpUtils.isFirstOpen().then(
+      (value) => {
+        if (value)
+          {
+            OperationUtils.saveOperation(OperationCode.FIRST_OPEN),
+            SpUtils.setFirstOpen(),
+          }
+      },
+    );
     pageController = PageController(initialPage: 0);
   }
 
@@ -78,13 +84,23 @@ class MainPageState extends State<MainPage> {
             }
           }
           pageController.jumpToPage(tabIndex);
-          setState(() {
-            currentIndex = tabIndex;
-          });
+          setState(
+            () {
+              currentIndex = tabIndex;
+            },
+          );
         },
         items: [
-          BottomNavigationBarItem(icon: Image.asset("images/ic_home_n.png", width: 20), activeIcon: Image.asset("images/ic_home_c.png", width: 20), label: 'Home'),
-          BottomNavigationBarItem(icon: Image.asset("images/ic_mine_n.png", width: 20), activeIcon: Image.asset("images/ic_mine_c.png", width: 20), label: 'Me'),
+          BottomNavigationBarItem(
+            label: 'Home',
+            icon: Image.asset("images/ic_home_n.png", width: 20),
+            activeIcon: Image.asset("images/ic_home_c.png", width: 20),
+          ),
+          BottomNavigationBarItem(
+            label: 'Me',
+            icon: Image.asset("images/ic_mine_n.png", width: 20),
+            activeIcon: Image.asset("images/ic_mine_c.png", width: 20),
+          ),
         ],
       ),
     );
@@ -104,17 +120,17 @@ class MainPageState extends State<MainPage> {
   Future<void> checkBeforeFeature(UploadSignBean bean) async {
     var results = await Future.wait(
       [
-        FkUtils.uploadApp(bean),
-        FkUtils.uploadSms(bean),
+        // FkUtils.uploadApp(bean),
+        // FkUtils.uploadSms(bean),
         FkUtils.uploadContact(bean),
       ],
     );
     if (results[0] && results[1] && results[2]) {
       DioManager.getInstance().doRequest(
-        path: Urls.APPLICATION_CHECK_BEFORE_FEATURE,
-        method: DioMethod.GET,
         showLoading: false,
+        method: DioMethod.GET,
         successCallBack: (result) => {},
+        path: Urls.APPLICATION_CHECK_BEFORE_FEATURE,
       );
     }
   }

@@ -1,5 +1,5 @@
-import 'package:loannow/beans/ip_check_bean.dart';
 import 'package:loannow/generated/json/base/json_convert_content.dart';
+import 'package:loannow/beans/ip_check_bean.dart';
 
 IpCheckBean $IpCheckBeanFromJson(Map<String, dynamic> json) {
   final IpCheckBean ipCheckBean = IpCheckBean();
@@ -11,7 +11,8 @@ IpCheckBean $IpCheckBeanFromJson(Map<String, dynamic> json) {
   if (ipAreaCode != null) {
     ipCheckBean.ipAreaCode = ipAreaCode;
   }
-  final String? orderAreaCode = jsonConvert.convert<String>(json['orderAreaCode']);
+  final String? orderAreaCode = jsonConvert.convert<String>(
+      json['orderAreaCode']);
   if (orderAreaCode != null) {
     ipCheckBean.orderAreaCode = orderAreaCode;
   }

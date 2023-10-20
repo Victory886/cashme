@@ -43,14 +43,16 @@ dependencies:
   flutter_inappwebview: ^5.7.2+3
   flutter_native_contact_picker: ^0.0.4
   camera_camera: ^3.0.0
-
+  encrypt: ^5.0.1
+  
 
   flutter_device_core:
     git:
       url: git@codeup.aliyun.com:60b71d6d66bba1c04b443900/jiaozifin/PH/flutter/device_core.git
       ref: master
-#  flutter_device_core:
-#    path: D:\Android\flutter_workspace\flutter_device_core
+  # flutter_device_core:
+  #   path: /Users/baoshengli/Documents/Quark/Philippines/Flutter/CashmeFlutter/device_core
+
 
 dev_dependencies:
   flutter_test:

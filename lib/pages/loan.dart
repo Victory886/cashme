@@ -72,7 +72,7 @@ class LoanPageState extends State<LoanPage> {
                             onTap: () {
                               // print(Platform.isw)
                             },
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -134,9 +134,9 @@ class LoanPageState extends State<LoanPage> {
                       child: Button(
                         text: "Confirm",
                         onClick: () async {
-                          Contact? contact = await _contactPicker.selectContact();
+                          // Contact? contact = await _contactPicker.selectContact();
 
-                          print(contact);
+                          // print(contact);
                           return SpUtils.getToken().then(
                             (value) => {
                               if (value == null)
@@ -156,7 +156,7 @@ class LoanPageState extends State<LoanPage> {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
           Container(
@@ -173,10 +173,11 @@ class LoanPageState extends State<LoanPage> {
               child: Container(
                 padding: const EdgeInsets.all(20),
                 decoration: const BoxDecoration(
-                    image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage("images/img_home_bg_2.png"),
-                )),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage("images/img_home_bg_2.png"),
+                  ),
+                ),
                 child: const Row(
                   children: [
                     Expanded(
@@ -220,40 +221,44 @@ class LoanPageState extends State<LoanPage> {
 
   Widget buildStep(String image, String title, String desc, String right) {
     return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              image,
-              width: 40,
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            image,
+            width: 40,
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              margin: const EdgeInsets.only(left: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(fontSize: 14, color: AppColors.textColor, fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 3),
+                    child: Text(
+                      desc,
+                      style: const TextStyle(fontSize: 10, color: Color(0xFF697699)),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Expanded(
-                flex: 1,
-                child: Container(
-                    margin: const EdgeInsets.only(left: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          title,
-                          style: const TextStyle(fontSize: 14, color: AppColors.textColor, fontWeight: FontWeight.bold),
-                        ),
-                        Container(
-                            margin: const EdgeInsets.only(top: 3),
-                            child: Text(
-                              desc,
-                              style: const TextStyle(fontSize: 10, color: Color(0xFF697699)),
-                            ))
-                      ],
-                    ))),
-            Text(
-              right,
-              style: const TextStyle(fontSize: 14, color: Color(0xFF464F66), fontWeight: FontWeight.w600),
-            )
-          ],
-        ));
+          ),
+          Text(
+            right,
+            style: const TextStyle(fontSize: 14, color: Color(0xFF464F66), fontWeight: FontWeight.w600),
+          )
+        ],
+      ),
+    );
   }
 
   @override

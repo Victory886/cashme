@@ -4,7 +4,10 @@ import 'package:loannow/beans/basis_info_bean.dart';
 import 'package:loannow/beans/user_info_bean.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../beans/login_info_bean.dart';
+
 class SpUtils {
+  static const String SP_KEY_LOGIN = "SP_KEY_LOGIN";
   static const String SP_KEY_TOKEN = "SP_KEY_TOKEN";
   static const String SP_KEY_USER = "SP_KEY_USER";
   static const String SP_KEY_DEVICE_ID = "SP_KEY_DEVICE_ID";
@@ -23,6 +26,21 @@ class SpUtils {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = await prefs.getString(SP_KEY_TOKEN);
     return token;
+  }
+
+  static Future<bool> saveLoginInfo(LoginInfoBean userinfo) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool success = await prefs.setString(SP_KEY_LOGIN, userinfo.toString());
+    return success;
+  }
+
+  static Future<LoginInfoBean?> getLoginInfoData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? loginInfoData = await prefs.getString(SP_KEY_LOGIN);
+    if (loginInfoData != null) {
+      return LoginInfoBean.fromJson(json.decode(loginInfoData));
+    }
+    return null;
   }
 
   static Future<bool> saveUserInfo(UserInfoBean user) async {

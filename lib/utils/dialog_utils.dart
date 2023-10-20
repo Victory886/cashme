@@ -1,3 +1,10 @@
+/*
+ * @Author: Terry
+ * @Date: 2023-10-12 15:05:06
+ * @LastEditors: Terry
+ * @LastEditTime: 2023-10-17 18:12:07
+ * @FilePath: /loannow/lib/utils/dialog_utils.dart
+ */
 import 'package:flutter/material.dart';
 import 'package:loannow/config/app_colors.dart';
 
@@ -12,54 +19,60 @@ class DialogUtils {
     VoidCallback? confirmClick,
   }) {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: (title == null)
-                ? null
-                : Center(
-                    child: Text(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: (title == null)
+              ? null
+              : Center(
+                  child: Text(
                     title,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.textColor),
-                  )),
-            content: (content == null)
-                ? null
-                : Text(
-                    content,
-                    style: TextStyle(fontSize: 14, color: AppColors.textColorhint),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.textColor),
                   ),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            actions: [
-              InkWell(
-                  onTap: () {
-                    if (cancelClick != null)
-                      cancelClick!();
-                    else
-                      Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      cancel ?? "Cancel",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.primaryColor),
-                    ),
-                  )),
-              InkWell(
-                  onTap: () {
-                    if (confirmClick != null)
-                      confirmClick!();
-                    else
-                      Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      confirm ?? "Confirm",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.primaryColor),
-                    ),
-                  )),
-            ],
-          );
-        });
+                ),
+          content: (content == null)
+              ? null
+              : Text(
+                  content,
+                  style: const TextStyle(fontSize: 14, color: AppColors.textColorhint),
+                ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          actions: [
+            InkWell(
+              onTap: () {
+                if (cancelClick != null) {
+                  cancelClick!();
+                } else {
+                  Navigator.pop(context);
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  cancel ?? "Cancel",
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.primaryColor),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                if (confirmClick != null) {
+                  confirmClick!();
+                } else {
+                  Navigator.pop(context);
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  confirm ?? "Confirm",
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.primaryColor),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

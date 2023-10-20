@@ -1,27 +1,39 @@
-import 'package:flutter/material.dart';
-import 'package:loannow/beans/application_bean.dart';
-import 'package:loannow/beans/basis_info_bean.dart';
-import 'package:loannow/config/app_colors.dart';
-import 'package:loannow/config/urls.dart';
-import 'package:loannow/net/dio_manager.dart';
-import 'package:loannow/pages/loan.dart';
-import 'package:loannow/pages/order_status.dart';
-import 'package:loannow/pages/repaying.dart';
-import 'package:loannow/utils/application_status_utils.dart';
-import 'package:loannow/utils/operation_utils.dart';
-import 'package:loannow/utils/sp_utils.dart';
+/*
+ * @Author: Terry
+ * @Date: 2023-10-18 17:28:58
+ * @LastEditors: Terry
+ * @LastEditTime: 2023-10-19 17:19:34
+ * @FilePath: /loannow/lib/pages/new_home_page.dart
+ */
 
-class HomePage extends StatefulWidget {
+import 'package:flutter/material.dart';
+
+import 'loan.dart';
+import '../config/urls.dart';
+import '../utils/sp_utils.dart';
+import '../net/dio_manager.dart';
+import '../config/app_colors.dart';
+import '../beans/basis_info_bean.dart';
+import '../utils/operation_utils.dart';
+import '../beans/application_bean.dart';
+import 'package:loannow/pages/repaying.dart';
+import '../utils/application_status_utils.dart';
+import 'package:loannow/pages/order_status.dart';
+
+import 'new_loan_page.dart';
+
+/// 新的首页
+class NewHomePage extends StatefulWidget {
+  const NewHomePage({super.key});
+
   @override
-  State<StatefulWidget> createState() {
-    return HomePageState();
-  }
+  State<NewHomePage> createState() => NewHomePageState();
 }
 
-class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
+class NewHomePageState extends State<NewHomePage> with AutomaticKeepAliveClientMixin {
   bool showLoading = true;
-  ApplicationBean? applicationBean;
   late StateSetter pageState;
+  ApplicationBean? applicationBean;
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +60,13 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
                     );
                   }
                   return OrderStatusPage(
-                    refreshClick: getLatestApplication,
                     finishClick: finishiOrder,
                     application: applicationBean!,
+                    refreshClick: getLatestApplication,
                   );
                 } else {
-                  return LoanPage();
+                  // return LoanPage();
+                  return NewLoanPage();
                 }
               }
             },
@@ -106,12 +119,13 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
 
   Future<bool> getBasisInfo() async {
     await DioManager.getInstance().doRequest<BasisInfoBean>(
-        path: Urls.BASIS_INFO_LOAD,
-        method: DioMethod.GET,
-        showLoading: !showLoading,
-        successCallBack: (result) {
-          if (result != null) SpUtils.saveBasisInfo(result);
-        });
+      path: Urls.BASIS_INFO_LOAD,
+      method: DioMethod.GET,
+      showLoading: !showLoading,
+      successCallBack: (result) {
+        if (result != null) SpUtils.saveBasisInfo(result);
+      },
+    );
     return true;
   }
 
