@@ -2,13 +2,12 @@
  * @Author: Terry
  * @Date: 2023-10-18 17:28:58
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-19 17:19:34
+ * @LastEditTime: 2023-10-23 14:12:23
  * @FilePath: /loannow/lib/pages/new_home_page.dart
  */
 
 import 'package:flutter/material.dart';
 
-import 'loan.dart';
 import '../config/urls.dart';
 import '../utils/sp_utils.dart';
 import '../net/dio_manager.dart';
@@ -66,7 +65,7 @@ class NewHomePageState extends State<NewHomePage> with AutomaticKeepAliveClientM
                   );
                 } else {
                   // return LoanPage();
-                  return NewLoanPage();
+                  return const NewLoanPage();
                 }
               }
             },

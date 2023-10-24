@@ -10,6 +10,7 @@ import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/utils/operation_utils.dart';
 
+/// 开始
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
 
@@ -21,7 +22,7 @@ class StartPage extends StatefulWidget {
 
 class StartPageState extends State<StartPage> {
   late Timer timer;
-  int count = 3;
+  int count = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,10 @@ class StartPageState extends State<StartPage> {
   @override
   void initState() {
     super.initState();
+
     OperationUtils.saveOperation(OperationCode.APP_START);
+    OperationUtils.sendFBNormalEvents(OperationCode.APP_START);
+
     Future.wait([ipCheck(), getConfig()]).then(
       (results) => {
         timer = Timer.periodic(
@@ -84,6 +88,7 @@ class StartPageState extends State<StartPage> {
     );
   }
 
+  /// 检测ip地址
   Future<bool> ipCheck() async {
     await DioManager.getInstance().doRequest<IpCheckBean>(
         path: Urls.CHECK_AREA,
@@ -94,6 +99,7 @@ class StartPageState extends State<StartPage> {
     return true;
   }
 
+  /// 获取配置信息
   Future<bool> getConfig() async {
     await DioManager.getInstance().doRequest<SystemConfigBean>(
         path: Urls.SYSTEM_CONFIG,
@@ -113,5 +119,17 @@ class StartPageState extends State<StartPage> {
   void goHome() {
     timer.cancel();
     Navigator.pushReplacementNamed(context, RouterNames.HOME);
+  }
+}
+
+/// 当做启动页
+class LaunchViewWidget extends StatelessWidget {
+  const LaunchViewWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text("启动页面"),
+    );
   }
 }

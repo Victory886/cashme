@@ -1,3 +1,10 @@
+/*
+ * @Author: Terry
+ * @Date: 2023-10-12 15:05:06
+ * @LastEditors: Terry
+ * @LastEditTime: 2023-10-23 10:17:00
+ * @FilePath: /loannow/lib/config/constants.dart
+ */
 import 'package:loannow/beans/ip_check_bean.dart';
 import 'package:loannow/beans/system_config_bean.dart';
 
@@ -8,3 +15,5 @@ class Constans {
   static IpCheckBean? ipCheckBean = null;
   static SystemConfigBean? systemConfigBean = null;
 }
+
+// class SystemConfigObj {}

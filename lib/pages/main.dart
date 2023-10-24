@@ -47,6 +47,7 @@ class MainPageState extends State<MainPage> {
         if (value)
           {
             OperationUtils.saveOperation(OperationCode.FIRST_OPEN),
+            OperationUtils.sendFBNormalEvents(OperationCode.FIRST_OPEN),
             SpUtils.setFirstOpen(),
           }
       },
@@ -83,6 +84,11 @@ class MainPageState extends State<MainPage> {
               return;
             }
           }
+
+          // if (tabIndex == 1) {
+          //   return;
+          // }
+
           pageController.jumpToPage(tabIndex);
           setState(
             () {
@@ -96,6 +102,11 @@ class MainPageState extends State<MainPage> {
             icon: Image.asset("images/ic_home_n.png", width: 20),
             activeIcon: Image.asset("images/ic_home_c.png", width: 20),
           ),
+          // BottomNavigationBarItem(
+          //   label: '',
+          //   icon: Image.asset("images/ic_mine_n.png", width: 50),
+          //   activeIcon: Image.asset("images/ic_mine_c.png", width: 50),
+          // ),
           BottomNavigationBarItem(
             label: 'Me',
             icon: Image.asset("images/ic_mine_n.png", width: 20),

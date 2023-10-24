@@ -34,6 +34,21 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb339625895227532</string>
+      </array>
+      </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>339625895227532</string>
+    <key>FacebookClientToken</key>
+    <string>51fac90b39840dd5cad5b03f5430d930</string>
+    <key>FacebookDisplayName</key>
+    <string>Cashme</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

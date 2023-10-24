@@ -9,6 +9,8 @@ import 'package:loannow/utils/operation_utils.dart';
 import 'package:loannow/utils/phone_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 
+import 'coupon_alert_view.dart';
+
 class MinePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -98,7 +100,9 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
               buildItem("images/img_mine_coupon.png", "Coupon", () {}),
               buildItem("images/img_mine_enquire.png", "In-app Enquire", () {}),
               buildItem("images/img_mine_hotline.png", "Hotline", showHotlineDialog),
-              buildItem("images/img_mine_messenger.png", "Messenger", () {}),
+              buildItem("images/img_mine_messenger.png", "Messenger", () {
+                showDialogFunction(context);
+              }),
               buildItem(
                 "images/img_mine_privacy.png",
                 "Privacy Policy",
@@ -114,6 +118,15 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
           ),
         ],
       ),
+    );
+  }
+
+  void showDialogFunction(context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const CouponAlertViewWidget();
+      },
     );
   }
 
@@ -134,10 +147,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                image,
-                width: 32,
-              ),
+              Image.asset(image, width: 32),
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.only(left: 10),
@@ -147,10 +157,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                   ),
                 ),
               ),
-              Image.asset(
-                "images/img_mine_more.png",
-                width: 15,
-              ),
+              Image.asset("images/img_mine_more.png", width: 15),
             ],
           ),
         ),
@@ -213,8 +220,8 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
 
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent,
       barrierColor: Colors.transparent,
+      backgroundColor: Colors.transparent,
       isDismissible: true,
       // 点击外部区域是否关闭弹窗，默认true
       clipBehavior: Clip.none,

@@ -40,7 +40,12 @@ typedef HandleJSMethodCompletion = void Function(String uid, bool isSuccess, dyn
 class H5ToFlutterMethodHandler {
   static InAppWebViewController? myWebViewcontroller;
 
-  static Future<Map<String, dynamic>> handleH5ToNativeMessage(InAppWebViewController webViewcontroller, Map<String, dynamic> dict, String h5HandlerName, BuildContext context) async {
+  static Future<Map<String, dynamic>> handleH5ToNativeMessage(
+    InAppWebViewController webViewcontroller,
+    Map<String, dynamic> dict,
+    String h5HandlerName,
+    BuildContext context,
+  ) async {
     myWebViewcontroller = webViewcontroller;
     if (dict["handlerName"] != h5HandlerName) {
       return {};
@@ -76,8 +81,8 @@ class H5ToFlutterMethodHandler {
     await _handleJSMethod(methodDataModel!, context, (uid, isSuccess, data, exception) {
       Map<String, dynamic> resDict = {
         "uid": uid,
-        "success": isSuccess,
         "data": data,
+        "success": isSuccess,
         "exception": exception,
       };
 
@@ -107,38 +112,12 @@ class H5ToFlutterMethodHandler {
           completion(uid, true, dict, "");
         }
         break;
-
-      //调用原生返回上一页
-      case "getLocale":
-        {
-          completion(uid, true, "vi-VN", "");
-
-          // completion(
-          //     uid, true, {"test123": "test123", "test223": "test223"}, "");
-        }
-        break;
-
       case "getDeviceInfo":
         {
-          Map<String, dynamic> map = {
-            "deviceID": "test",
-            "platform": "ios",
-          };
-
           var deviceInfo = await DeviceUtils.getDeviceInfo();
           completion(uid, true, deviceInfo, "");
         }
         break;
-      case "uploadDeviceInfo":
-        {
-          Map<String, dynamic> map = {
-            "deviceID": "test",
-            "platform": "ios",
-          };
-          completion(uid, true, map, "");
-        }
-        break;
-
       case "nativeGoback":
         Navigator.pop(context);
         break;
@@ -151,6 +130,7 @@ class H5ToFlutterMethodHandler {
           }
           String eventName = paramDict["code"] ?? "";
           OperationUtils.saveOperation(eventName);
+          OperationUtils.sendFBStandardEvent(eventName);
           completion(uid, true, "", "");
         }
         break;
@@ -178,11 +158,7 @@ class H5ToFlutterMethodHandler {
       case "selectOneContact":
         {
           String? map = await FlutterDeviceCore().selectContact();
-          // return {"fullName": fullName, "phoneNumber": phoneNumber};
-
-          print("11111111111111 = $map");
           dynamic parsedJson = json.decode(map ?? "");
-
           Map<String, dynamic> dataMap = Map.from(parsedJson);
 
           completion(uid, true, dataMap, "");

@@ -4,7 +4,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-19 18:34:30
+ * @LastEditTime: 2023-10-24 18:21:00
  * @FilePath: /loannow/lib/config/urls.dart
  */
 class Urls {
@@ -23,6 +23,8 @@ class Urls {
   static String CHECK_AREA = "tool/checkArea";
   static String SYSTEM_CONFIG = "systemConfig/";
   static String ACCOUNT_DELETE = "member/appDeletion";
+
+  /// 获取订单状态
   static String APPLICATION_LATEST = "application/latest";
   static String APPLICATION_HISTORY = "application/history";
 
@@ -52,7 +54,20 @@ class WebPageUrl {
   /// 基本信息页面地址
   static String applyStepBasalUrl = "$baseUrl/apply-step/basal";
 
+  /// QA
   static String qaUrl = "http://www.phdev.bowenfin.com/madaPh/Q_A.html";
 
+  /// 客服页面
   static String csUrl = "$baseUrl/customer-service";
+}
+
+class R {
+  /// 首页左上角logo图片
+  static String homeLogim = "images/home_logo.png";
+
+  /// 首页 中间大图
+  static String homeProgress = "images/home_progress.png";
+
+  /// 首页 中间大图
+  static String homeLoan = "images/home_loan.png";
 }

@@ -44,7 +44,7 @@ dependencies:
   flutter_native_contact_picker: ^0.0.4
   camera_camera: ^3.0.0
   encrypt: ^5.0.1
-  
+  facebook_app_events: ^0.17.0
 
   flutter_device_core:
     git:
@@ -79,6 +79,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
       - images/
+      - images/2.0x/
+      - images/3.0x/
+      # - images/home_logo.png
 #     - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

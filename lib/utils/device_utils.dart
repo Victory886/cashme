@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-13 16:29:57
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-17 18:13:28
+ * @LastEditTime: 2023-10-23 14:10:06
  * @FilePath: /loannow/lib/utils/device_utils.dart
  */
 import 'dart:io';
@@ -64,13 +64,13 @@ class DeviceUtils {
 
   /// 从相册选择照片
   static Future<String> takePhoto() async {
-    var contact = await FlutterDeviceCore().selectImg();
-    return contact ?? "";
+    var photo = await FlutterDeviceCore().selectImg();
+    return photo ?? "";
   }
 
   ///
   static Future<String> takeIDImage() async {
-    var contact = await FlutterDeviceCore().takeIDImage();
-    return contact ?? "";
+    var image = await FlutterDeviceCore().takeIDImage();
+    return image ?? "";
   }
 }

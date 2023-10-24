@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-17 17:11:49
+ * @LastEditTime: 2023-10-24 16:44:10
  * @FilePath: /loannow/lib/widget/button.dart
  */
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class ButtonState extends State<Button> {
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: (widget.disabled ?? false) ? const Color(0xffcccccc) : AppColors.primaryColor,
+            color: (widget.disabled ?? false) ? const Color(0xffcccccc) : AppColors.mainColor,
             borderRadius: const BorderRadius.all(
               Radius.circular(15),
             ),

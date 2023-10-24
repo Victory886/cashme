@@ -2,10 +2,11 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-18 17:02:07
+ * @LastEditTime: 2023-10-23 09:57:07
  * @FilePath: /loannow/lib/main.dart
  */
 import 'package:bot_toast/bot_toast.dart';
+import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loannow/config/router_names.dart';
@@ -23,7 +24,17 @@ void main() {
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark),
   );
   WidgetsFlutterBinding.ensureInitialized();
+
+  initFBSDK();
   runApp(const MyApp());
+}
+
+Future<void> initFBSDK() async {
+  // await Future.delayed(Duration(seconds: 3));
+
+  final facebookAppEvents = FacebookAppEvents();
+  await facebookAppEvents.setAutoLogAppEventsEnabled(true);
+  await facebookAppEvents.setAdvertiserTracking(enabled: true);
 }
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

@@ -4,13 +4,14 @@
  * @Author: Terry
  * @Date: 2023-10-19 09:48:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-20 14:14:53
+ * @LastEditTime: 2023-10-24 18:24:42
  * @FilePath: /loannow/lib/pages/new_loan_page.dart
  */
 
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:loannow/config/app_colors.dart';
 
 import '../beans/loan_history_bean.dart';
 import '../config/router_names.dart';
@@ -79,7 +80,7 @@ class _NewLoanPageState extends State<NewLoanPage> {
   /// 下面的View
   Widget _bottomView() {
     return Container(
-      height: 230,
+      height: 250,
       color: Colors.blueGrey,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20),
@@ -118,15 +119,25 @@ class _NewLoanPageState extends State<NewLoanPage> {
             child: Container(
               color: Colors.blueGrey,
               // margin: EdgeInsets.symmetric(horizontal: 15),
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              // padding: EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.apple_sharp, color: Colors.orange),
-                  Text(
-                    "Hello Cashme Pera PH",
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  // Icon(Icons.apple_sharp, color: Colors.orange),
+                  Image.asset(R.homeLogim),
+                  Row(
+                    children: [
+                      Text(
+                        "Hello!",
+                        style: TextStyle(color: Color(0xff232732), fontWeight: FontWeight.normal, fontSize: 20),
+                      ),
+                      SizedBox(width: 15),
+                      Text(
+                        "Cashme Pera PH",
+                        style: TextStyle(color: Color(0xff232732), fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 5),
                   Container(
@@ -148,8 +159,8 @@ class _NewLoanPageState extends State<NewLoanPage> {
             child: Container(
               height: 350,
               color: Colors.blueGrey,
-              padding: EdgeInsets.all(25),
-              child: Container(color: Colors.red),
+              // padding: EdgeInsets.all(25),
+              child: Image.asset(R.homeProgress),
             ),
           ),
           _bottomView()
@@ -176,7 +187,7 @@ class LoanPageApplyLoanWidget extends StatelessWidget {
         height: 54,
         width: double.infinity,
         alignment: Alignment.center,
-        decoration: BoxDecoration(color: Color(0xff3EB14F), borderRadius: BorderRadius.all(Radius.circular(20))),
+        decoration: BoxDecoration(color: AppColors.mainColor, borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Text(
           "Apply Loan",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
@@ -199,17 +210,14 @@ class LoanPageBottomWidgets extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              RateItemWidget(title: "Repayment Term", contact: "120  - 240 Days "),
+              RateItemWidget(title: "Loan Term", contact: "120  - 360 Days"),
               SizedBox(width: 20),
-              RateItemWidget(title: "APR", contact: "10%-18%"),
+              RateItemWidget(title: "APR", contact: "36%"),
             ],
           ),
         ),
-        const SizedBox(height: 10),
-        Container(
-          height: 78,
-          color: Colors.amber,
-        ),
+        // const SizedBox(height: 10),
+        Image.asset(R.homeLoan),
       ],
     );
   }
