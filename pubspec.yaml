@@ -78,10 +78,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-      - images/
-      - images/2.0x/
-      - images/3.0x/
-      # - images/home_logo.png
+    - images/
+    - images/me/
+    - images/home/
+    - images/tabbar/
 #     - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
