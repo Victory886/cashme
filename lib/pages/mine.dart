@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loannow/beans/system_config_bean.dart';
 import 'package:loannow/beans/user_info_bean.dart';
 import 'package:loannow/config/app_colors.dart';
+import 'package:loannow/config/app_config.dart';
 import 'package:loannow/config/constants.dart';
 import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
@@ -12,6 +13,8 @@ import 'package:loannow/utils/sp_utils.dart';
 import 'coupon_alert_view.dart';
 
 class MinePage extends StatefulWidget {
+  const MinePage({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return MinePageState();
@@ -30,91 +33,94 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
         children: [
           AspectRatio(
             aspectRatio: 1080 / 600,
-            child: Image.asset("images/img_mine_bg.png"),
+            child: Image.asset(img(R.meTopBG), fit: BoxFit.fill),
           ),
-          ListView(
-            padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 35),
-            children: [
-              SafeArea(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "LoanNow",
-                            style: TextStyle(fontSize: 20, color: AppColors.textColor),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 2),
-                            child: const Text(
-                              "Personal line of credit",
-                              style: TextStyle(fontSize: 12, color: AppColors.textColorLight),
+          Container(
+            margin: EdgeInsets.only(bottom: tabbarHeight + Device.appBottomPadding(context)),
+            child: ListView(
+              padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 35),
+              children: [
+                SafeArea(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "LoanNow",
+                              style: TextStyle(fontSize: 20, color: AppColors.textColor),
                             ),
-                          ),
-                        ],
+                            Container(
+                              margin: const EdgeInsets.only(top: 2),
+                              child: const Text(
+                                "Personal line of credit",
+                                style: TextStyle(fontSize: 12, color: AppColors.textColorLight),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    InkWell(
-                      child: Image.asset(
-                        "images/img_mine_set.png",
-                        width: 30,
-                        height: 30,
-                      ),
-                      onTap: () {
-                        Navigator.pushNamed(context, RouterNames.SETTING);
-                      },
-                    )
-                  ],
+                      InkWell(
+                        child: Image.asset(
+                          "images/img_mine_set.png",
+                          width: 30,
+                          height: 30,
+                        ),
+                        onTap: () {
+                          Navigator.pushNamed(context, RouterNames.SETTING);
+                        },
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 25, bottom: 5),
-                child: StatefulBuilder(
-                  builder: (context, setState) {
-                    phoneState = setState;
-                    return Text(
-                      "Hi.$phone",
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: AppColors.textColor),
+                Container(
+                  margin: const EdgeInsets.only(top: 25, bottom: 5),
+                  child: StatefulBuilder(
+                    builder: (context, setState) {
+                      phoneState = setState;
+                      return Text(
+                        "Hi.$phone",
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: AppColors.textColor),
+                      );
+                    },
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 25),
+                  child: const Text(
+                    "Welcome to LoanNow",
+                    style: TextStyle(fontSize: 14, color: AppColors.textColorLight),
+                  ),
+                ),
+                buildItem(
+                  img(R.meHistory),
+                  "History",
+                  () {
+                    Navigator.pushNamed(context, RouterNames.HISTORY);
+                  },
+                ),
+                buildItem(img(R.meCoupon), "Coupon", () {}),
+                // buildItem(img(R.meInApp), "In-app Enquire", () {}),
+                buildItem(img(R.meHotline), "Hotline", showHotlineDialog),
+                buildItem(img(R.meMessenger), "Messenger", () {
+                  showDialogFunction(context);
+                }),
+                buildItem(
+                  img(R.mePrivacy),
+                  "Privacy Policy",
+                  () {
+                    Navigator.pushNamed(
+                      context,
+                      RouterNames.WEB,
+                      arguments: {'url': Urls.WEB_URL_LOAN, 'showTitle': true},
                     );
                   },
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 25),
-                child: const Text(
-                  "Welcome to LoanNow",
-                  style: TextStyle(fontSize: 14, color: AppColors.textColorLight),
-                ),
-              ),
-              buildItem(
-                "images/img_mine_history.png",
-                "History",
-                () {
-                  Navigator.pushNamed(context, RouterNames.HISTORY);
-                },
-              ),
-              buildItem("images/img_mine_coupon.png", "Coupon", () {}),
-              buildItem("images/img_mine_enquire.png", "In-app Enquire", () {}),
-              buildItem("images/img_mine_hotline.png", "Hotline", showHotlineDialog),
-              buildItem("images/img_mine_messenger.png", "Messenger", () {
-                showDialogFunction(context);
-              }),
-              buildItem(
-                "images/img_mine_privacy.png",
-                "Privacy Policy",
-                () {
-                  Navigator.pushNamed(
-                    context,
-                    RouterNames.WEB,
-                    arguments: {'url': Urls.WEB_URL_LOAN, 'showTitle': true},
-                  );
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -178,6 +184,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
       phone = bean.telephoneNo!;
       phoneState(() {});
     } else {
+      // ignore: use_build_context_synchronously
       Navigator.pushNamed(context, RouterNames.LOGIN);
     }
   }
