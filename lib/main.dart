@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-23 09:57:07
+ * @LastEditTime: 2023-10-26 15:18:35
  * @FilePath: /loannow/lib/main.dart
  */
 import 'package:bot_toast/bot_toast.dart';
@@ -45,9 +45,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Loan Now',
       builder: BotToastInit(),
       navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
       //1. call BotToastInit
       navigatorObservers: [BotToastNavigatorObserver()],
       //2. registered route observer
