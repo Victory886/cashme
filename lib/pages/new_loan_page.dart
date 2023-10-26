@@ -4,7 +4,7 @@
  * @Author: Terry
  * @Date: 2023-10-19 09:48:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-24 18:24:42
+ * @LastEditTime: 2023-10-26 14:45:17
  * @FilePath: /loannow/lib/pages/new_loan_page.dart
  */
 
@@ -12,6 +12,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:loannow/config/app_colors.dart';
+import 'package:loannow/config/app_config.dart';
 
 import '../beans/loan_history_bean.dart';
 import '../config/router_names.dart';
@@ -80,29 +81,27 @@ class _NewLoanPageState extends State<NewLoanPage> {
   /// 下面的View
   Widget _bottomView() {
     return Container(
-      height: 250,
-      color: Colors.blueGrey,
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            LoanPageBottomWidgets(),
-            LoanPageApplyLoanWidget(
-              onClick: loanBtnClick,
-            ),
-          ],
-        ),
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          LoanPageBottomWidgets(),
+          LoanPageApplyLoanWidget(
+            onClick: loanBtnClick,
+          ),
+          SizedBox(height: 20),
+        ],
       ),
     );
   }
 
+  /// 滚动的内容
   Widget _buildText(String txt) {
     return Text(
       txt,
       style: const TextStyle(
-        fontSize: 14,
-        color: Colors.white,
+        fontSize: 12,
+        color: Color(0xff464F66),
       ),
       maxLines: 1,
       overflow: TextOverflow.fade,
@@ -112,59 +111,101 @@ class _NewLoanPageState extends State<NewLoanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              color: Colors.blueGrey,
-              // margin: EdgeInsets.symmetric(horizontal: 15),
-              // padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Icon(Icons.apple_sharp, color: Colors.orange),
-                  Image.asset(R.homeLogim),
-                  Row(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(img(R.homeBg)),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Container(
+          margin: EdgeInsets.only(bottom: tabbarHeight + Device.appBottomPadding(context)),
+          child: Column(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Hello!",
-                        style: TextStyle(color: Color(0xff232732), fontWeight: FontWeight.normal, fontSize: 20),
+                      SizedBox(height: Device.appTopPadding(context)),
+                      Image.asset(img(R.homeLogo)),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Text(
+                            "Hello!",
+                            style: TextStyle(color: Color(0xff232732), fontWeight: FontWeight.normal, fontSize: 20),
+                          ),
+                          SizedBox(width: 15),
+                          Text(
+                            "Cashme Pera PH",
+                            style: TextStyle(color: Color(0xff232732), fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                        ],
                       ),
-                      SizedBox(width: 15),
-                      Text(
-                        "Cashme Pera PH",
-                        style: TextStyle(color: Color(0xff232732), fontWeight: FontWeight.bold, fontSize: 20),
+                      SizedBox(height: 10),
+                      Container(
+                        alignment: Alignment.center,
+                        child: StatefulBuilder(
+                          builder: (context, setState) {
+                            marqueeListState = setState;
+                            return MarqueeView(child: _buildText(marqueeStr));
+                          },
+                        ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 5),
-                  Container(
-                    color: Colors.blueGrey[400],
-                    alignment: Alignment.center,
-                    child: StatefulBuilder(
-                      builder: (context, setState) {
-                        marqueeListState = setState;
-                        return MarqueeView(child: _buildText(marqueeStr));
-                      },
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+              Expanded(
+                flex: 2,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox(
+                      height: 330,
+                      child: Image.asset(
+                        img(R.homeProgress),
+                        // width: 320,
+                        // height: 320,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(bottom: Device.appBottomPadding(context) == 0 ? 3 : 5),
+                          child: Text(
+                            "₱",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.mainColor,
+                              fontSize: Device.appBottomPadding(context) == 0 ? 16 : 22,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "20,000",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.mainColor,
+                            fontSize: Device.appBottomPadding(context) == 0 ? 28 : 34,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              _bottomView()
+            ],
           ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              height: 350,
-              color: Colors.blueGrey,
-              // padding: EdgeInsets.all(25),
-              child: Image.asset(R.homeProgress),
-            ),
-          ),
-          _bottomView()
-        ],
+        ),
       ),
     );
   }
@@ -188,9 +229,21 @@ class LoanPageApplyLoanWidget extends StatelessWidget {
         width: double.infinity,
         alignment: Alignment.center,
         decoration: BoxDecoration(color: AppColors.mainColor, borderRadius: BorderRadius.all(Radius.circular(10))),
-        child: Text(
-          "Apply Loan",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: [
+            Text(
+              "Apply Loan",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                margin: EdgeInsets.only(right: 20),
+                child: Image.asset(img(R.homeApplyArrow), width: 20, height: 20),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -216,8 +269,7 @@ class LoanPageBottomWidgets extends StatelessWidget {
             ],
           ),
         ),
-        // const SizedBox(height: 10),
-        Image.asset(R.homeLoan),
+        Image.asset(img(R.homeLoan), fit: BoxFit.cover),
       ],
     );
   }
