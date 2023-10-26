@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-17 18:12:07
+ * @LastEditTime: 2023-10-25 16:36:34
  * @FilePath: /loannow/lib/utils/dialog_utils.dart
  */
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class DialogUtils {
               ? null
               : Text(
                   content,
-                  style: const TextStyle(fontSize: 14, color: AppColors.textColorhint),
+                  style: const TextStyle(fontSize: 14, color: AppColors.textColor),
                 ),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           actions: [
@@ -50,7 +50,7 @@ class DialogUtils {
                 padding: const EdgeInsets.all(10),
                 child: Text(
                   cancel ?? "Cancel",
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.primaryColor),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xff7F74EF)),
                 ),
               ),
             ),
@@ -66,7 +66,7 @@ class DialogUtils {
                 padding: const EdgeInsets.all(10),
                 child: Text(
                   confirm ?? "Confirm",
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.primaryColor),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.mainColor),
                 ),
               ),
             ),
