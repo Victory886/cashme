@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-23 10:17:00
+ * @LastEditTime: 2023-10-25 17:02:52
  * @FilePath: /loannow/lib/config/constants.dart
  */
 import 'package:loannow/beans/ip_check_bean.dart';

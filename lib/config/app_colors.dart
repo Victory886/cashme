@@ -2,9 +2,11 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-24 16:27:01
+ * @LastEditTime: 2023-10-25 23:42:01
  * @FilePath: /loannow/lib/config/app_colors.dart
  */
+
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -16,4 +18,17 @@ class AppColors {
 
   /// 按钮的主色调
   static const Color mainColor = Color(0xffFF5400);
+
+  /// 紫色
+  static const Color purpleColor7F = Color(0xff7F74EF);
+}
+
+/// 随机颜色
+Color randomColor() {
+  final Random random = Random();
+  final int red = random.nextInt(256);
+  final int green = random.nextInt(256);
+  final int blue = random.nextInt(256);
+
+  return Color.fromARGB(255, red, green, blue);
 }
