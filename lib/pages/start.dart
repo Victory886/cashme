@@ -28,37 +28,47 @@ class StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
+        alignment: Alignment.center,
         children: [
           FractionallySizedBox(
             widthFactor: 1,
             heightFactor: 1,
-            child: Image.network(
-              "https://img2.baidu.com/it/u=3771882326,1496998912&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=888",
-              fit: BoxFit.fill,
+            child: Image.asset(img(R.appStartImg), fit: BoxFit.cover),
+          ),
+          const Positioned(
+            top: 110,
+            left: 30,
+            child: Text(
+              "Hello!",
+              style: TextStyle(color: Color(0xff232732), fontSize: 30, fontWeight: FontWeight.bold),
             ),
           ),
           Positioned(
-            right: 0,
-            child: InkWell(
-              onTap: goHome,
-              child: SafeArea(
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: const Color(0x55000000),
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Text(
-                    count.toString(),
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
+            bottom: 110,
+            child: Image.asset(img(R.appStartLogoImg)),
           ),
+          // Positioned(
+          //   right: 0,
+          //   child: InkWell(
+          //     onTap: goHome,
+          //     child: SafeArea(
+          //       child: Container(
+          //         width: 40,
+          //         height: 40,
+          //         alignment: Alignment.center,
+          //         margin: const EdgeInsets.all(20),
+          //         decoration: BoxDecoration(
+          //           color: const Color(0x55000000),
+          //           borderRadius: BorderRadius.circular(40),
+          //         ),
+          //         child: Text(
+          //           count.toString(),
+          //           style: const TextStyle(color: Colors.white),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -91,22 +101,24 @@ class StartPageState extends State<StartPage> {
   /// 检测ip地址
   Future<bool> ipCheck() async {
     await DioManager.getInstance().doRequest<IpCheckBean>(
-        path: Urls.CHECK_AREA,
-        method: DioMethod.GET,
-        successCallBack: (result) {
-          Constans.ipCheckBean = result;
-        });
+      path: Urls.CHECK_AREA,
+      method: DioMethod.GET,
+      successCallBack: (result) {
+        Constans.ipCheckBean = result;
+      },
+    );
     return true;
   }
 
   /// 获取配置信息
   Future<bool> getConfig() async {
     await DioManager.getInstance().doRequest<SystemConfigBean>(
-        path: Urls.SYSTEM_CONFIG,
-        method: DioMethod.GET,
-        successCallBack: (result) {
-          Constans.systemConfigBean = result;
-        });
+      path: Urls.SYSTEM_CONFIG,
+      method: DioMethod.GET,
+      successCallBack: (result) {
+        Constans.systemConfigBean = result;
+      },
+    );
     return true;
   }
 
