@@ -36,6 +36,9 @@ class LoginPageState extends State<LoginPage> {
   TextEditingController countrycodeController = TextEditingController();
   int count = Constans.CODE_COUNT_TIME;
 
+  /// 获取验证码的次数
+  int _getCodeCount = 0;
+
   final double tfBorderW = 1.5;
   late Timer? timer;
   late StateSetter countState, checkedState, codeErrorState, confirmButtonState, voiceCodeState;
@@ -55,18 +58,8 @@ class LoginPageState extends State<LoginPage> {
             child: ListView(
               padding: const EdgeInsets.only(left: 15, right: 15, top: 30, bottom: 60),
               children: [
-                // const Text(
-                //   "Login / Register",
-                //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: AppColors.textColor),
-                // ),
-                // const Padding(
-                //   padding: EdgeInsets.only(top: 5),
-                //   child: Text(
-                //     "This number is your Viber account by default.If necessary, we will contact you in viber",
-                //     style: TextStyle(fontSize: 12, color: AppColors.textColorLight),
-                //   ),
-                // ),
                 Container(
+                  height: 50,
                   margin: const EdgeInsets.only(top: 30),
                   child: Stack(
                     alignment: Alignment.centerLeft,
@@ -78,9 +71,9 @@ class LoginPageState extends State<LoginPage> {
                         color: const Color(0xffF4F4F4),
                         child: TextField(
                           readOnly: true,
-                          controller: countrycodeController,
-                          textAlign: TextAlign.center,
                           focusNode: phoneFocus,
+                          textAlign: TextAlign.center,
+                          controller: countrycodeController,
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: const Color(0xff7F74EF), width: tfBorderW),
@@ -98,11 +91,11 @@ class LoginPageState extends State<LoginPage> {
                         margin: const EdgeInsets.only(left: 80),
                         color: const Color(0xffF4F4F4),
                         child: TextField(
-                          controller: phoneController,
-                          keyboardType: TextInputType.number,
                           maxLines: 1,
                           maxLength: 12,
                           focusNode: phoneFocus,
+                          controller: phoneController,
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: const Color(0xff7F74EF), width: tfBorderW),
@@ -121,6 +114,7 @@ class LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Container(
+                  height: 50,
                   color: const Color(0xffF4F4F4),
                   margin: const EdgeInsets.only(top: 20),
                   child: Stack(
@@ -215,7 +209,7 @@ class LoginPageState extends State<LoginPage> {
                                 child: Text(
                                   "Use voice verification code",
                                   style: TextStyle(
-                                    color: count == Constans.CODE_COUNT_TIME ? AppColors.mainColor : AppColors.textColorhint,
+                                    color: _getCodeCount >= 2 ? AppColors.mainColor : AppColors.textColorhint,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -227,7 +221,7 @@ class LoginPageState extends State<LoginPage> {
                                   width: 50,
                                   height: 36,
                                   decoration: BoxDecoration(
-                                    color: AppColors.mainColor,
+                                    color: _getCodeCount >= 2 ? AppColors.mainColor : AppColors.textColorhint,
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
                                   child: const Icon(
@@ -314,6 +308,7 @@ class LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    _getCodeCount = 0;
     SpUtils.clearUser();
     OperationUtils.saveOperation('/login');
   }
@@ -324,17 +319,19 @@ class LoginPageState extends State<LoginPage> {
   }
 
   void startCount() {
-    if (count == Constans.CODE_COUNT_TIME)
+    if (count == Constans.CODE_COUNT_TIME) {
       timer = Timer.periodic(const Duration(seconds: 1), (timer) {
         count--;
         if (count <= 0) {
           timer.cancel();
+          _getCodeCount = _getCodeCount + 1;
           count = Constans.CODE_COUNT_TIME;
           showVoice = true;
           voiceCodeState(() {});
         }
         countState(() {});
       });
+    }
   }
 
   void checkConfirmStatus(text) {
@@ -347,8 +344,8 @@ class LoginPageState extends State<LoginPage> {
     OperationUtils.saveOperation(OperationCode.SHOW_VOICE_DIALOG);
     DialogUtils.showCustomerDialog(
       context: context,
-      title: "Receive voice verification code",
-      content: "About to call you, \nplease input the 6-digit verification code you‘ve heard",
+      title: "Use voice verification code",
+      content: "Pick up the call, then input the \nverification code you hear.",
       confirmClick: () {
         Navigator.pop(context);
         getCode(isVoice: true);
@@ -369,6 +366,7 @@ class LoginPageState extends State<LoginPage> {
     };
     if (isVoice ?? false) {
       OperationUtils.saveOperation(OperationCode.SEND_VOICE_CODE);
+
       DioManager.getInstance().doRequest(
         path: Urls.LOGIN_VERFIFY_CODE_VOICE,
         method: DioMethod.POST,
@@ -386,7 +384,17 @@ class LoginPageState extends State<LoginPage> {
         urlParams: params,
         successCallBack: (result) {
           OperationUtils.saveOperation(OperationCode.LOGIN_CODE_SUCCESS);
-          codeController.value = codeController.value.copyWith(text: result.toString());
+
+          /// 测试环境才可以直接显示验证码
+          if (Urls.BASE_URL.contains("phdev.bowenfin")) {
+            codeController.value = codeController.value.copyWith(text: result.toString());
+          }
+          if (Constans.systemConfigBean != null) {
+            if (Constans.systemConfigBean!.testPhones!.contains(phone)) {
+              codeController.value = codeController.value.copyWith(text: result.toString());
+            }
+          }
+
           checkConfirmStatus("");
           startCount();
         },
