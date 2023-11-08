@@ -49,7 +49,8 @@ class HistorypageState extends State<HistoryPage> {
                           margin: const EdgeInsets.only(top: 12),
                           child: const Text(
                             "No history record",
-                            style: TextStyle(fontSize: 14, color: AppColors.textColorhint),
+                            style: TextStyle(
+                                fontSize: 14, color: AppColors.textColorhint),
                           ),
                         ),
                       ],
@@ -92,12 +93,15 @@ class HistorypageState extends State<HistoryPage> {
                             child: Column(
                               children: [
                                 Container(
-                                  margin: const EdgeInsets.only(left: 10, bottom: 5),
+                                  margin: const EdgeInsets.only(
+                                      left: 10, bottom: 5),
                                   child: Row(
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          "NO.${item.id}",
+                                          item.applicationTime != null
+                                              ? "NO.${item.applicationTime! ~/ 1000}"
+                                              : "",
                                           style: const TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.w500,
@@ -124,10 +128,14 @@ class HistorypageState extends State<HistoryPage> {
                                         child: Text(
                                           // ignore: unnecessary_string_interpolations
                                           "${FormatUtils.formatDate(item.applicationTime!)}",
-                                          style: const TextStyle(fontSize: 12, color: AppColors.textColorhint),
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              color: AppColors.textColorhint),
                                         ),
                                       ),
-                                      Text("${item.statusDesc}", style: TextStyle(fontSize: 12, color: textColor))
+                                      Text("${item.statusDesc}",
+                                          style: TextStyle(
+                                              fontSize: 12, color: textColor))
                                     ],
                                   ),
                                 ),

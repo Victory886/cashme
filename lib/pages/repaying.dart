@@ -17,7 +17,9 @@ class RepayingPage extends StatefulWidget {
     return RepayingPageState();
   }
 
-  RepayingPage({Key? key, required this.refreshClick, required this.application}) : super(key: key);
+  RepayingPage(
+      {Key? key, required this.refreshClick, required this.application})
+      : super(key: key);
 }
 
 class RepayingPageState extends State<RepayingPage> {
@@ -34,7 +36,10 @@ class RepayingPageState extends State<RepayingPage> {
               child: Container(
                 decoration: const BoxDecoration(
                   border: Border(
-                    bottom: BorderSide(color: Color(0xFFE9E9E9), width: 0.5, style: BorderStyle.solid),
+                    bottom: BorderSide(
+                        color: Color(0xFFE9E9E9),
+                        width: 0.5,
+                        style: BorderStyle.solid),
                   ),
                 ),
                 height: 45,
@@ -62,7 +67,10 @@ class RepayingPageState extends State<RepayingPage> {
                           "No.${widget.application.id}",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: AppColors.textColor),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: AppColors.textColor),
                         ),
                       ),
                     ),

@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-13 16:29:57
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-23 14:10:06
+ * @LastEditTime: 2023-11-03 10:42:03
  * @FilePath: /loannow/lib/utils/device_utils.dart
  */
 import 'dart:io';
@@ -31,6 +31,10 @@ class DeviceUtils {
       }
     }
     return referrer ?? "";
+  }
+
+  static Future<String> getAppVersion() async {
+    return await FlutterDeviceCore().getPlatformVersion() ?? "1.0.0";
   }
 
   static Future<String> getDeviceInfo() async {
@@ -69,8 +73,18 @@ class DeviceUtils {
   }
 
   ///
-  static Future<String> takeIDImage() async {
-    var image = await FlutterDeviceCore().takeIDImage();
+  static Future<String> takeIDImage(bool faceID) async {
+    var image = await FlutterDeviceCore().takeIDImage(faceID);
+    return image ?? "";
+  }
+
+  static Future<String> gotoAppSystemSetting() async {
+    var image = await FlutterDeviceCore().gotoAppSystemSetting();
+    return image ?? "";
+  }
+
+  static Future<String> openUrlInner(String? url) async {
+    var image = await FlutterDeviceCore().openUrlInner(url);
     return image ?? "";
   }
 }

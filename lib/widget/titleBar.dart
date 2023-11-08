@@ -2,10 +2,11 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-25 18:08:43
+ * @LastEditTime: 2023-11-07 18:25:00
  * @FilePath: /loannow/lib/widget/titleBar.dart
  */
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loannow/config/app_colors.dart';
 
 class TitleBar extends StatefulWidget {
@@ -68,12 +69,22 @@ class TitleBarState extends State<TitleBar> {
 
   @override
   Widget build(BuildContext context) {
+    // 手动设置状态栏颜色
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.blue, // 设置状态栏颜色
+      statusBarIconBrightness: Brightness.light, // 设置状态栏时间和电池图标的颜色为深色
+    ));
+
     return AppBar(
       title: Text(
         widget.title,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: widget.textColor ?? AppColors.textColor),
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 16,
+          color: widget.textColor ?? AppColors.textColor,
+        ),
       ),
       elevation: (widget.isShowNaviBottomLine ?? true) ? 0.3 : 0,
       leading: _navBackWiget(),

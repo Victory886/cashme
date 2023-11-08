@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loannow/beans/ip_check_bean.dart';
 import 'package:loannow/beans/system_config_bean.dart';
 import 'package:loannow/config/constants.dart';
@@ -40,7 +41,10 @@ class StartPageState extends State<StartPage> {
             left: 30,
             child: Text(
               "Hello!",
-              style: TextStyle(color: Color(0xff232732), fontSize: 30, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Color(0xff232732),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           Positioned(

@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-20 16:23:50
+ * @LastEditTime: 2023-11-07 10:34:53
  * @FilePath: /loannow/lib/pages/web.dart
  */
 import 'dart:collection';
@@ -14,8 +14,15 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:loannow/utils/js_utils.dart';
 import 'package:loannow/widget/titleBar.dart';
 
+import '../utils/js_utils.dart';
+
 class WebPage extends StatefulWidget {
-  const WebPage({super.key});
+  WebPage({
+    Key? key,
+    this.urlStr,
+  }) : super(key: key);
+
+  String? urlStr = "";
 
   @override
   State<StatefulWidget> createState() {
@@ -38,8 +45,15 @@ class WebPageState extends State<WebPage> {
   late bool showTitle;
   @override
   Widget build(BuildContext context) {
-    var arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    if (arguments.containsKey("showTitle")) showTitle = arguments['showTitle'] as bool;
+    dynamic arguments;
+    if (widget.urlStr == null) {
+      arguments = ModalRoute.of(context)?.settings.arguments as Map;
+      if (arguments.containsKey("showTitle")) {
+        showTitle = arguments['showTitle'] as bool;
+      }
+    } else {
+      showTitle = false;
+    }
     return Scaffold(
       body: Column(
         children: [
@@ -73,7 +87,16 @@ class WebPageState extends State<WebPage> {
               },
               onWebViewCreated: (controller) {
                 webViewController = controller;
-                Uri uri = Uri.parse(arguments['url']);
+                int time = DateTime.now().millisecondsSinceEpoch;
+                String url = widget.urlStr ?? arguments["url"];
+                if (!url.contains(".html")) {
+                  url = "$url/?t=$time";
+                }
+
+                debugPrint("Terry-----web----调用了----$url");
+                Uri uri = widget.urlStr != null
+                    ? Uri.parse(widget.urlStr ?? "")
+                    : Uri.parse(url);
                 webViewController.loadUrl(urlRequest: URLRequest(url: uri));
 
                 webViewController.addJavaScriptHandler(
@@ -88,13 +111,18 @@ class WebPageState extends State<WebPage> {
                     List list = json.decode(msg);
                     for (var element in list) {
                       Map<String, dynamic> dict = element;
-                      Map<String, dynamic> resMap = await H5ToFlutterMethodHandler.handleH5ToNativeMessage(controller, dict, "call", context);
+                      Map<String, dynamic> resMap =
+                          await H5ToFlutterMethodHandler
+                              .handleH5ToNativeMessage(
+                                  controller, dict, "call", context);
                       return resMap;
                     }
-                    // JSUtils.handleJSCall(webViewController, msg, context);
                   },
                 );
               },
+              initialOptions: InAppWebViewGroupOptions(
+                ios: IOSInAppWebViewOptions(),
+              ),
             ),
           ),
         ],

@@ -1,4 +1,6 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_device_core/flutter_device_core.dart';
 import 'package:loannow/beans/system_config_bean.dart';
 import 'package:loannow/beans/user_info_bean.dart';
 import 'package:loannow/config/app_colors.dart';
@@ -9,6 +11,7 @@ import 'package:loannow/config/urls.dart';
 import 'package:loannow/utils/operation_utils.dart';
 import 'package:loannow/utils/phone_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'coupon_alert_view.dart';
 
@@ -36,9 +39,11 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
             child: Image.asset(img(R.meTopBG), fit: BoxFit.fill),
           ),
           Container(
-            margin: EdgeInsets.only(bottom: tabbarHeight + Device.appBottomPadding(context)),
+            margin: EdgeInsets.only(
+                bottom: tabbarHeight + Device.appBottomPadding(context)),
             child: ListView(
-              padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 35),
+              padding: const EdgeInsets.only(
+                  left: 15, right: 15, top: 5, bottom: 35),
               children: [
                 SafeArea(
                   child: Row(
@@ -51,13 +56,16 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                           children: [
                             const Text(
                               "LoanNow",
-                              style: TextStyle(fontSize: 20, color: AppColors.textColor),
+                              style: TextStyle(
+                                  fontSize: 20, color: AppColors.textColor),
                             ),
                             Container(
                               margin: const EdgeInsets.only(top: 2),
                               child: const Text(
                                 "Personal line of credit",
-                                style: TextStyle(fontSize: 12, color: AppColors.textColorLight),
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: AppColors.textColorLight),
                               ),
                             ),
                           ],
@@ -83,7 +91,10 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                       phoneState = setState;
                       return Text(
                         "Hi.$phone",
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: AppColors.textColor),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: AppColors.textColor),
                       );
                     },
                   ),
@@ -92,7 +103,8 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                   margin: const EdgeInsets.only(bottom: 25),
                   child: const Text(
                     "Welcome to LoanNow",
-                    style: TextStyle(fontSize: 14, color: AppColors.textColorLight),
+                    style: TextStyle(
+                        fontSize: 14, color: AppColors.textColorLight),
                   ),
                 ),
                 buildItem(
@@ -102,11 +114,37 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                     Navigator.pushNamed(context, RouterNames.HISTORY);
                   },
                 ),
-                buildItem(img(R.meCoupon), "Coupon", () {}),
+                buildItem(img(R.meCoupon), "Coupon", () {
+                  Navigator.pushNamed(
+                    context,
+                    RouterNames.WEB,
+                    arguments: {
+                      'url': WebPageUrl.couponUrl,
+                      'showTitle': false
+                    },
+                  );
+                }),
                 // buildItem(img(R.meInApp), "In-app Enquire", () {}),
                 buildItem(img(R.meHotline), "Hotline", showHotlineDialog),
-                buildItem(img(R.meMessenger), "Messenger", () {
-                  showDialogFunction(context);
+                buildItem(img(R.meMessenger), "Messenger", () async {
+                  // showDialogFunction(context);
+                  if (Constans.systemConfigBean?.dictInfo?.messagerAccount !=
+                      null) {
+                    String? urlScheme =
+                        Constans.systemConfigBean?.dictInfo?.messagerAccount;
+                    debugPrint("Messenger = $urlScheme");
+                    if (urlScheme != null && urlScheme.isNotEmpty) {
+                      Uri url =
+                          Uri.parse("fb-messenger://user-thread/$urlScheme");
+                      bool canOpen = await canLaunchUrl(url);
+                      if (canOpen) {
+                        launchUrl(url);
+                      }
+                    } else {
+                      BotToast.showText(
+                          text: "The messenger app is not installed");
+                    }
+                  }
                 }),
                 buildItem(
                   img(R.mePrivacy),
@@ -115,7 +153,10 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                     Navigator.pushNamed(
                       context,
                       RouterNames.WEB,
-                      arguments: {'url': Urls.WEB_URL_LOAN, 'showTitle': true},
+                      arguments: {
+                        'url': Urls.WEB_URL_PRIVACY,
+                        'showTitle': true
+                      },
                     );
                   },
                 ),
@@ -159,7 +200,8 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                   margin: const EdgeInsets.only(left: 10),
                   child: Text(
                     text,
-                    style: const TextStyle(color: AppColors.textColor, fontSize: 16),
+                    style: const TextStyle(
+                        color: AppColors.textColor, fontSize: 16),
                   ),
                 ),
               ),
@@ -210,12 +252,14 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                 children: [
                   Text(
                     phones.phoneChannel ?? '',
-                    style: const TextStyle(fontSize: 16, color: AppColors.textColorhint),
+                    style: const TextStyle(
+                        fontSize: 16, color: AppColors.textColorhint),
                   ),
                   const Expanded(child: SizedBox.shrink()),
                   Text(
                     phones.phone ?? '',
-                    style: const TextStyle(fontSize: 16, color: Color(0XFF30C67F)),
+                    style:
+                        const TextStyle(fontSize: 16, color: Color(0XFF30C67F)),
                   ),
                 ],
               ),

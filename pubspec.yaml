@@ -46,12 +46,13 @@ dependencies:
   encrypt: ^5.0.1
   facebook_app_events: ^0.17.0
 
-  flutter_device_core:
-    git:
-      url: git@codeup.aliyun.com:60b71d6d66bba1c04b443900/jiaozifin/PH/flutter/device_core.git
-      ref: master
   # flutter_device_core:
-  #   path: /Users/baoshengli/Documents/Quark/Philippines/Flutter/CashmeFlutter/device_core
+  #   git:
+  #     url: git@codeup.aliyun.com:60b71d6d66bba1c04b443900/jiaozifin/PH/flutter/device_core.git
+  #     ref: master
+  flutter_device_core:
+    path: ../device_core
+  marquee: ^2.2.3
 
 
 dev_dependencies:
@@ -81,6 +82,7 @@ flutter:
     - images/
     - images/me/
     - images/home/
+    - images/login/
     - images/tabbar/
 #     - images/a_dot_ham.jpeg
 

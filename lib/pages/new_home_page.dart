@@ -2,11 +2,13 @@
  * @Author: Terry
  * @Date: 2023-10-18 17:28:58
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-23 14:12:23
+ * @LastEditTime: 2023-11-06 17:30:20
  * @FilePath: /loannow/lib/pages/new_home_page.dart
  */
 
 import 'package:flutter/material.dart';
+import 'package:loannow/config/app_config.dart';
+import 'package:loannow/pages/web.dart';
 
 import '../config/urls.dart';
 import '../utils/sp_utils.dart';
@@ -29,7 +31,8 @@ class NewHomePage extends StatefulWidget {
   State<NewHomePage> createState() => NewHomePageState();
 }
 
-class NewHomePageState extends State<NewHomePage> with AutomaticKeepAliveClientMixin {
+class NewHomePageState extends State<NewHomePage>
+    with AutomaticKeepAliveClientMixin {
   bool showLoading = true;
   late StateSetter pageState;
   ApplicationBean? applicationBean;
@@ -52,10 +55,15 @@ class NewHomePageState extends State<NewHomePage> with AutomaticKeepAliveClientM
                 return const SizedBox.shrink();
               } else {
                 if (applicationBean != null) {
-                  if (ApplicationStatusUtils.isRepay(applicationBean!.status!)) {
-                    return RepayingPage(
-                      refreshClick: getLatestApplication,
-                      application: applicationBean!,
+                  if (ApplicationStatusUtils.isRepay(
+                      applicationBean!.status!)) {
+                    // return RepayingPage(
+                    //   refreshClick: getLatestApplication,
+                    //   application: applicationBean!,
+                    // );
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: tabbarHeight),
+                      child: WebPage(urlStr: WebPageUrl.repayUrl),
                     );
                   }
                   return OrderStatusPage(
@@ -91,7 +99,8 @@ class NewHomePageState extends State<NewHomePage> with AutomaticKeepAliveClientM
       pageState(() {});
       return;
     }
-    Future.wait([getLatestApplication(isInit: true), getBasisInfo()]).then((results) => {showLoading = false, pageState(() {})});
+    Future.wait([getLatestApplication(isInit: true), getBasisInfo()])
+        .then((results) => {showLoading = false, pageState(() {})});
   }
 
   Future<void> finishiOrder() async {

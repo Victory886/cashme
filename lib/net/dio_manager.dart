@@ -32,6 +32,7 @@ class DioManager {
     var headers = {
       "Access-Control-Allow-Origin": "*",
       "version": AppConfig.APP_VERSION,
+      // "version": DeviceUtils.getAppVersion() as String,
       "packet_name": AppConfig.APP_PACKAGE,
       "appId": AppConfig.APP_ID,
       "loginPlatform": AppConfig.APP_LOGIN_PLATFORM,

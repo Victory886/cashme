@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loannow/beans/login_info_bean.dart';
 import 'package:loannow/beans/user_info_bean.dart';
 import 'package:loannow/config/app_colors.dart';
@@ -22,6 +23,8 @@ import 'package:loannow/widget/titleBar.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return LoginPageState();
@@ -29,7 +32,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
-  bool checked = false, codeError = false, confirmButtonDisable = true, showVoice = false;
+  bool checked = false,
+      codeError = false,
+      confirmButtonDisable = true,
+      showVoice = false;
   FocusNode phoneFocus = FocusNode();
   TextEditingController phoneController = TextEditingController();
   TextEditingController codeController = TextEditingController();
@@ -41,7 +47,11 @@ class LoginPageState extends State<LoginPage> {
 
   final double tfBorderW = 1.5;
   late Timer? timer;
-  late StateSetter countState, checkedState, codeErrorState, confirmButtonState, voiceCodeState;
+  late StateSetter countState,
+      checkedState,
+      codeErrorState,
+      confirmButtonState,
+      voiceCodeState;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +66,8 @@ class LoginPageState extends State<LoginPage> {
           ),
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.only(left: 15, right: 15, top: 30, bottom: 60),
+              padding: const EdgeInsets.only(
+                  left: 15, right: 15, top: 30, bottom: 60),
               children: [
                 Container(
                   height: 50,
@@ -68,22 +79,32 @@ class LoginPageState extends State<LoginPage> {
                         width: 70,
                         height: 60,
                         alignment: Alignment.center,
+                        // color: randomColor(),
                         color: const Color(0xffF4F4F4),
                         child: TextField(
                           readOnly: true,
                           focusNode: phoneFocus,
                           textAlign: TextAlign.center,
                           controller: countrycodeController,
+                          textAlignVertical: TextAlignVertical.bottom,
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: const Color(0xff7F74EF), width: tfBorderW),
+                              borderSide: BorderSide(
+                                  color: const Color(0xff7F74EF),
+                                  width: tfBorderW),
                             ),
                             enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent, width: 0),
+                              borderSide: BorderSide(
+                                width: 0,
+                                color: Colors.transparent,
+                              ),
                             ),
                             counterText: '',
                             hintText: "+63",
-                            hintStyle: const TextStyle(fontSize: 16, color: Color(0xff333333)),
+                            hintStyle: const TextStyle(
+                              fontSize: 16,
+                              color: Color(0xff333333),
+                            ),
                           ),
                         ),
                       ),
@@ -96,16 +117,24 @@ class LoginPageState extends State<LoginPage> {
                           focusNode: phoneFocus,
                           controller: phoneController,
                           keyboardType: TextInputType.number,
+                          textAlignVertical: TextAlignVertical.bottom,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: const Color(0xff7F74EF), width: tfBorderW),
+                              borderSide: BorderSide(
+                                  color: const Color(0xff7F74EF),
+                                  width: tfBorderW),
                             ),
                             enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent, width: 0),
+                              borderSide: BorderSide(
+                                  color: Colors.transparent, width: 0),
                             ),
                             counterText: '',
                             hintText: "Enter your phone number",
-                            hintStyle: const TextStyle(color: Color(0xFF333333), fontSize: 14),
+                            hintStyle: const TextStyle(
+                                color: Color(0xFF333333), fontSize: 14),
                           ),
                           onChanged: checkConfirmStatus,
                         ),
@@ -122,19 +151,28 @@ class LoginPageState extends State<LoginPage> {
                     children: [
                       TextField(
                         keyboardType: TextInputType.number,
-                        controller: codeController,
                         maxLines: 1,
                         maxLength: 4,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        controller: codeController,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: const Color(0xff7F74EF), width: tfBorderW),
+                            borderSide: BorderSide(
+                              color: const Color(0xff7F74EF),
+                              width: tfBorderW,
+                            ),
                           ),
                           enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.dividerColor, width: 0),
+                            borderSide: BorderSide(
+                                color: AppColors.dividerColor, width: 0),
                           ),
-                          errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                          errorBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red)),
                           counterText: '',
-                          hintStyle: const TextStyle(color: Color(0xFF999999), fontSize: 14),
+                          hintStyle: const TextStyle(
+                              color: Color(0xFF999999), fontSize: 14),
                           hintText: "verification code",
                         ),
                         onChanged: checkConfirmStatus,
@@ -153,11 +191,16 @@ class LoginPageState extends State<LoginPage> {
                                 decoration: BoxDecoration(
                                   color: const Color(0xff7F74EF),
                                   borderRadius: BorderRadius.circular(5.0),
-                                  border: Border.all(color: Colors.transparent, width: 0),
+                                  border: Border.all(
+                                      color: Colors.transparent, width: 0),
                                 ),
                                 child: Text(
-                                  count == Constans.CODE_COUNT_TIME ? "Send" : "${count}s",
-                                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                                  count == Constans.CODE_COUNT_TIME
+                                      ? "Send"
+                                      : "${count}s",
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
                             );
@@ -209,7 +252,9 @@ class LoginPageState extends State<LoginPage> {
                                 child: Text(
                                   "Use voice verification code",
                                   style: TextStyle(
-                                    color: _getCodeCount >= 2 ? AppColors.mainColor : AppColors.textColorhint,
+                                    color: _getCodeCount >= 2
+                                        ? AppColors.mainColor
+                                        : AppColors.textColorhint,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -221,13 +266,12 @@ class LoginPageState extends State<LoginPage> {
                                   width: 50,
                                   height: 36,
                                   decoration: BoxDecoration(
-                                    color: _getCodeCount >= 2 ? AppColors.mainColor : AppColors.textColorhint,
+                                    color: _getCodeCount >= 2
+                                        ? AppColors.mainColor
+                                        : const Color(0xffD5D5D5),
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
-                                  child: const Icon(
-                                    Icons.message_sharp,
-                                    color: Colors.white,
-                                  ),
+                                  child: Image.asset(img(R.loginVoice)),
                                 ),
                               ),
                             ],
@@ -268,7 +312,9 @@ class LoginPageState extends State<LoginPage> {
                             builder: (context, setState) {
                               checkedState = setState;
                               return Image.asset(
-                                checked ? "images/ic_checked.png" : "images/ic_check.png",
+                                checked
+                                    ? "images/ic_checked.png"
+                                    : "images/ic_check.png",
                                 width: 20,
                               );
                             },
@@ -277,16 +323,24 @@ class LoginPageState extends State<LoginPage> {
                         RichText(
                           text: TextSpan(
                             children: [
-                              const TextSpan(text: "Read and agree", style: TextStyle(color: Color(0xFF999999), fontSize: 12)),
+                              const TextSpan(
+                                text: "Read and agree",
+                                style: TextStyle(
+                                    color: Color(0xFF999999), fontSize: 12),
+                              ),
                               TextSpan(
                                 text: " Privacy Policy",
-                                style: const TextStyle(color: AppColors.mainColor),
+                                style:
+                                    const TextStyle(color: AppColors.mainColor),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     Navigator.pushNamed(
                                       context,
                                       RouterNames.WEB,
-                                      arguments: {'url': Urls.WEB_URL_PRIVACY, "showTitle": true},
+                                      arguments: {
+                                        'url': Urls.WEB_URL_PRIVACY,
+                                        "showTitle": true
+                                      },
                                     );
                                   },
                               ),
@@ -335,12 +389,14 @@ class LoginPageState extends State<LoginPage> {
   }
 
   void checkConfirmStatus(text) {
-    confirmButtonDisable = phoneController.text.length < 10 || codeController.text.length < 4;
+    confirmButtonDisable =
+        phoneController.text.length < 10 || codeController.text.length < 4;
     confirmButtonState(() {});
   }
 
   void showVoiceDialog() {
     if (count != Constans.CODE_COUNT_TIME) return;
+    if (_getCodeCount < 2) return;
     OperationUtils.saveOperation(OperationCode.SHOW_VOICE_DIALOG);
     DialogUtils.showCustomerDialog(
       context: context,
@@ -387,11 +443,13 @@ class LoginPageState extends State<LoginPage> {
 
           /// 测试环境才可以直接显示验证码
           if (Urls.BASE_URL.contains("phdev.bowenfin")) {
-            codeController.value = codeController.value.copyWith(text: result.toString());
+            codeController.value =
+                codeController.value.copyWith(text: result.toString());
           }
           if (Constans.systemConfigBean != null) {
             if (Constans.systemConfigBean!.testPhones!.contains(phone)) {
-              codeController.value = codeController.value.copyWith(text: result.toString());
+              codeController.value =
+                  codeController.value.copyWith(text: result.toString());
             }
           }
 
@@ -461,7 +519,7 @@ class LoginPageState extends State<LoginPage> {
       showErrorMsg: false,
       successCallBack: (result) {
         if (result != null) {
-          SpUtils.saveToken(result!.token!).then((value) => getUserInfo());
+          SpUtils.saveToken(result.token!).then((value) => getUserInfo());
           SpUtils.saveLoginInfo(result);
           if (result.newUser ?? false) {
             OperationUtils.saveOperation(OperationCode.REGIST);
@@ -479,7 +537,7 @@ class LoginPageState extends State<LoginPage> {
     return success;
   }
 
-  Future<String?> getDeviceInfo() async {
+  Future<String> getDeviceInfo() async {
     var deviceInfo = await DeviceUtils.getDeviceInfo();
     return deviceInfo;
   }
@@ -496,11 +554,14 @@ class LoginPageState extends State<LoginPage> {
   }
 
   void goHome(bool loginSuccess) {
-    Navigator.pushNamedAndRemoveUntil(context, RouterNames.HOME, (route) => false, arguments: {"loginSuccess": loginSuccess});
+    Navigator.pushNamedAndRemoveUntil(
+        context, RouterNames.HOME, (route) => false,
+        arguments: {"loginSuccess": loginSuccess});
   }
 
   void showPermissionDialog() {
-    DialogUtils.showCustomerDialog(context: context, content: "Permission denied");
+    DialogUtils.showCustomerDialog(
+        context: context, content: "Permission denied");
   }
 
   @override

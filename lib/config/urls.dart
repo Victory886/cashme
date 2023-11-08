@@ -4,14 +4,17 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-26 16:03:06
+ * @LastEditTime: 2023-11-07 11:23:42
  * @FilePath: /loannow/lib/config/urls.dart
  */
 class Urls {
   static String BASE_URL = "http://api.cashloan.phdev.bowenfin.com/";
-  static String WEB_URL_LOAN = "http://www.phdev.bowenfin.com/madaPh/PrivacyPolicy.html";
-  static String WEB_URL_PRIVACY = "http://cashme.ph/app/cashme/https/PrivacyPolicy.html";
-  static String WEB_URL_REPAY = "http://mgr.cashloan.phdev.bowenfin.com/openapi/application/repayment-url/Mz09&LOdxHIQ/";
+  static String WEB_URL_LOAN =
+      "http://www.phdev.bowenfin.com/madaPh/PrivacyPolicy.html";
+  static String WEB_URL_PRIVACY =
+      "http://cashme.ph/app/cashme/https/PrivacyPolicy.html";
+  static String WEB_URL_REPAY =
+      "http://mgr.cashloan.phdev.bowenfin.com/openapi/application/repayment-url/Mz09&LOdxHIQ/";
 
   static String LOGIN_VERFIFY_CODE = "login/requestVerifyCode";
   static String LOGIN_VERFIFY_CODE_VOICE = "login/requestVoiceVerifyCode";
@@ -38,6 +41,9 @@ class Urls {
   static String SMS_LIST_SAVE = "personalNoteRecord/save";
   static String CONTACT_LIST_SAVE = "personalContact/save";
 
+  /// 是否可以修改渠道
+  static String PAYMENTCHANNELCHG = "paymentChannelChg/queryApplicationChgInfo";
+
   /// 跑马灯
   static String MARQUEES = "marquees";
 
@@ -45,11 +51,13 @@ class Urls {
   static String BASIS_INFO_UPLOADSIGN = "basisInfo/personalInfoUploadSign";
 
   /// 检查提前跑特征结果
-  static String APPLICATION_CHECK_BEFORE_FEATURE = "application/checkBeforeFeature";
+  static String APPLICATION_CHECK_BEFORE_FEATURE =
+      "application/checkBeforeFeature";
 }
 
 class WebPageUrl {
-  static String baseUrl = "http://madaloan-ios.cashloan.phdev.bowenfin.com";
+  static String baseUrl = "http://cashmepera-phdev.bowenfin.com";
+  // static String baseUrl = "http://192.168.200.171:8000";
 
   /// 基本信息页面地址
   static String applyStepBasalUrl = "$baseUrl/apply-step/basal";
@@ -59,6 +67,21 @@ class WebPageUrl {
 
   /// 客服页面
   static String csUrl = "$baseUrl/customer-service";
+
+  /// 修改手机号页面
+  static String changePhoneUrl = "$baseUrl/changePhone";
+
+  /// 优惠卷页面
+  static String couponUrl = "$baseUrl/coupon";
+
+  /// 客服页面
+  static String middleUrl = "$baseUrl/middle";
+
+  /// 还款中页面
+  static String repayUrl = "$baseUrl/home/loan/repay";
+
+  /// 渠道页面
+  static String withdrawalUrl = "$baseUrl/apply-step/withdrawal";
 }
 
 class R {
@@ -111,6 +134,9 @@ class R {
 
   /// 顶部背景图片
   static String meTopBG = "images/me/mine_bg";
+
+  /// 登录页面语音图片
+  static String loginVoice = "images/login/voice";
 }
 
 String img(String imageName) {

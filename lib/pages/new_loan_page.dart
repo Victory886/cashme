@@ -4,7 +4,7 @@
  * @Author: Terry
  * @Date: 2023-10-19 09:48:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-26 14:45:17
+ * @LastEditTime: 2023-11-03 18:11:19
  * @FilePath: /loannow/lib/pages/new_loan_page.dart
  */
 
@@ -13,8 +13,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:loannow/config/app_colors.dart';
 import 'package:loannow/config/app_config.dart';
+import 'package:marquee/marquee.dart';
 
-import '../beans/loan_history_bean.dart';
+// import 'package:marquee/marquee.dart';
+
 import '../config/router_names.dart';
 import '../config/urls.dart';
 import '../net/dio_manager.dart';
@@ -66,7 +68,14 @@ class _NewLoanPageState extends State<NewLoanPage> {
           Navigator.pushNamed(
             context,
             RouterNames.WEB,
-            arguments: {'url': WebPageUrl.applyStepBasalUrl, 'showTitle': false},
+            arguments: {
+              'url': WebPageUrl.applyStepBasalUrl,
+              'showTitle': false
+            },
+            // arguments: {
+            //   'url': WebPageUrl.baseUrl + "?t=123453232323236",
+            //   'showTitle': false
+            // },
           )
 
         // var aa = await Navigator.pushNamed(context, RouterNames.CAMERA);
@@ -119,7 +128,8 @@ class _NewLoanPageState extends State<NewLoanPage> {
           ),
         ),
         child: Container(
-          margin: EdgeInsets.only(bottom: tabbarHeight + Device.appBottomPadding(context)),
+          margin: EdgeInsets.only(
+              bottom: tabbarHeight + Device.appBottomPadding(context)),
           child: Column(
             children: [
               Expanded(
@@ -137,22 +147,44 @@ class _NewLoanPageState extends State<NewLoanPage> {
                         children: [
                           Text(
                             "Hello!",
-                            style: TextStyle(color: Color(0xff232732), fontWeight: FontWeight.normal, fontSize: 20),
+                            style: TextStyle(
+                                color: Color(0xff232732),
+                                fontWeight: FontWeight.normal,
+                                fontSize: 20),
                           ),
                           SizedBox(width: 15),
                           Text(
                             "Cashme Pera PH",
-                            style: TextStyle(color: Color(0xff232732), fontWeight: FontWeight.bold, fontSize: 20),
+                            style: TextStyle(
+                                color: Color(0xff232732),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
-                      Container(
-                        alignment: Alignment.center,
+                      // SizedBox(height: 10),
+                      SizedBox(
+                        height: 30,
                         child: StatefulBuilder(
                           builder: (context, setState) {
                             marqueeListState = setState;
-                            return MarqueeView(child: _buildText(marqueeStr));
+                            if (marqueeList.isEmpty) {
+                              return Container();
+                            } else {
+                              return Marquee(
+                                text: marqueeStr,
+                                velocity: 10.0,
+                                blankSpace: 20.0,
+                                startPadding: 15.0,
+                                scrollAxis: Axis.horizontal,
+                                accelerationCurve: Curves.linear,
+                                decelerationCurve: Curves.easeOut,
+                                // pauseAfterRound: Duration(seconds: 1),
+                                // accelerationDuration: Duration(seconds: 1),
+                                decelerationDuration:
+                                    Duration(milliseconds: 500),
+                              );
+                            }
                           },
                         ),
                       ),
@@ -179,13 +211,18 @@ class _NewLoanPageState extends State<NewLoanPage> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Container(
-                          margin: EdgeInsets.only(bottom: Device.appBottomPadding(context) == 0 ? 3 : 5),
+                          margin: EdgeInsets.only(
+                              bottom: Device.appBottomPadding(context) == 0
+                                  ? 3
+                                  : 5),
                           child: Text(
                             "₱",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: AppColors.mainColor,
-                              fontSize: Device.appBottomPadding(context) == 0 ? 16 : 22,
+                              fontSize: Device.appBottomPadding(context) == 0
+                                  ? 16
+                                  : 22,
                             ),
                           ),
                         ),
@@ -194,7 +231,8 @@ class _NewLoanPageState extends State<NewLoanPage> {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: AppColors.mainColor,
-                            fontSize: Device.appBottomPadding(context) == 0 ? 28 : 34,
+                            fontSize:
+                                Device.appBottomPadding(context) == 0 ? 28 : 34,
                           ),
                         ),
                       ],
@@ -228,19 +266,25 @@ class LoanPageApplyLoanWidget extends StatelessWidget {
         height: 54,
         width: double.infinity,
         alignment: Alignment.center,
-        decoration: BoxDecoration(color: AppColors.mainColor, borderRadius: BorderRadius.all(Radius.circular(10))),
+        decoration: BoxDecoration(
+            color: AppColors.mainColor,
+            borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Stack(
           alignment: AlignmentDirectional.center,
           children: [
             Text(
               "Apply Loan",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
             Align(
               alignment: Alignment.centerRight,
               child: Container(
                 margin: EdgeInsets.only(right: 20),
-                child: Image.asset(img(R.homeApplyArrow), width: 20, height: 20),
+                child:
+                    Image.asset(img(R.homeApplyArrow), width: 20, height: 20),
               ),
             ),
           ],
@@ -290,12 +334,18 @@ class RateItemWidget extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
-        decoration: BoxDecoration(color: Color(0xff000000).withAlpha(30), borderRadius: BorderRadius.all(Radius.circular(27))),
+        decoration: BoxDecoration(
+            color: Color(0xff000000).withAlpha(30),
+            borderRadius: BorderRadius.all(Radius.circular(27))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(title, style: TextStyle(color: Colors.white70, fontSize: 12)),
-            Text(contact, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+            Text(contact,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
       ),
@@ -321,7 +371,8 @@ class MarqueeView extends StatefulWidget {
   _MarqueeViewState createState() => _MarqueeViewState();
 }
 
-class _MarqueeViewState extends State<MarqueeView> with SingleTickerProviderStateMixin {
+class _MarqueeViewState extends State<MarqueeView>
+    with SingleTickerProviderStateMixin {
   bool _validFlag = true;
   double _boxWidth = 0;
   final ScrollController _controller = ScrollController();
@@ -371,7 +422,9 @@ class _MarqueeViewState extends State<MarqueeView> with SingleTickerProviderStat
       // 两个方向: Curves.easeIn 和 Curves.easeOut 。
       await _controller.animateTo(
         _controller.position.maxScrollExtent,
-        duration: Duration(seconds: (_controller.position.maxScrollExtent / widget.scrollSpeed).floor()),
+        duration: Duration(
+            seconds: (_controller.position.maxScrollExtent / widget.scrollSpeed)
+                .floor()),
         curve: Curves.easeIn,
       );
     }

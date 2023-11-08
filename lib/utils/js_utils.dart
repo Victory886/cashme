@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_device_core/flutter_device_core.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:loannow/beans/login_info_bean.dart';
-import 'package:loannow/beans/user_info_bean.dart';
 import 'package:loannow/config/app_config.dart';
+import 'package:loannow/config/constants.dart';
 import 'package:loannow/utils/sp_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../config/router_names.dart';
 import '../generated/js_model.dart';
@@ -17,7 +18,8 @@ import 'device_utils.dart';
 import 'operation_utils.dart';
 
 class JSUtils {
-  static void handleJSCall(InAppWebViewController controller, String args, BuildContext context) async {
+  static void handleJSCall(InAppWebViewController controller, String args,
+      BuildContext context) async {
     print('-------callFlutter------');
     // print(args);
     // Map map = jsonDecode(args);
@@ -25,7 +27,9 @@ class JSUtils {
     List list = json.decode(args);
     for (var element in list) {
       Map<String, dynamic> dict = element;
-      Map<String, dynamic> resMap = await H5ToFlutterMethodHandler.handleH5ToNativeMessage(controller, dict, "call", context);
+      Map<String, dynamic> resMap =
+          await H5ToFlutterMethodHandler.handleH5ToNativeMessage(
+              controller, dict, "call", context);
       // return resMap;
     }
 
@@ -35,7 +39,8 @@ class JSUtils {
 
 typedef QYValueSetter = Map<String, dynamic> Function(Map value);
 
-typedef HandleJSMethodCompletion = void Function(String uid, bool isSuccess, dynamic data, String exception);
+typedef HandleJSMethodCompletion = void Function(
+    String uid, bool isSuccess, dynamic data, String exception);
 
 class H5ToFlutterMethodHandler {
   static InAppWebViewController? myWebViewcontroller;
@@ -78,7 +83,8 @@ class H5ToFlutterMethodHandler {
     }
 
     Map<String, dynamic> res = {};
-    await _handleJSMethod(methodDataModel!, context, (uid, isSuccess, data, exception) {
+    await _handleJSMethod(methodDataModel!, context,
+        (uid, isSuccess, data, exception) {
       Map<String, dynamic> resDict = {
         "uid": uid,
         "data": data,
@@ -92,7 +98,8 @@ class H5ToFlutterMethodHandler {
   }
 
 // -------------------------------------
-  static Future<void> _handleJSMethod(JsModelData methodDataModel, BuildContext context, HandleJSMethodCompletion completion) async {
+  static Future<void> _handleJSMethod(JsModelData methodDataModel,
+      BuildContext context, HandleJSMethodCompletion completion) async {
     String methodName = methodDataModel.method ?? "";
     String uid = methodDataModel.uid ?? "";
     Map<String, dynamic> paramDict = methodDataModel.params ?? {};
@@ -102,12 +109,11 @@ class H5ToFlutterMethodHandler {
       // 获取app信息
       case "getAppInfo":
         {
-          // Map<String, dynamic> dict = await AppService.getAppBundleInfo();
           Map<String, dynamic> dict = {
+            "platform": "2",
             "appId": AppConfig.APP_ID,
             "appName": "Cashme Pera PH",
-            "version": "1.0.0",
-            "platform": "2",
+            "version": AppConfig.APP_VERSION,
           };
           completion(uid, true, dict, "");
         }
@@ -115,7 +121,7 @@ class H5ToFlutterMethodHandler {
       case "getDeviceInfo":
         {
           var deviceInfo = await DeviceUtils.getDeviceInfo();
-          completion(uid, true, deviceInfo, "");
+          completion(uid, true, json.decode(deviceInfo), "");
         }
         break;
       case "nativeGoback":
@@ -139,8 +145,10 @@ class H5ToFlutterMethodHandler {
         {
           final SharedPreferences prefs = await SharedPreferences.getInstance();
           String? loginInfoData = prefs.getString(SpUtils.SP_KEY_LOGIN);
+
           if (loginInfoData != null) {
-            completion(uid, true, LoginInfoBean.fromJson(json.decode(loginInfoData)), "");
+            completion(uid, true,
+                LoginInfoBean.fromJson(json.decode(loginInfoData)), "");
           } else {
             completion(uid, false, "", "");
           }
@@ -153,6 +161,36 @@ class H5ToFlutterMethodHandler {
         completion(uid, true, "", "");
         break;
 
+      case "goHome":
+        {
+          Navigator.popAndPushNamed(context, RouterNames.HOME);
+          break;
+        }
+      case "checkIsAppInstalled":
+        {
+          String? urlScheme = paramDict["iosUrlScheme"];
+          if (urlScheme != null && urlScheme.isNotEmpty) {
+            Uri url = Uri.parse(urlScheme);
+            bool canOpen = await canLaunchUrl(url);
+            completion(uid, true, canOpen, "");
+            return;
+          }
+          completion(uid, true, false, "");
+        }
+        break;
+      case "openThirdApp":
+        {
+          String? urlScheme = paramDict["iosUrlScheme"];
+          if (urlScheme != null && urlScheme.isNotEmpty) {
+            Uri url = Uri.parse(urlScheme);
+            bool canOpen = await canLaunchUrl(url);
+            if (canOpen) {
+              launchUrl(url);
+            }
+          }
+          completion(uid, true, false, "");
+        }
+        break;
       case "chooseContact":
       case "selectAContact":
       case "selectOneContact":
@@ -164,177 +202,49 @@ class H5ToFlutterMethodHandler {
           completion(uid, true, dataMap, "");
         }
         break;
+      case "openUrlInner":
+        {
+          debugPrint("123454567 = $paramDict");
+          String? url = paramDict["url"];
+          String? isOK = await FlutterDeviceCore().openUrlInner(url);
+          completion(uid, true, isOK, "");
+        }
+        break;
+      case "gotoAppSystemSetting":
+        {
+          await FlutterDeviceCore().gotoAppSystemSetting();
+          completion(uid, true, "", "");
+        }
+        break;
 
-      // ---------------
-      // case "takeCertificatePhoto":
-      //   {
-      //     // 1.
-      //     String url = paramDict["url"] ?? "";
-      //     String fileKey = paramDict["fileKey"] ?? "";
-      //     bool isFrontCamera = paramDict["isFront"] ?? false;
-      //     // 2.
-      //     Uint8List? imageData = await AppService.takePhotos(isFrontCamera);
-      //     if (url.isEmpty || imageData == null) {
-      //       completion(uid, false, "", "");
-      //       return;
-      //     }
-      //     // 上传图片
-      //     SVProgressHUD.show();
-      //     await MyNetworkManager.uploadImg(imageData, url, paramDict, fileKey, (isSuccess, resDict, imgData) {
-      //       SVProgressHUD.dismiss();
-      //       if (isSuccess) {
-      //         String imgBase64Str = "";
-      //         if (imgData != null) {
-      //           imgBase64Str = "data:image/jpg;base64,${base64Encode(imgData)}";
-      //         }
-      //         var resMap = {"url": imgBase64Str, "data": resDict ?? {}};
+      case "getTestPhoneArr":
+        {
+          completion(
+              uid, true, Constans.systemConfigBean?.testPhones ?? [], "");
+        }
+        break;
+      case "selectPhoto":
+        {
+          String? isOK = await FlutterDeviceCore().selectImg();
+          completion(uid, true, isOK, "");
+        }
+        break;
+      case "takeCertificatePhoto":
+        {
+          String? isOK = await FlutterDeviceCore().takeIDImage(false);
+          completion(uid, true, isOK, "");
+        }
+        break;
 
-      //         completion(uid, true, resMap, "");
-      //         return;
-      //       }
-      //       completion(uid, false, "", "Failed to upload data");
-      //     });
-      //   }
-      //   break;
-// ----------------------------------
-      // case "faceVerify":
-      //   {
-      //     Uint8List? imageData = await AppService.takePhotos(true);
-      //     if (imageData == null) {
-      //       completion(uid, false, "", "");
-      //       return;
-      //     }
-      //     SVProgressHUD.show();
-      //     String path = "/basisInfo/uploadLivingBase64Photo";
-      //     await MyNetworkManager.uploadFaceVerifiedImg(imageData, path, (isSuccess, resDict, imgData) {
-      //       SVProgressHUD.dismiss();
-      //       if (isSuccess) {
-      //         completion(uid, true, "", "");
-      //       } else {
-      //         completion(uid, false, "", "Failed to upload face image");
-      //       }
-      //     });
-      //   }
-      //   break;
-
-      // case "openBrowser":
-      //   {
-      //     String urlStr = paramDict["url"] ?? "";
-      //     if (urlStr.isEmpty) {
-      //       completion(uid, false, "", "");
-      //       return;
-      //     }
-
-      //     String type = paramDict["type"] ?? "";
-      //     if (type == "inner") {
-      //       Navigator.pushNamed(context, "normalWebView", arguments: {"webViewUrl": urlStr});
-      //     } else {
-      //       Uri url = Uri.parse(urlStr);
-      //       if (await canLaunchUrl(url)) {
-      //         await launchUrl(
-      //           url,
-      //           mode: LaunchMode.externalApplication,
-      //         );
-      //       }
-      //     }
-
-      //     completion(uid, true, "", "");
-      //   }
-      //   break;
-
-      // case "callPhone":
-      //   {
-      //     String phoneNumber = paramDict["phoneNo"] ?? "";
-      //     if (phoneNumber.isEmpty) {
-      //       completion(uid, false, "", "");
-      //       return;
-      //     }
-
-      //     final Uri launchUri = Uri(
-      //       scheme: 'tel',
-      //       path: phoneNumber,
-      //     );
-      //     await launchUrl(launchUri);
-      //     completion(uid, true, "", "");
-      //   }
-      //   break;
-
-      // ---------------------------------相册------------------------------------
-
-      // case "uploadAlmbum":
-      //   {
-      //     bool isForce = paramDict["force"] ?? true;
-      //     bool isDenied = await Permission.photos.request().isDenied;
-      //     if (isDenied) {
-      //       // 未授权
-      //       if (isForce) {
-      //         // 强制授权
-      //         completion(uid, false, "", "album permission denied");
-      //       } else {
-      //         // 不强制授权
-      //         completion(uid, true, "", "");
-      //       }
-      //       return;
-      //     }
-      //     // 已经授权
-      //     List list = await AppService.getAlbumInfo();
-      //     await MyNetworkManager.uploadAlbumOrContacts(
-      //         PrivacyNetType.photos, list, (isSuccess) {
-      //       completion(uid, isSuccess, "", "");
-      //     });
-      //   }
-      //   break;
-      // ---------------------------------通讯录------------------------------------
-      // case "uploadContactList":
-      //   {
-      //     bool isForce = paramDict["force"] ?? true;
-      //     bool isDenied = await Permission.contacts.request().isDenied;
-      //     if (isDenied) {
-      //       // 未授权
-      //       if (isForce) {
-      //         // 强制授权
-      //         completion(uid, false, "", "contacts permission denied");
-      //       } else {
-      //         // 不强制授权
-      //         completion(uid, true, "", "");
-      //       }
-      //       return;
-      //     }
-      //     // 已经授权
-      //     List list = await AppService.getContactsInfo();
-      //     await MyNetworkManager.uploadAlbumOrContacts(
-      //         PrivacyNetType.contact, list, (isSuccess) {
-      //       completion(uid, isSuccess, "", "");
-      //     });
-      //   }
-      //   break;
-
-      //   case "selectPhoto":
-      //     {
-      //       Uint8List? imageData = await AppService.takePhotos(false);
-
-      //       String imgBase64Str = "";
-      //       if (imageData != null) {
-      //         imgBase64Str = base64Encode(imageData); // ,
-      //       }
-      //       var resMap = {"url": imgBase64Str};
-
-      //       completion(uid, true, resMap["url"], "");
-      //     }
-      //     break;
-      //   case "saveAccount":
-      //   case "uploadApps":
-      //   case "uploadSMSList":
-      //   case "uploadCalendarInfo":
-      //     {
-      //       completion(uid, true, "", "");
-      //     }
-      //     break;
-      //   default:
-      //     print("没有实现的方法==========$methodName");
-      //     completion(uid, false, "", "");
-
-      //     break;
+      case "takingPicturesOfFaces":
+        {
+          String? isOK = await FlutterDeviceCore().takeIDImage(true);
+          completion(uid, true, isOK, "");
+        }
+        break;
+      default:
+        completion(uid, false, "Method does not exist", "");
+        break;
     }
   }
 }

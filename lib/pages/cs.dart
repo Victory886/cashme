@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-25 15:29:35
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-25 15:43:25
+ * @LastEditTime: 2023-11-02 15:49:43
  * @FilePath: /loannow/lib/pages/cs.dart
  */
 import 'dart:collection';
@@ -11,11 +11,11 @@ import 'dart:convert';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:loannow/config/app_config.dart';
 import 'package:loannow/pages/web.dart';
 
 import '../config/urls.dart';
 import '../utils/js_utils.dart';
-import '../widget/titleBar.dart';
 
 class OnlineCSPage extends StatefulWidget {
   const OnlineCSPage({super.key});
@@ -41,12 +41,6 @@ class _OnlineCSPageState extends State<OnlineCSPage> {
     return Scaffold(
       body: Column(
         children: [
-          StatefulBuilder(
-            builder: (context, setState) {
-              titleState = setState;
-              return TitleBar(title: title, isShowBackBtn: false);
-            },
-          ),
           Expanded(
             child: InAppWebView(
               initialUserScripts: UnmodifiableListView(userScripts),
@@ -79,7 +73,10 @@ class _OnlineCSPageState extends State<OnlineCSPage> {
                     List list = json.decode(msg);
                     for (var element in list) {
                       Map<String, dynamic> dict = element;
-                      Map<String, dynamic> resMap = await H5ToFlutterMethodHandler.handleH5ToNativeMessage(controller, dict, "call", context);
+                      Map<String, dynamic> resMap =
+                          await H5ToFlutterMethodHandler
+                              .handleH5ToNativeMessage(
+                                  controller, dict, "call", context);
                       return resMap;
                     }
                     // JSUtils.handleJSCall(webViewController, msg, context);
@@ -88,9 +85,9 @@ class _OnlineCSPageState extends State<OnlineCSPage> {
               },
             ),
           ),
+          SizedBox(height: Device.appBottomPadding(context) + tabbarHeight),
         ],
       ),
     );
-    ;
   }
 }

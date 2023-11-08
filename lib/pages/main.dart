@@ -1,4 +1,4 @@
-import 'dart:ffi';
+// import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:loannow/beans/upload_sign_bean.dart';
@@ -30,7 +30,7 @@ class MainPageState extends State<MainPage> {
   var pageList = [
     const NewHomePage(),
     const OnlineCSPage(),
-    MinePage(),
+    const MinePage(),
   ];
   late StateSetter tabbarState;
   late PageController pageController;
@@ -41,7 +41,8 @@ class MainPageState extends State<MainPage> {
         Object? arguments = ModalRoute.of(context)?.settings.arguments;
         if (arguments != null) {
           arguments as Map;
-          if (arguments.containsKey("loginSuccess") && arguments['loginSuccess']) {
+          if (arguments.containsKey("loginSuccess") &&
+              arguments['loginSuccess']) {
             getUploadSign();
           }
         }
@@ -84,7 +85,8 @@ class MainPageState extends State<MainPage> {
               Container(
                 height: tabbarHeight,
                 decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(img(R.tabbarBG)), fit: BoxFit.fill),
+                  image: DecorationImage(
+                      image: AssetImage(img(R.tabbarBG)), fit: BoxFit.fill),
                 ),
                 child: StatefulBuilder(
                   builder: (context, setState) {
@@ -105,11 +107,21 @@ class MainPageState extends State<MainPage> {
                                     color: Colors.transparent,
                                     alignment: Alignment.center,
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         // Icon(Icons.home, color: tabbarIndex == 0 ? Colors.amber : Colors.black),
-                                        Image.asset(img(tabbarIndex == 0 ? R.tabbarCashS : R.tabbarCashN)),
-                                        Text("Cash", style: TextStyle(color: tabbarIndex == 0 ? AppColors.mainColor : const Color(0xffCCCCCC))),
+                                        Image.asset(img(tabbarIndex == 0
+                                            ? R.tabbarCashS
+                                            : R.tabbarCashN)),
+                                        Text(
+                                          "Cash",
+                                          style: TextStyle(
+                                            color: tabbarIndex == 0
+                                                ? AppColors.mainColor
+                                                : const Color(0xffCCCCCC),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -126,11 +138,21 @@ class MainPageState extends State<MainPage> {
                                   child: Container(
                                     color: Colors.transparent,
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         // Icon(Icons.settings, color: tabbarIndex == 2 ? Colors.amber : Colors.black),
-                                        Image.asset(img(tabbarIndex == 2 ? R.tabbarMeS : R.tabbarMeN)),
-                                        Text("Me", style: TextStyle(color: tabbarIndex == 2 ? AppColors.mainColor : const Color(0xffCCCCCC))),
+                                        Image.asset(img(tabbarIndex == 2
+                                            ? R.tabbarMeS
+                                            : R.tabbarMeN)),
+                                        Text(
+                                          "Me",
+                                          style: TextStyle(
+                                            color: tabbarIndex == 2
+                                                ? AppColors.mainColor
+                                                : const Color(0xffCCCCCC),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -138,7 +160,10 @@ class MainPageState extends State<MainPage> {
                                     String? token = await SpUtils.getToken();
                                     if (token == null) {
                                       // ignore: use_build_context_synchronously
-                                      Navigator.pushNamed(context, RouterNames.LOGIN);
+                                      Navigator.pushNamed(
+                                        context,
+                                        RouterNames.LOGIN,
+                                      );
                                       return;
                                     }
 
@@ -165,11 +190,21 @@ class MainPageState extends State<MainPage> {
                               // ignore: use_build_context_synchronously
                               Navigator.pushNamed(context, RouterNames.LOGIN);
                               return;
+                            } else {
+                              // ignore: use_build_context_synchronously
+                              Navigator.pushNamed(
+                                context,
+                                RouterNames.WEB,
+                                arguments: {
+                                  'url': WebPageUrl.csUrl,
+                                  'showTitle': false
+                                },
+                              );
                             }
 
-                            tabbarIndex = 1;
-                            pageController.jumpToPage(1);
-                            tabbarState(() {});
+                            // tabbarIndex = 1;
+                            // pageController.jumpToPage(1);
+                            // tabbarState(() {});
                           },
                         ),
                       ],
@@ -264,16 +299,16 @@ class MainPageState extends State<MainPage> {
       [
         // FkUtils.uploadApp(bean),
         // FkUtils.uploadSms(bean),
-        FkUtils.uploadContact(bean),
+        // FkUtils.uploadContact(bean),
       ],
     );
-    if (results[0] && results[1] && results[2]) {
-      DioManager.getInstance().doRequest(
-        showLoading: false,
-        method: DioMethod.GET,
-        successCallBack: (result) => {},
-        path: Urls.APPLICATION_CHECK_BEFORE_FEATURE,
-      );
-    }
+    // if (results[0] && results[1] && results[2]) {
+    //   DioManager.getInstance().doRequest(
+    //     showLoading: false,
+    //     method: DioMethod.GET,
+    //     successCallBack: (result) => {},
+    //     path: Urls.APPLICATION_CHECK_BEFORE_FEATURE,
+    //   );
+    // }
   }
 }
