@@ -68,6 +68,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
           bgColor: AppColors.purpleColor7F,
           textColor: Colors.white,
           leftClick: () {
+            initStatus();
             widget.refreshClick();
             isModifyWithdrawal();
           },
@@ -356,6 +357,8 @@ class OrderStatusPageState extends State<OrderStatusPage> {
 
   @override
   Widget build(context) {
+    debugPrint("000000000000000000000000003333");
+
     return Scaffold(
       body: Container(
         margin: EdgeInsets.only(
@@ -373,6 +376,18 @@ class OrderStatusPageState extends State<OrderStatusPage> {
     super.initState();
     initStatus();
     getBasisInfo();
+
+    debugPrint("0000000000000000000000000 initState");
+  }
+
+  // didUpdateWidget
+  @override
+  void didUpdateWidget(covariant OrderStatusPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    debugPrint("0000000000000000000000000 didUpdateWidget");
+
+    initStatus();
   }
 
   /// 检查是否可以修改渠道
@@ -388,12 +403,15 @@ class OrderStatusPageState extends State<OrderStatusPage> {
       successCallBack: (result) {
         if (result != null) {
           modifyID = result["id"].toString();
-          if (type == 0) {
-            showModifyView = true;
-            modifyState(() {});
-          } else {
-            showModifyApprovedView = true;
-            modifyApprovedState(() {});
+          debugPrint("0000000000000000000000000xxxx modifyID = $modifyID");
+          if (modifyID.isNotEmpty) {
+            if (type == 0) {
+              showModifyView = true;
+              modifyState(() {});
+            } else {
+              showModifyApprovedView = true;
+              modifyApprovedState(() {});
+            }
           }
         }
       },
@@ -403,6 +421,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
   void initStatus() {
     var status = widget.application.status!;
     var page = '';
+    debugPrint("00000000000000000000000004444 status = $status");
     if (ApplicationStatusUtils.isExamine(status)) {
       statusImage = "images/img_evaluating.png";
       showInstagram = true;
@@ -415,12 +434,14 @@ class OrderStatusPageState extends State<OrderStatusPage> {
         ApplicationStatusUtils.isRefuse(status)) {
       statusImage = "images/img_disapproved.png";
       showConfirm = true;
+      showInstagram = false;
       page = titleStr = 'Rejected';
       content = "Sorry that we can’t issue you loan this time.";
       if (ApplicationStatusUtils.isRefuse(status)) page = 'refuse';
     } else if (ApplicationStatusUtils.isPass(status)) {
       statusImage = "images/img_approved.png";
       showPassView = true;
+      showInstagram = false;
       showAccountInfo = false;
       page = titleStr = 'Approved';
       content =
@@ -433,6 +454,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
     } else if (ApplicationStatusUtils.isWithdrawal(status)) {
       statusImage = "images/img_withdraw.png";
       showAccountInfo = true;
+      showInstagram = false;
       page = titleStr = 'Withdraw Cash Now';
       content =
           "Please refer to below instruction and \nwithdraw your cash now";
@@ -450,12 +472,15 @@ class OrderStatusPageState extends State<OrderStatusPage> {
     } else if (ApplicationStatusUtils.isAbandon(status)) {
       statusImage = "images/img_giveup.png";
       showConfirm = true;
+      showInstagram = false;
       page = titleStr = 'Given up withdrawal';
-      content = widget.application.statusDesc!;
+      content =
+          "Your loan has been canceled. Reason: ${widget.application.statusDesc!}";
     } else if (ApplicationStatusUtils.isFinish(status) ||
         ApplicationStatusUtils.isClose(status)) {
       statusImage = "images/img_finish.png";
       showConfirm = true;
+      showInstagram = false;
       page = titleStr = 'Fully Settled!';
       content =
           "Your loanable amount might be increased, \nwelcome to apply for a reloan.";
@@ -464,7 +489,6 @@ class OrderStatusPageState extends State<OrderStatusPage> {
       page = titleStr = 'Repaid';
       content = "";
     }
-    // titleState(() {});
 
     debugPrint("99999999999 $page");
     OperationUtils.saveOperation('/home/' + page);

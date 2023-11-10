@@ -1,6 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_device_core/flutter_device_core.dart';
 import 'package:loannow/beans/system_config_bean.dart';
 import 'package:loannow/beans/user_info_bean.dart';
 import 'package:loannow/config/app_colors.dart';
@@ -245,7 +244,10 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
             },
             child: Container(
               height: 50,
-              color: Colors.red,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
               margin: const EdgeInsets.only(left: 15, right: 15),
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: Row(
@@ -253,13 +255,15 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                   Text(
                     phones.phoneChannel ?? '',
                     style: const TextStyle(
-                        fontSize: 16, color: AppColors.textColorhint),
+                      fontSize: 18,
+                      color: AppColors.textColorhint,
+                    ),
                   ),
                   const Expanded(child: SizedBox.shrink()),
                   Text(
                     phones.phone ?? '',
                     style:
-                        const TextStyle(fontSize: 16, color: Color(0XFF30C67F)),
+                        const TextStyle(fontSize: 18, color: Color(0XFF30C67F)),
                   ),
                 ],
               ),
@@ -271,7 +275,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
 
     showModalBottomSheet(
       context: context,
-      barrierColor: Colors.transparent,
+      barrierColor: Colors.black54,
       backgroundColor: Colors.transparent,
       isDismissible: true,
       // 点击外部区域是否关闭弹窗，默认true
@@ -289,12 +293,19 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                 },
                 child: Container(
                   height: 60,
-                  color: Colors.blue,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
                   alignment: Alignment.center,
                   margin: const EdgeInsets.all(15),
                   child: const Text(
                     "Cancel",
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

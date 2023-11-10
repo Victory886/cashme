@@ -1,3 +1,10 @@
+/*
+ * @Author: Terry
+ * @Date: 2023-10-12 15:05:06
+ * @LastEditors: Terry
+ * @LastEditTime: 2023-11-09 18:10:25
+ * @FilePath: /loannow/lib/config/operation_codes.dart
+ */
 // ignore_for_file: constant_identifier_names
 
 /// 埋点名字
@@ -26,4 +33,6 @@ class OperationCode {
 
   static const String UPLOAD_SMS_FAIL = "upload_sms_fail";
   static const String UPLOAD_SMS_SUCCESS = "upload_sms_success";
+
+  static const String APPLY_NOW = "apply_now";
 }

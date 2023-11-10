@@ -125,7 +125,9 @@ class H5ToFlutterMethodHandler {
         }
         break;
       case "nativeGoback":
-        Navigator.pop(context);
+        Navigator.pop(context, {
+          "arguments": {"a": "aa"},
+        });
         break;
 
       case "sendEvent":
@@ -163,7 +165,12 @@ class H5ToFlutterMethodHandler {
 
       case "goHome":
         {
-          Navigator.popAndPushNamed(context, RouterNames.HOME);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            RouterNames.HOME,
+            (route) => false,
+            arguments: {"a": "aa"},
+          );
           break;
         }
       case "checkIsAppInstalled":

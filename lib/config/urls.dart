@@ -4,7 +4,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-07 11:23:42
+ * @LastEditTime: 2023-11-09 17:57:22
  * @FilePath: /loannow/lib/config/urls.dart
  */
 class Urls {
@@ -30,6 +30,7 @@ class Urls {
   /// 获取订单状态
   static String APPLICATION_LATEST = "application/latest";
   static String APPLICATION_HISTORY = "application/history";
+  static String APPLICATION_CANAPPLY = "application/canApply";
 
   static String OPERATION_RECORD = "member/operationRecord/save";
   static String MODIFY_PHONE_VERIFY_CODE = "member/modifyPhoneSendVerifyCode";

@@ -4,7 +4,7 @@
  * @Author: Terry
  * @Date: 2023-10-19 09:48:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-03 18:11:19
+ * @LastEditTime: 2023-11-10 15:50:46
  * @FilePath: /loannow/lib/pages/new_loan_page.dart
  */
 
@@ -13,13 +13,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:loannow/config/app_colors.dart';
 import 'package:loannow/config/app_config.dart';
+import 'package:loannow/pages/new_home_page.dart';
 import 'package:marquee/marquee.dart';
 
 // import 'package:marquee/marquee.dart';
 
+import '../config/operation_codes.dart';
 import '../config/router_names.dart';
 import '../config/urls.dart';
 import '../net/dio_manager.dart';
+import '../utils/operation_utils.dart';
 import '../utils/sp_utils.dart';
 
 /// 首页、页面
@@ -40,19 +43,18 @@ class _NewLoanPageState extends State<NewLoanPage> {
   void initState() {
     super.initState();
 
-    getData();
+    getMarqueesData();
   }
 
-  void getData() {
+  void getMarqueesData() {
     DioManager.getInstance().doRequest<List>(
       path: Urls.MARQUEES,
       method: DioMethod.GET,
       successCallBack: (result) {
         marqueeList.addAll(result ?? []);
         for (var item in marqueeList) {
-          marqueeStr = "${marqueeStr + item["text"]}                    ";
+          marqueeStr = "${marqueeStr + item["text"]}  ";
         }
-        // debugPrint("000000000000000000 = $marqueeStr");
         marqueeListState(() {});
       },
     );
@@ -72,17 +74,15 @@ class _NewLoanPageState extends State<NewLoanPage> {
               'url': WebPageUrl.applyStepBasalUrl,
               'showTitle': false
             },
-            // arguments: {
-            //   'url': WebPageUrl.baseUrl + "?t=123453232323236",
-            //   'showTitle': false
-            // },
-          )
-
-        // var aa = await Navigator.pushNamed(context, RouterNames.CAMERA);
-        // imgae = aa.toString();
-        // state(() {});
-
-        // print(aa);
+          ).then((value) {
+            dynamic popData = value as Map<String, dynamic>;
+            if (popData != null) {
+              isRolaodOrder = true;
+              pageState(() {});
+              print("9999 ${popData["arguments"]}");
+            }
+          }),
+        OperationUtils.saveOperation(OperationCode.APPLY_NOW)
       },
     );
   }
@@ -95,25 +95,10 @@ class _NewLoanPageState extends State<NewLoanPage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           LoanPageBottomWidgets(),
-          LoanPageApplyLoanWidget(
-            onClick: loanBtnClick,
-          ),
+          LoanPageApplyLoanWidget(onClick: loanBtnClick),
           SizedBox(height: 20),
         ],
       ),
-    );
-  }
-
-  /// 滚动的内容
-  Widget _buildText(String txt) {
-    return Text(
-      txt,
-      style: const TextStyle(
-        fontSize: 12,
-        color: Color(0xff464F66),
-      ),
-      maxLines: 1,
-      overflow: TextOverflow.fade,
     );
   }
 
@@ -129,7 +114,8 @@ class _NewLoanPageState extends State<NewLoanPage> {
         ),
         child: Container(
           margin: EdgeInsets.only(
-              bottom: tabbarHeight + Device.appBottomPadding(context)),
+            bottom: tabbarHeight + Device.appBottomPadding(context),
+          ),
           child: Column(
             children: [
               Expanded(
@@ -148,17 +134,19 @@ class _NewLoanPageState extends State<NewLoanPage> {
                           Text(
                             "Hello!",
                             style: TextStyle(
-                                color: Color(0xff232732),
-                                fontWeight: FontWeight.normal,
-                                fontSize: 20),
+                              color: Color(0xff232732),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 20,
+                            ),
                           ),
                           SizedBox(width: 15),
                           Text(
                             "Cashme Pera PH",
                             style: TextStyle(
-                                color: Color(0xff232732),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                              color: Color(0xff232732),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
                         ],
                       ),
@@ -198,17 +186,14 @@ class _NewLoanPageState extends State<NewLoanPage> {
                   alignment: Alignment.center,
                   children: [
                     SizedBox(
-                      height: 330,
                       child: Image.asset(
                         img(R.homeProgress),
-                        // width: 320,
-                        // height: 320,
                         fit: BoxFit.cover,
                       ),
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
                           margin: EdgeInsets.only(
@@ -260,7 +245,16 @@ class LoanPageApplyLoanWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (onClick != null) onClick!();
+        DioManager.getInstance().doRequest<bool>(
+          path: Urls.APPLICATION_CANAPPLY,
+          method: DioMethod.GET,
+          showLoading: true,
+          successCallBack: (result) {
+            if (result == true) {
+              if (onClick != null) onClick!();
+            }
+          },
+        );
       },
       child: Container(
         height: 54,

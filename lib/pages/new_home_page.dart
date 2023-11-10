@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-18 17:28:58
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-06 17:30:20
+ * @LastEditTime: 2023-11-10 16:04:57
  * @FilePath: /loannow/lib/pages/new_home_page.dart
  */
 
@@ -17,11 +17,17 @@ import '../config/app_colors.dart';
 import '../beans/basis_info_bean.dart';
 import '../utils/operation_utils.dart';
 import '../beans/application_bean.dart';
-import 'package:loannow/pages/repaying.dart';
+
 import '../utils/application_status_utils.dart';
 import 'package:loannow/pages/order_status.dart';
 
 import 'new_loan_page.dart';
+
+/// 是否重新刷新订单状态
+bool isRolaodOrder = false;
+
+/// 通过NewLoanPage页面的交互结果刷新这个状态
+late StateSetter pageState;
 
 /// 新的首页
 class NewHomePage extends StatefulWidget {
@@ -34,12 +40,13 @@ class NewHomePage extends StatefulWidget {
 class NewHomePageState extends State<NewHomePage>
     with AutomaticKeepAliveClientMixin {
   bool showLoading = true;
-  late StateSetter pageState;
+
   ApplicationBean? applicationBean;
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -72,7 +79,10 @@ class NewHomePageState extends State<NewHomePage>
                     refreshClick: getLatestApplication,
                   );
                 } else {
-                  // return LoanPage();
+                  if (isRolaodOrder) {
+                    getLatestApplication(isInit: false);
+                    return const SizedBox.shrink();
+                  }
                   return const NewLoanPage();
                 }
               }
@@ -95,12 +105,15 @@ class NewHomePageState extends State<NewHomePage>
     bool isOrderFinished = await SpUtils.isOrderFinished();
     if (token == null || isOrderFinished) {
       showLoading = false;
-      applicationBean = null;
       pageState(() {});
       return;
     }
-    Future.wait([getLatestApplication(isInit: true), getBasisInfo()])
-        .then((results) => {showLoading = false, pageState(() {})});
+    Future.wait([getLatestApplication(), getBasisInfo()]).then(
+      (results) => {
+        showLoading = false,
+        pageState(() {}),
+      },
+    );
   }
 
   Future<void> finishiOrder() async {
@@ -110,16 +123,20 @@ class NewHomePageState extends State<NewHomePage>
   }
 
   Future<bool> getLatestApplication({bool isInit = false}) async {
+    debugPrint("000000000000 = getLatestApplication");
     await DioManager.getInstance().doRequest<ApplicationBean>(
       path: Urls.APPLICATION_LATEST,
       method: DioMethod.GET,
       showLoading: !showLoading,
       successCallBack: (result) {
         applicationBean = result;
+        isRolaodOrder = false;
         if (!isInit) {
           showLoading = false;
-          pageState(() {});
         }
+        pageState(() {});
+
+        debugPrint("000000000000000000000000002222 home$result");
       },
     );
     return true;

@@ -70,16 +70,23 @@ class HistorypageState extends State<HistoryPage> {
                   itemBuilder: (context, index) {
                     var item = mList[index];
                     var img = "images/img_history_evaluating.png";
-                    var textColor = Color(0xff40BBFA);
+                    var textColor = const Color(0xff40BBFA);
                     if (ApplicationStatusUtils.isClose(item.status!)) {
-                      img = "images/img_history_evaluating.png";
-                      textColor = Color(0xff1BE3B3);
+                      img = "images/img_history_finish.png";
+                      textColor = const Color(0xff1BE3B3);
                     } else if (ApplicationStatusUtils.isRefuse(item.status!) ||
                         ApplicationStatusUtils.isRollback(item.status!) ||
                         ApplicationStatusUtils.isAbandon(item.status!) ||
                         ApplicationStatusUtils.isCancel(item.status!)) {
                       img = "images/img_history_cancel.png";
-                      textColor = Color(0xffF94D3F);
+                      textColor = const Color(0xffF94D3F);
+                    } else if (ApplicationStatusUtils.isFinish(item.status!)) {
+                      img = "images/img_history_finish.png";
+                      textColor = Colors.red; // Color(0xff1BE3B3);
+                    } else if (ApplicationStatusUtils.isExceptionClose(
+                        item.status!)) {
+                      img = "images/img_history_finish.png";
+                      textColor = Colors.red; // Color(0xff1BE3B3);
                     }
                     return Container(
                       padding: const EdgeInsets.all(15),
