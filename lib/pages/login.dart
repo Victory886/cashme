@@ -44,6 +44,7 @@ class LoginPageState extends State<LoginPage> {
 
   /// 获取验证码的次数
   int _getCodeCount = 0;
+  bool isFocus = false;
 
   final double tfBorderW = 1.5;
   late Timer? timer;
@@ -51,7 +52,21 @@ class LoginPageState extends State<LoginPage> {
       checkedState,
       codeErrorState,
       confirmButtonState,
-      voiceCodeState;
+      voiceCodeState,
+      focusState;
+
+  void _onFocusChange() {
+    if (phoneFocus.hasFocus) {
+      // TextField 获得焦点时的逻辑
+      print('TextField 获得焦点');
+      isFocus = true;
+    } else {
+      // TextField 失去焦点时的逻辑
+      isFocus = false;
+      print('TextField 失去焦点');
+    }
+    focusState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,42 +90,31 @@ class LoginPageState extends State<LoginPage> {
                   child: Stack(
                     alignment: Alignment.centerLeft,
                     children: [
-                      Container(
-                        width: 70,
-                        height: 60,
-                        alignment: Alignment.center,
-                        // color: randomColor(),
-                        color: const Color(0xffF4F4F4),
-                        child: TextField(
-                          readOnly: true,
-                          focusNode: phoneFocus,
-                          textAlign: TextAlign.center,
-                          controller: countrycodeController,
-                          textAlignVertical: TextAlignVertical.bottom,
-                          decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: const Color(0xff7F74EF),
-                                  width: tfBorderW),
-                            ),
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 0,
-                                color: Colors.transparent,
+                      StatefulBuilder(
+                        builder: (context, setState) {
+                          focusState = setState;
+                          return Container(
+                            width: 70,
+                            height: 60,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: const Color(0xffF4F4F4),
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                width: tfBorderW,
+                                color: isFocus
+                                    ? const Color(0xff7F74EF)
+                                    : Colors.transparent,
                               ),
                             ),
-                            counterText: '',
-                            hintText: "+63",
-                            hintStyle: const TextStyle(
-                              fontSize: 16,
-                              color: Color(0xff333333),
-                            ),
-                          ),
-                        ),
+                            child: const Text("+63"),
+                          );
+                        },
                       ),
                       Container(
                         margin: const EdgeInsets.only(left: 80),
                         color: const Color(0xffF4F4F4),
+                        alignment: Alignment.center,
                         child: TextField(
                           maxLines: 1,
                           maxLength: 12,
@@ -124,17 +128,28 @@ class LoginPageState extends State<LoginPage> {
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: const Color(0xff7F74EF),
-                                  width: tfBorderW),
+                                width: tfBorderW,
+                                color: const Color(0xff7F74EF),
+                              ),
+                            ),
+                            prefixText: "* ",
+                            prefixStyle: const TextStyle(
+                              fontSize: 20,
+                              color: Color(0xffFF5400),
                             ),
                             enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.transparent, width: 0),
+                                width: 0,
+                                color: Colors.transparent,
+                              ),
                             ),
                             counterText: '',
+                            isDense: false,
                             hintText: "Enter your phone number",
                             hintStyle: const TextStyle(
-                                color: Color(0xFF333333), fontSize: 14),
+                              fontSize: 14,
+                              color: Color(0xFF333333),
+                            ),
                           ),
                           onChanged: checkConfirmStatus,
                         ),
@@ -142,10 +157,12 @@ class LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
+
+                /// 验证码
                 Container(
                   height: 50,
-                  color: const Color(0xffF4F4F4),
                   margin: const EdgeInsets.only(top: 20),
+                  alignment: Alignment.center,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
@@ -157,22 +174,33 @@ class LoginPageState extends State<LoginPage> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         controller: codeController,
+                        textAlignVertical: TextAlignVertical.bottom,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: const Color(0xff7F74EF),
                               width: tfBorderW,
+                              color: const Color(0xff7F74EF),
                             ),
+                          ),
+                          prefixText: "* ",
+                          prefixStyle: const TextStyle(
+                            fontSize: 20,
+                            color: Color(0xffFF5400),
                           ),
                           enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColors.dividerColor, width: 0),
+                              width: 0,
+                              color: AppColors.dividerColor,
+                            ),
                           ),
                           errorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.red)),
+                            borderSide: BorderSide(color: Colors.red),
+                          ),
                           counterText: '',
                           hintStyle: const TextStyle(
-                              color: Color(0xFF999999), fontSize: 14),
+                            color: Color(0xFF333333),
+                            fontSize: 14,
+                          ),
                           hintText: "verification code",
                         ),
                         onChanged: checkConfirmStatus,
@@ -192,15 +220,18 @@ class LoginPageState extends State<LoginPage> {
                                   color: const Color(0xff7F74EF),
                                   borderRadius: BorderRadius.circular(5.0),
                                   border: Border.all(
-                                      color: Colors.transparent, width: 0),
+                                    width: 0,
+                                    color: Colors.transparent,
+                                  ),
                                 ),
                                 child: Text(
                                   count == Constans.CODE_COUNT_TIME
                                       ? "Send"
                                       : "${count}s",
                                   style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600),
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             );
@@ -364,6 +395,7 @@ class LoginPageState extends State<LoginPage> {
     super.initState();
     _getCodeCount = 0;
     SpUtils.clearUser();
+    phoneFocus.addListener(_onFocusChange);
     OperationUtils.saveOperation('/login');
   }
 

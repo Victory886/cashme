@@ -14,6 +14,7 @@ import 'package:loannow/utils/sp_utils.dart';
 import 'package:loannow/widget/titleBar.dart';
 
 import '../config/router_names.dart';
+import 'new_home_page.dart';
 
 class OrderStatusPage extends StatefulWidget {
   late VoidCallback refreshClick;
@@ -81,7 +82,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                 margin: const EdgeInsets.only(top: 15),
                 alignment: Alignment.center,
                 child: Text(
-                  titleStr ?? widget.application.statusDesc.toString(),
+                  titleStr,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -93,8 +94,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                 margin: const EdgeInsets.only(top: 12),
                 alignment: Alignment.center,
                 child: Text(
-                  content ??
-                      "Please keep phone active to expect a verification call or approval SMS",
+                  content,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: AppColors.textColorLight,
@@ -157,7 +157,19 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                                         "${WebPageUrl.withdrawalUrl}/?logId=$modifyID",
                                     "showTitle": false
                                   },
-                                );
+                                ).then((value) {
+                                  if (value != null) {
+                                    debugPrint("999999999999999 = $value");
+                                    dynamic popData =
+                                        value as Map<String, dynamic>;
+                                    dynamic arguments = popData["arguments"]
+                                        as Map<String, dynamic>;
+                                    if (arguments != null) {
+                                      isRolaodOrder = arguments["isReload"];
+                                      pageState(() {});
+                                    }
+                                  }
+                                });
                               },
                               child: Container(
                                 height: 50,
@@ -325,16 +337,18 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                               child: Text(
                                 showAccountInfo
                                     ? "Click here for detailed instruction"
-                                    : "Change withdrawal method",
+                                    : modifyID.isNotEmpty
+                                        ? "Change withdrawal method"
+                                        : "",
                                 style: const TextStyle(
-                                    color: AppColors.textColorLight,
-                                    fontSize: 12),
+                                  fontSize: 12,
+                                  color: AppColors.textColorLight,
+                                ),
                               ),
                             ),
-                            const Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              color: Color(0xff666666),
-                            ),
+                            (showAccountInfo || modifyID.isNotEmpty)
+                                ? Image.asset(width: 15, "images/ic_more.png")
+                                : Container(),
                           ],
                         ),
                         onTap: () {
@@ -357,16 +371,12 @@ class OrderStatusPageState extends State<OrderStatusPage> {
 
   @override
   Widget build(context) {
-    debugPrint("000000000000000000000000003333");
-
     return Scaffold(
       body: Container(
         margin: EdgeInsets.only(
           bottom: tabbarHeight + Device.appBottomPadding(context),
         ),
         child: orderView(),
-        // child: titleStr != "Under Review" ? repayWidget() : orderView(),
-        // child: Container(color: randomColor()),
       ),
     );
   }
@@ -376,17 +386,11 @@ class OrderStatusPageState extends State<OrderStatusPage> {
     super.initState();
     initStatus();
     getBasisInfo();
-
-    debugPrint("0000000000000000000000000 initState");
   }
 
-  // didUpdateWidget
   @override
   void didUpdateWidget(covariant OrderStatusPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    debugPrint("0000000000000000000000000 didUpdateWidget");
-
     initStatus();
   }
 
@@ -395,6 +399,10 @@ class OrderStatusPageState extends State<OrderStatusPage> {
     /*
     TODO: 是否显示修改渠道入口,需要调用接口,加密处理
     */
+
+    showModifyView = false;
+    // modifyState(() {});
+
     var path =
         "${Urls.PAYMENTCHANNELCHG}/${widget.application.loanBasisInfoId}";
     DioManager.getInstance().doRequest<Map>(
@@ -419,8 +427,9 @@ class OrderStatusPageState extends State<OrderStatusPage> {
   }
 
   void initStatus() {
-    var status = widget.application.status!;
     var page = '';
+    modifyID = '';
+    var status = widget.application.status!;
     debugPrint("00000000000000000000000004444 status = $status");
     if (ApplicationStatusUtils.isExamine(status)) {
       statusImage = "images/img_evaluating.png";
@@ -446,6 +455,8 @@ class OrderStatusPageState extends State<OrderStatusPage> {
       page = titleStr = 'Approved';
       content =
           "Congrats! Your loan was approved already, \nplease repay in time.";
+
+      isModifyWithdrawal();
 
       if (widget.application.loanBasisInfo != null) {
         paymentCode = widget.application.loanBasisInfo!.bank ?? "";
@@ -475,7 +486,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
       showInstagram = false;
       page = titleStr = 'Given up withdrawal';
       content =
-          "Your loan has been canceled. Reason: ${widget.application.statusDesc!}";
+          "Your loan has been cancelled. Reason: ${widget.application.statusDesc!}";
     } else if (ApplicationStatusUtils.isFinish(status) ||
         ApplicationStatusUtils.isClose(status)) {
       statusImage = "images/img_finish.png";

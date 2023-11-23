@@ -4,15 +4,15 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-09 17:57:22
+ * @LastEditTime: 2023-11-23 10:27:03
  * @FilePath: /loannow/lib/config/urls.dart
  */
 class Urls {
   static String BASE_URL = "http://api.cashloan.phdev.bowenfin.com/";
-  static String WEB_URL_LOAN =
-      "http://www.phdev.bowenfin.com/madaPh/PrivacyPolicy.html";
+
   static String WEB_URL_PRIVACY =
-      "http://cashme.ph/app/cashme/https/PrivacyPolicy.html";
+      "http://agreement-phdev.bowenfin.com/app/cashmepera/PrivacyPolicy.html";
+
   static String WEB_URL_REPAY =
       "http://mgr.cashloan.phdev.bowenfin.com/openapi/application/repayment-url/Mz09&LOdxHIQ/";
 
@@ -57,8 +57,8 @@ class Urls {
 }
 
 class WebPageUrl {
-  static String baseUrl = "http://cashmepera-phdev.bowenfin.com";
-  // static String baseUrl = "http://192.168.200.171:8000";
+  // static String baseUrl = "http://cashmepera-phdev.bowenfin.com";
+  static String baseUrl = "http://192.168.200.171:8000";
 
   /// 基本信息页面地址
   static String applyStepBasalUrl = "$baseUrl/apply-step/basal";
@@ -75,7 +75,7 @@ class WebPageUrl {
   /// 优惠卷页面
   static String couponUrl = "$baseUrl/coupon";
 
-  /// 客服页面
+  /// h5 中间页面
   static String middleUrl = "$baseUrl/middle";
 
   /// 还款中页面

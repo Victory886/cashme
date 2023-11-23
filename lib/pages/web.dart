@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-07 10:34:53
+ * @LastEditTime: 2023-11-22 16:39:56
  * @FilePath: /loannow/lib/pages/web.dart
  */
 import 'dart:collection';
@@ -90,7 +90,11 @@ class WebPageState extends State<WebPage> {
                 int time = DateTime.now().millisecondsSinceEpoch;
                 String url = widget.urlStr ?? arguments["url"];
                 if (!url.contains(".html")) {
-                  url = "$url/?t=$time";
+                  if (url.contains("?")) {
+                    url = "$url&t=$time";
+                  } else {
+                    url = "$url?t=$time";
+                  }
                 }
 
                 debugPrint("Terry-----web----调用了----$url");
@@ -122,6 +126,7 @@ class WebPageState extends State<WebPage> {
               },
               initialOptions: InAppWebViewGroupOptions(
                 ios: IOSInAppWebViewOptions(),
+                // crossPlatform: InAppWebViewOptions(cacheEnabled: false),
               ),
             ),
           ),

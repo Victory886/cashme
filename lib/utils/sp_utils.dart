@@ -100,9 +100,9 @@ class SpUtils {
     return isFirst ?? false;
   }
 
-  static Future<bool> setOrderFinished() async {
+  static Future<bool> setOrderFinished({bool finished = true}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool success = await prefs.setBool(SP_KEY_ORDER_FINISHED, true);
+    bool success = await prefs.setBool(SP_KEY_ORDER_FINISHED, finished);
     return success;
   }
 

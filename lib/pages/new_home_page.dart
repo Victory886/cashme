@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-18 17:28:58
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-10 16:04:57
+ * @LastEditTime: 2023-11-13 14:42:04
  * @FilePath: /loannow/lib/pages/new_home_page.dart
  */
 
@@ -57,6 +57,7 @@ class NewHomePageState extends State<NewHomePage>
           ),
           StatefulBuilder(
             builder: (context, setState) {
+              debugPrint("000000000000 = StatefulBuilder");
               pageState = setState;
               if (showLoading) {
                 return const SizedBox.shrink();
@@ -79,6 +80,7 @@ class NewHomePageState extends State<NewHomePage>
                     refreshClick: getLatestApplication,
                   );
                 } else {
+                  debugPrint("000000000 = ........");
                   if (isRolaodOrder) {
                     getLatestApplication(isInit: false);
                     return const SizedBox.shrink();

@@ -125,11 +125,8 @@ class H5ToFlutterMethodHandler {
         }
         break;
       case "nativeGoback":
-        Navigator.pop(context, {
-          "arguments": {"a": "aa"},
-        });
+        Navigator.pop(context);
         break;
-
       case "sendEvent":
         {
           if (paramDict.isEmpty) {
@@ -165,12 +162,13 @@ class H5ToFlutterMethodHandler {
 
       case "goHome":
         {
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            RouterNames.HOME,
-            (route) => false,
-            arguments: {"a": "aa"},
+          SpUtils.setOrderFinished(finished: false);
+          debugPrint(
+            "goHome pop = ${paramDict.toString()}",
           );
+          Navigator.pop(context, {
+            "arguments": {"isReload": paramDict["isReload"]}
+          });
           break;
         }
       case "checkIsAppInstalled":
@@ -213,8 +211,20 @@ class H5ToFlutterMethodHandler {
         {
           debugPrint("123454567 = $paramDict");
           String? url = paramDict["url"];
-          String? isOK = await FlutterDeviceCore().openUrlInner(url);
-          completion(uid, true, isOK, "");
+          if (url != null) {
+            /// TODO: 跳转到web页面,需要处理,需要内容打开还是外部打开
+            if (url.contains("CreditAgreement")) {
+              Navigator.pushNamed(
+                context,
+                RouterNames.WEB,
+                arguments: {'url': url, 'showTitle': true},
+              );
+              completion(uid, true, true, "");
+              break;
+            }
+            String? isOK = await FlutterDeviceCore().openUrlInner(url);
+            completion(uid, true, isOK, "");
+          }
         }
         break;
       case "gotoAppSystemSetting":

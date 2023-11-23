@@ -4,7 +4,7 @@
  * @Author: Terry
  * @Date: 2023-10-19 09:48:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-10 15:50:46
+ * @LastEditTime: 2023-11-22 14:56:06
  * @FilePath: /loannow/lib/pages/new_loan_page.dart
  */
 
@@ -70,16 +70,16 @@ class _NewLoanPageState extends State<NewLoanPage> {
           Navigator.pushNamed(
             context,
             RouterNames.WEB,
-            arguments: {
-              'url': WebPageUrl.applyStepBasalUrl,
-              'showTitle': false
-            },
+            arguments: {'url': WebPageUrl.middleUrl, 'showTitle': false},
           ).then((value) {
-            dynamic popData = value as Map<String, dynamic>;
-            if (popData != null) {
-              isRolaodOrder = true;
-              pageState(() {});
-              print("9999 ${popData["arguments"]}");
+            if (value != null) {
+              debugPrint("999999999999999 = $value");
+              dynamic popData = value as Map<String, dynamic>;
+              dynamic arguments = popData["arguments"] as Map<String, dynamic>;
+              if (arguments != null) {
+                isRolaodOrder = arguments["isReload"];
+                pageState(() {});
+              }
             }
           }),
         OperationUtils.saveOperation(OperationCode.APPLY_NOW)
