@@ -39,7 +39,8 @@ JsModelData $JsDataFromJson(Map<String, dynamic> json) {
   if (uid != null) {
     model.uid = uid;
   }
-  final Map<String, dynamic>? params = jsonConvert.convert<Map<String, dynamic>>(json['params']);
+  final Map<String, dynamic>? params =
+      jsonConvert.convert<Map<String, dynamic>>(json['params']);
   if (params != null) {
     model.params = params;
   }

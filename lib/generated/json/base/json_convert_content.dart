@@ -19,7 +19,8 @@ JsonConvert jsonConvert = JsonConvert();
 
 typedef JsonConvertFunction<T> = T Function(Map<String, dynamic> json);
 typedef EnumConvertFunction<T> = T Function(String value);
-typedef ConvertExceptionHandler = void Function(Object error, StackTrace stackTrace);
+typedef ConvertExceptionHandler = void Function(
+    Object error, StackTrace stackTrace);
 
 class JsonConvert {
   static ConvertExceptionHandler? onError;
@@ -62,12 +63,15 @@ class JsonConvert {
     }
   }
 
-  List<T?>? convertList<T>(List<dynamic>? value, {EnumConvertFunction? enumConvert}) {
+  List<T?>? convertList<T>(List<dynamic>? value,
+      {EnumConvertFunction? enumConvert}) {
     if (value == null) {
       return null;
     }
     try {
-      return value.map((dynamic e) => _asT<T>(e, enumConvert: enumConvert)).toList();
+      return value
+          .map((dynamic e) => _asT<T>(e, enumConvert: enumConvert))
+          .toList();
     } catch (e, stackTrace) {
       debugPrint('asT<$T> $e $stackTrace');
       if (onError != null) {
@@ -77,12 +81,15 @@ class JsonConvert {
     }
   }
 
-  List<T>? convertListNotNull<T>(dynamic value, {EnumConvertFunction? enumConvert}) {
+  List<T>? convertListNotNull<T>(dynamic value,
+      {EnumConvertFunction? enumConvert}) {
     if (value == null) {
       return null;
     }
     try {
-      return (value as List<dynamic>).map((dynamic e) => _asT<T>(e, enumConvert: enumConvert)!).toList();
+      return (value as List<dynamic>)
+          .map((dynamic e) => _asT<T>(e, enumConvert: enumConvert)!)
+          .toList();
     } catch (e, stackTrace) {
       debugPrint('asT<$T> $e $stackTrace');
       if (onError != null) {
@@ -92,7 +99,8 @@ class JsonConvert {
     }
   }
 
-  T? _asT<T extends Object?>(dynamic value, {EnumConvertFunction? enumConvert}) {
+  T? _asT<T extends Object?>(dynamic value,
+      {EnumConvertFunction? enumConvert}) {
     final String type = T.toString();
     final String valueS = value.toString();
     if (enumConvert != null) {
@@ -124,7 +132,8 @@ class JsonConvert {
         }
         return convertFuncMap[type]!(Map<String, dynamic>.from(value)) as T;
       } else {
-        throw UnimplementedError('$type unimplemented,you can try running the app again');
+        throw UnimplementedError(
+            '$type unimplemented,you can try running the app again');
       }
     }
   }
@@ -132,68 +141,128 @@ class JsonConvert {
   //list is returned by type
   static M? _getListChildType<M>(List<Map<String, dynamic>> data) {
     if (<AccountDeleteBean>[] is M) {
-      return data.map<AccountDeleteBean>((Map<String, dynamic> e) => AccountDeleteBean.fromJson(e)).toList() as M;
+      return data
+          .map<AccountDeleteBean>(
+              (Map<String, dynamic> e) => AccountDeleteBean.fromJson(e))
+          .toList() as M;
     }
     if (<ApplicationBean>[] is M) {
-      return data.map<ApplicationBean>((Map<String, dynamic> e) => ApplicationBean.fromJson(e)).toList() as M;
+      return data
+          .map<ApplicationBean>(
+              (Map<String, dynamic> e) => ApplicationBean.fromJson(e))
+          .toList() as M;
     }
     if (<ApplicationLoanBasisInfo>[] is M) {
-      return data.map<ApplicationLoanBasisInfo>((Map<String, dynamic> e) => ApplicationLoanBasisInfo.fromJson(e)).toList() as M;
+      return data
+          .map<ApplicationLoanBasisInfo>(
+              (Map<String, dynamic> e) => ApplicationLoanBasisInfo.fromJson(e))
+          .toList() as M;
     }
     if (<ApplicationOrderInfo>[] is M) {
-      return data.map<ApplicationOrderInfo>((Map<String, dynamic> e) => ApplicationOrderInfo.fromJson(e)).toList() as M;
+      return data
+          .map<ApplicationOrderInfo>(
+              (Map<String, dynamic> e) => ApplicationOrderInfo.fromJson(e))
+          .toList() as M;
     }
     if (<ApplicationOrderInfoPaymentInfo>[] is M) {
-      return data.map<ApplicationOrderInfoPaymentInfo>((Map<String, dynamic> e) => ApplicationOrderInfoPaymentInfo.fromJson(e)).toList() as M;
+      return data
+          .map<ApplicationOrderInfoPaymentInfo>((Map<String, dynamic> e) =>
+              ApplicationOrderInfoPaymentInfo.fromJson(e))
+          .toList() as M;
     }
     if (<ApplicationOrderInfoRepaymentInfo>[] is M) {
-      return data.map<ApplicationOrderInfoRepaymentInfo>((Map<String, dynamic> e) => ApplicationOrderInfoRepaymentInfo.fromJson(e)).toList() as M;
+      return data
+          .map<ApplicationOrderInfoRepaymentInfo>((Map<String, dynamic> e) =>
+              ApplicationOrderInfoRepaymentInfo.fromJson(e))
+          .toList() as M;
     }
     if (<BasisInfoBean>[] is M) {
-      return data.map<BasisInfoBean>((Map<String, dynamic> e) => BasisInfoBean.fromJson(e)).toList() as M;
+      return data
+          .map<BasisInfoBean>(
+              (Map<String, dynamic> e) => BasisInfoBean.fromJson(e))
+          .toList() as M;
     }
     if (<BasisInfoContactPersons>[] is M) {
-      return data.map<BasisInfoContactPersons>((Map<String, dynamic> e) => BasisInfoContactPersons.fromJson(e)).toList() as M;
+      return data
+          .map<BasisInfoContactPersons>(
+              (Map<String, dynamic> e) => BasisInfoContactPersons.fromJson(e))
+          .toList() as M;
     }
     if (<IpCheckBean>[] is M) {
-      return data.map<IpCheckBean>((Map<String, dynamic> e) => IpCheckBean.fromJson(e)).toList() as M;
+      return data
+          .map<IpCheckBean>((Map<String, dynamic> e) => IpCheckBean.fromJson(e))
+          .toList() as M;
     }
     if (<LoanHistoryBean>[] is M) {
-      return data.map<LoanHistoryBean>((Map<String, dynamic> e) => LoanHistoryBean.fromJson(e)).toList() as M;
+      return data
+          .map<LoanHistoryBean>(
+              (Map<String, dynamic> e) => LoanHistoryBean.fromJson(e))
+          .toList() as M;
     }
     if (<LoginInfoBean>[] is M) {
-      return data.map<LoginInfoBean>((Map<String, dynamic> e) => LoginInfoBean.fromJson(e)).toList() as M;
+      return data
+          .map<LoginInfoBean>(
+              (Map<String, dynamic> e) => LoginInfoBean.fromJson(e))
+          .toList() as M;
     }
     if (<SystemConfigBean>[] is M) {
-      return data.map<SystemConfigBean>((Map<String, dynamic> e) => SystemConfigBean.fromJson(e)).toList() as M;
+      return data
+          .map<SystemConfigBean>(
+              (Map<String, dynamic> e) => SystemConfigBean.fromJson(e))
+          .toList() as M;
     }
     if (<SystemConfigDictInfo>[] is M) {
-      return data.map<SystemConfigDictInfo>((Map<String, dynamic> e) => SystemConfigDictInfo.fromJson(e)).toList() as M;
+      return data
+          .map<SystemConfigDictInfo>(
+              (Map<String, dynamic> e) => SystemConfigDictInfo.fromJson(e))
+          .toList() as M;
     }
     if (<SystemConfigDictInfoServicePhones>[] is M) {
-      return data.map<SystemConfigDictInfoServicePhones>((Map<String, dynamic> e) => SystemConfigDictInfoServicePhones.fromJson(e)).toList() as M;
+      return data
+          .map<SystemConfigDictInfoServicePhones>((Map<String, dynamic> e) =>
+              SystemConfigDictInfoServicePhones.fromJson(e))
+          .toList() as M;
     }
-
     if (<UploadSignBean>[] is M) {
-      return data.map<UploadSignBean>((Map<String, dynamic> e) => UploadSignBean.fromJson(e)).toList() as M;
+      return data
+          .map<UploadSignBean>(
+              (Map<String, dynamic> e) => UploadSignBean.fromJson(e))
+          .toList() as M;
     }
     if (<UserInfoBean>[] is M) {
-      return data.map<UserInfoBean>((Map<String, dynamic> e) => UserInfoBean.fromJson(e)).toList() as M;
+      return data
+          .map<UserInfoBean>(
+              (Map<String, dynamic> e) => UserInfoBean.fromJson(e))
+          .toList() as M;
     }
     if (<UserInfoCreditInfo>[] is M) {
-      return data.map<UserInfoCreditInfo>((Map<String, dynamic> e) => UserInfoCreditInfo.fromJson(e)).toList() as M;
+      return data
+          .map<UserInfoCreditInfo>(
+              (Map<String, dynamic> e) => UserInfoCreditInfo.fromJson(e))
+          .toList() as M;
     }
     if (<UserInfoCreditInfoCurrentLevel>[] is M) {
-      return data.map<UserInfoCreditInfoCurrentLevel>((Map<String, dynamic> e) => UserInfoCreditInfoCurrentLevel.fromJson(e)).toList() as M;
+      return data
+          .map<UserInfoCreditInfoCurrentLevel>((Map<String, dynamic> e) =>
+              UserInfoCreditInfoCurrentLevel.fromJson(e))
+          .toList() as M;
     }
     if (<UserInfoCreditInfoNextLevel>[] is M) {
-      return data.map<UserInfoCreditInfoNextLevel>((Map<String, dynamic> e) => UserInfoCreditInfoNextLevel.fromJson(e)).toList() as M;
+      return data
+          .map<UserInfoCreditInfoNextLevel>((Map<String, dynamic> e) =>
+              UserInfoCreditInfoNextLevel.fromJson(e))
+          .toList() as M;
     }
+
     if (<JsModel>[] is M) {
-      return data.map<JsModel>((Map<String, dynamic> e) => JsModel.fromJson(e)).toList() as M;
+      return data
+          .map<JsModel>((Map<String, dynamic> e) => JsModel.fromJson(e))
+          .toList() as M;
     }
     if (<JsModelData>[] is M) {
-      return data.map<JsModelData>((Map<String, dynamic> e) => JsModelData.fromJson(e)).toList() as M;
+      return data
+          .map<JsModelData>((Map<String, dynamic> e) => JsModelData.fromJson(e))
+          .toList() as M;
     }
 
     debugPrint("${M.toString()} not found");
@@ -206,7 +275,8 @@ class JsonConvert {
       return json;
     }
     if (json is List) {
-      return _getListChildType<M>(json.map((e) => e as Map<String, dynamic>).toList());
+      return _getListChildType<M>(
+          json.map((e) => e as Map<String, dynamic>).toList());
     } else {
       return jsonConvert.convert<M>(json);
     }
@@ -219,8 +289,10 @@ class JsonConvertClassCollection {
     (ApplicationBean).toString(): ApplicationBean.fromJson,
     (ApplicationLoanBasisInfo).toString(): ApplicationLoanBasisInfo.fromJson,
     (ApplicationOrderInfo).toString(): ApplicationOrderInfo.fromJson,
-    (ApplicationOrderInfoPaymentInfo).toString(): ApplicationOrderInfoPaymentInfo.fromJson,
-    (ApplicationOrderInfoRepaymentInfo).toString(): ApplicationOrderInfoRepaymentInfo.fromJson,
+    (ApplicationOrderInfoPaymentInfo).toString():
+        ApplicationOrderInfoPaymentInfo.fromJson,
+    (ApplicationOrderInfoRepaymentInfo).toString():
+        ApplicationOrderInfoRepaymentInfo.fromJson,
     (BasisInfoBean).toString(): BasisInfoBean.fromJson,
     (BasisInfoContactPersons).toString(): BasisInfoContactPersons.fromJson,
     (IpCheckBean).toString(): IpCheckBean.fromJson,
@@ -228,12 +300,15 @@ class JsonConvertClassCollection {
     (LoginInfoBean).toString(): LoginInfoBean.fromJson,
     (SystemConfigBean).toString(): SystemConfigBean.fromJson,
     (SystemConfigDictInfo).toString(): SystemConfigDictInfo.fromJson,
-    (SystemConfigDictInfoServicePhones).toString(): SystemConfigDictInfoServicePhones.fromJson,
+    (SystemConfigDictInfoServicePhones).toString():
+        SystemConfigDictInfoServicePhones.fromJson,
     (UploadSignBean).toString(): UploadSignBean.fromJson,
     (UserInfoBean).toString(): UserInfoBean.fromJson,
     (UserInfoCreditInfo).toString(): UserInfoCreditInfo.fromJson,
-    (UserInfoCreditInfoCurrentLevel).toString(): UserInfoCreditInfoCurrentLevel.fromJson,
-    (UserInfoCreditInfoNextLevel).toString(): UserInfoCreditInfoNextLevel.fromJson,
+    (UserInfoCreditInfoCurrentLevel).toString():
+        UserInfoCreditInfoCurrentLevel.fromJson,
+    (UserInfoCreditInfoNextLevel).toString():
+        UserInfoCreditInfoNextLevel.fromJson,
     (JsModel).toString(): JsModel.fromJson,
     (JsModelData).toString(): JsModelData.fromJson,
   };
