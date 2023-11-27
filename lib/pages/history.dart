@@ -92,10 +92,7 @@ class HistorypageState extends State<HistoryPage> {
                       padding: const EdgeInsets.all(15),
                       child: Row(
                         children: [
-                          Image.asset(
-                            img,
-                            width: 33,
-                          ),
+                          Image.asset(img, width: 33),
                           Expanded(
                             child: Column(
                               children: [

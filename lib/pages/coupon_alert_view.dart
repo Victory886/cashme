@@ -53,7 +53,9 @@ class MyWidget extends StatelessWidget {
     return Container(
       width: 330,
       height: 318,
-      decoration: const BoxDecoration(color: Color(0xffC0CBF4), borderRadius: BorderRadius.all(Radius.circular(20))),
+      decoration: const BoxDecoration(
+          color: Color(0xffC0CBF4),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
       child: Column(
         children: [
           Row(
@@ -69,7 +71,10 @@ class MyWidget extends StatelessWidget {
                       Text(
                         "Bonus Coupon\nYou Own",
                         maxLines: 2,
-                        style: TextStyle(color: Color(0xff3C56E8), fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            color: Color(0xff3C56E8),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
                       ),
                       Icon(Icons.podcasts),
                     ],
@@ -93,8 +98,12 @@ class MyWidget extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("100", style: TextStyle(fontSize: 28, color: Color(0xff333333))),
-                      Text("Expire on Jan. 31st,2023", style: TextStyle(fontSize: 10, color: Color(0xff999999))),
+                      Text("100",
+                          style: TextStyle(
+                              fontSize: 28, color: Color(0xff333333))),
+                      Text("Expire on Jan. 31st,2023",
+                          style: TextStyle(
+                              fontSize: 10, color: Color(0xff999999))),
                     ],
                   ),
                 ),

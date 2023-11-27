@@ -4,9 +4,11 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-23 10:27:03
+ * @LastEditTime: 2023-11-23 16:15:43
  * @FilePath: /loannow/lib/config/urls.dart
  */
+import 'package:loannow/utils/secure_cipher_utils.dart';
+
 class Urls {
   static String BASE_URL = "http://api.cashloan.phdev.bowenfin.com/";
 
@@ -42,6 +44,9 @@ class Urls {
   static String SMS_LIST_SAVE = "personalNoteRecord/save";
   static String CONTACT_LIST_SAVE = "personalContact/save";
 
+  /// 版本检查
+  static String APPVERSION_NEEDUPDATE = "appVersion/needUpdate";
+
   /// 是否可以修改渠道
   static String PAYMENTCHANNELCHG = "paymentChannelChg/queryApplicationChgInfo";
 
@@ -57,8 +62,8 @@ class Urls {
 }
 
 class WebPageUrl {
-  // static String baseUrl = "http://cashmepera-phdev.bowenfin.com";
-  static String baseUrl = "http://192.168.200.171:8000";
+  static String baseUrl = "http://cashmepera-phdev.bowenfin.com";
+  // static String baseUrl = "http://192.168.200.171:8000";
 
   /// 基本信息页面地址
   static String applyStepBasalUrl = "$baseUrl/apply-step/basal";

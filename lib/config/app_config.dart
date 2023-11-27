@@ -2,14 +2,14 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-07 10:46:05
+ * @LastEditTime: 2023-11-27 14:46:28
  * @FilePath: /loannow/lib/config/app_config.dart
  */
 
 import 'package:flutter/material.dart';
 
 class AppConfig {
-  static const int APP_ID = 0;
+  static const int APP_ID = 11;
   static const int APP_PLATFORM = 2;
   static const String APP_LOGIN_PLATFORM = "APP";
   static const String APP_PACKAGE = "com.won.naol.loannow";

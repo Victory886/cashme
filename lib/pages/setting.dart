@@ -10,6 +10,7 @@ import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/utils/dialog_utils.dart';
 import 'package:loannow/utils/operation_utils.dart';
+import 'package:loannow/utils/phone_utils.dart';
 import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 import 'package:loannow/widget/titleBar.dart';
@@ -74,6 +75,15 @@ class SettingPageState extends State<SettingPage> {
                     "MvfNXegify3MqASXmsWIxg==".aseUnlook() /* Version Update */,
                 onClick: () {
                   /// 调用版本更新接口
+
+                  DioManager.getInstance().doRequest<Map<String, dynamic>>(
+                    path: Urls.APPVERSION_NEEDUPDATE,
+                    method: DioMethod.GET,
+                    successCallBack: (result) {
+                      fLog(" vvvvv ${result}");
+                    },
+                    failCallBack: (result) {},
+                  );
                 },
                 rightText: "V$version",
               );

@@ -57,13 +57,9 @@ class LoginPageState extends State<LoginPage> {
 
   void _onFocusChange() {
     if (phoneFocus.hasFocus) {
-      // TextField 获得焦点时的逻辑
-      print('TextField 获得焦点');
       isFocus = true;
     } else {
-      // TextField 失去焦点时的逻辑
       isFocus = false;
-      print('TextField 失去焦点');
     }
     focusState(() {});
   }
@@ -421,6 +417,13 @@ class LoginPageState extends State<LoginPage> {
   }
 
   void checkConfirmStatus(text) {
+    if (Constans.systemConfigBean?.testPhones != null) {
+      if (Constans.systemConfigBean?.testPhones?.contains(text) ?? false) {
+        confirmButtonDisable = codeController.text.length < 4;
+        confirmButtonState(() {});
+        return;
+      }
+    }
     confirmButtonDisable =
         phoneController.text.length < 10 || codeController.text.length < 4;
     confirmButtonState(() {});
@@ -443,6 +446,8 @@ class LoginPageState extends State<LoginPage> {
 
   void getCode({bool? isVoice}) {
     String phone = PhoneUtils.formatPhone(phoneController.text);
+
+    // 987123121 test phone
     if (phone.isEmpty) {
       BotToast.showText(text: "Phone number error");
       phoneFocus.requestFocus();
@@ -485,7 +490,7 @@ class LoginPageState extends State<LoginPage> {
             }
           }
 
-          checkConfirmStatus("");
+          checkConfirmStatus(phone);
           startCount();
         },
         failCallBack: (result) {

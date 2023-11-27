@@ -2,13 +2,14 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-10-23 11:16:16
+ * @LastEditTime: 2023-11-23 15:37:28
  * @FilePath: /loannow/lib/utils/operation_utils.dart
  */
 import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/utils/device_utils.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 
 import '../config/constants.dart';
 
@@ -16,7 +17,7 @@ class OperationUtils {
   /// 发送后端的操作埋点
   static Future<void> saveOperation(String code) async {
     String? deviceId = await DeviceUtils.getDeviceId();
-    Map map = {"operationCode": code, "deviceId": deviceId};
+    Map map = {"operationCode": code.aseUnlook(), "deviceId": deviceId};
     DioManager.getInstance().doRequest(
       path: Urls.OPERATION_RECORD,
       showLoading: false,
