@@ -1,15 +1,16 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:loannow/beans/account_delete_bean.dart';
-import 'package:loannow/beans/login_info_bean.dart';
 import 'package:loannow/config/app_colors.dart';
-import 'package:loannow/config/app_config.dart';
 import 'package:loannow/config/constants.dart';
 import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/utils/dialog_utils.dart';
 import 'package:loannow/utils/operation_utils.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 import 'package:loannow/widget/titleBar.dart';
 
@@ -17,6 +18,8 @@ import '../beans/user_info_bean.dart';
 import '../utils/device_utils.dart';
 
 class SettingPage extends StatefulWidget {
+  const SettingPage({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return SettingPageState();
@@ -27,7 +30,7 @@ class SettingPageState extends State<SettingPage> {
   String phone = '';
   late StateSetter phoneState;
 
-  String version = "1.0.0";
+  String version = "3fGLoL45lm19CYq1m5Tz/w==".aseUnlook() /* 1.0.0 */;
   late StateSetter verSionState;
 
   Future<void> getUser() async {
@@ -48,9 +51,10 @@ class SettingPageState extends State<SettingPage> {
     return Scaffold(
       body: Column(
         children: [
-          TitleBar(title: "Setting"),
+          TitleBar(title: "PN9iAlna6aQ8VHqdjqnhNw==".aseUnlook() /* Setting */),
           buildItem(
-            text: "Change my phone number",
+            text: "negYki4q78saZthdG2os3VZXpJVi67HWeF7dLVs5w7I="
+                .aseUnlook() /* Change my phone number */,
             onClick: () {
               Navigator.pushNamed(
                 context,
@@ -66,7 +70,8 @@ class SettingPageState extends State<SettingPage> {
             builder: (context, state) {
               verSionState = setState;
               return buildItem(
-                text: "Version Update",
+                text:
+                    "MvfNXegify3MqASXmsWIxg==".aseUnlook() /* Version Update */,
                 onClick: () {
                   /// 调用版本更新接口
                 },
@@ -78,18 +83,16 @@ class SettingPageState extends State<SettingPage> {
             StatefulBuilder(
               builder: (context, state) {
                 phoneState = state;
-                if (Constans.systemConfigBean!.testPhones!.contains(phone)) {
-                  return buildItem(
-                    text: "Account Deletion",
-                    onClick: () {
-                      showDeleteDialog();
-                    },
-                  );
-                } else {
-                  return const Expanded(child: SizedBox.shrink());
-                }
+                return buildItem(
+                  text: "agXpaevp7DVJOx2aX521BoR8U7T7qRXv/K8fZmKxtfI="
+                      .aseUnlook() /* Account Deletion */,
+                  onClick: () {
+                    showDeleteDialog();
+                  },
+                );
               },
             ),
+          Expanded(child: Container()),
           Container(
             margin: const EdgeInsets.only(bottom: 50, left: 20, right: 20),
             child: InkWell(
@@ -108,8 +111,8 @@ class SettingPageState extends State<SettingPage> {
                     style: BorderStyle.solid,
                   ),
                 ),
-                child: const Text(
-                  "Logout",
+                child: Text(
+                  "rPs4qwgXds/6fFegKvfhPw==".aseUnlook() /* Logout */,
                   style: TextStyle(
                     color: AppColors.textColor,
                     fontWeight: FontWeight.bold,
@@ -162,7 +165,8 @@ class SettingPageState extends State<SettingPage> {
                 ),
               ),
             Image.asset(
-              "images/ic_setting_more.png",
+              "iPtP4TLZXUvoRIjmI8jSpziEx2hupzi8ukYEtFQbGd4="
+                  .aseUnlook() /* images/ic_setting_more.png */,
               width: 15,
             ),
           ],
@@ -174,11 +178,11 @@ class SettingPageState extends State<SettingPage> {
   void showDeleteDialog() {
     DialogUtils.showCustomerDialog(
       context: context,
-      title:
-          "To ensure the security of your account, the following conditions must be met before your application for cancellation takes effect:",
+      title: "3o3FCmMRIATxPitJTYfJmdpvMPUSOw8OCMqGQ4aC2Syb2kB8aazLPTGD0CNPJWBcjD5ViNQRaZRXBWzWsOYUPq5kCxUOZKjajdqpo4g5sz3/e0B+e2ShcpFqKitqsxUR+dtP0QOs02b3JtWS4ri7P9LzHTv1NdVB7H1iaEPPpxjtr4Nr0H6qjg+PzUeKP36p"
+          .aseUnlook() /* To ensure the security of your account, the following conditions must be met before your application for cancellation takes effect: */,
       content:
-          "All transactions under the account have been settled, and the accumulated user rights and interests have been voluntarily waived "
-          "(account credits)",
+          "h9yMC16MOlF+r3PXa/IAIoSA2WJKvEPtExMh6SQTimNS+/8N59RULPlTrJGl0DXb3RMFm68R/blRga/Nbcz1V1DvUDBcp4BVdJy5CbUiIx4+iZhjeRPkYwzMOWiKfB7X+TsAgUGnle8orx7C5aIE6ZoKadlvzQadN6mZgDJtWnVs/oyV7N7d9mvHm356kvbgmaoxmWzo7gGxCtSYssVGyQ=="
+              .aseUnlook() /* All transactions under the account have been settled, and the accumulated user rights and interests have been voluntarily waived (account credits) */,
       confirmClick: () {
         Navigator.pop(context);
         deleteAccount();
@@ -196,8 +200,8 @@ class SettingPageState extends State<SettingPage> {
                 context, RouterNames.LOGIN, (route) => false);
           } else {
             BotToast.showText(
-                text:
-                    "You have an unfinished order, please complete the order before proceeding.");
+                text: "5y2JPzT8/MfKWfy5tvhmBpAFvmWTn178R7OwFFXYERWYlbHqJ3Xd4vO2y176ALWGMQSR+Gw8uAoaGAcipdEszfIVnEb6ZBwn3e2Ty/yul6M="
+                    .aseUnlook() /* You have an unfinished order, please complete the order before proceeding. */);
           }
         });
   }
