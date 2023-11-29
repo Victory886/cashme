@@ -2,19 +2,18 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-07 18:09:17
+ * @LastEditTime: 2023-11-29 14:25:23
  * @FilePath: /loannow/lib/main.dart
  */
-import 'package:bot_toast/bot_toast.dart';
 import 'package:facebook_app_events/facebook_app_events.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:loannow/config/router_names.dart';
+import 'package:loannow/pages/modify_phone.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/material.dart';
 import 'package:loannow/pages/camera.dart';
 import 'package:loannow/pages/history.dart';
 import 'package:loannow/pages/login.dart';
 import 'package:loannow/pages/main.dart';
-import 'package:loannow/pages/modify_phone.dart';
 import 'package:loannow/pages/setting.dart';
 import 'package:loannow/pages/start.dart';
 import 'package:loannow/pages/web.dart';
@@ -48,9 +47,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 禁止自动设置状态栏颜色
-    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-
     return MaterialApp(
       builder: BotToastInit(),
       navigatorKey: navigatorKey,
@@ -63,8 +59,8 @@ class MyApp extends StatelessWidget {
       routes: {
         RouterNames.START: (context) => const StartPage(),
         RouterNames.HOME: (context) => const MainPage(),
-        RouterNames.LOGIN: (context) => LoginPage(),
-        RouterNames.SETTING: (context) => SettingPage(),
+        RouterNames.LOGIN: (context) => const LoginPage(),
+        RouterNames.SETTING: (context) => const SettingPage(),
         RouterNames.HISTORY: (context) => const HistoryPage(),
         RouterNames.MODIFY_PHONE: (context) => const ModifyPhonePage(),
         RouterNames.WEB: (context) => WebPage(),

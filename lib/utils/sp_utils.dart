@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:loannow/beans/basis_info_bean.dart';
@@ -15,6 +17,7 @@ class SpUtils {
   static const String SP_KEY_FIRST_OPEN = "SP_KEY_FIRST_OPEN";
   static const String SP_KEY_INSTALL_REFERRER = "SP_KEY_INSTALL_REFERRER";
   static const String SP_KEY_BASIS_INFO = "SP_KEY_BASIS_INFO";
+  static const String SP_KEY_COUPON_ALERT = "SP_KEY_COUPON_ALERT";
 
   static Future<bool> saveToken(String token) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -24,7 +27,7 @@ class SpUtils {
 
   static Future<String?> getToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = await prefs.getString(SP_KEY_TOKEN);
+    String? token = prefs.getString(SP_KEY_TOKEN);
     return token;
   }
 
@@ -36,7 +39,7 @@ class SpUtils {
 
   static Future<LoginInfoBean?> getLoginInfoData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? loginInfoData = await prefs.getString(SP_KEY_LOGIN);
+    String? loginInfoData = prefs.getString(SP_KEY_LOGIN);
     if (loginInfoData != null) {
       return LoginInfoBean.fromJson(json.decode(loginInfoData));
     }
@@ -51,7 +54,7 @@ class SpUtils {
 
   static Future<UserInfoBean?> getUserInfo() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userStr = await prefs.getString(SP_KEY_USER);
+    String? userStr = prefs.getString(SP_KEY_USER);
     if (userStr != null) {
       return UserInfoBean.fromJson(json.decode(userStr));
     }
@@ -66,7 +69,7 @@ class SpUtils {
 
   static Future<String?> getDeviceId() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? deviceId = await prefs.getString(SP_KEY_DEVICE_ID);
+    String? deviceId = prefs.getString(SP_KEY_DEVICE_ID);
     return deviceId;
   }
 
@@ -78,13 +81,13 @@ class SpUtils {
 
   static Future<String?> getInstallReferrer() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? referrer = await prefs.getString(SP_KEY_INSTALL_REFERRER);
+    String? referrer = prefs.getString(SP_KEY_INSTALL_REFERRER);
     return referrer;
   }
 
   static Future<bool> isFirstOpen() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? isFirst = await prefs.getBool(SP_KEY_FIRST_OPEN);
+    bool? isFirst = prefs.getBool(SP_KEY_FIRST_OPEN);
     return isFirst ?? true;
   }
 
@@ -96,7 +99,7 @@ class SpUtils {
 
   static Future<bool> isOrderFinished() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? isFirst = await prefs.getBool(SP_KEY_ORDER_FINISHED);
+    bool? isFirst = prefs.getBool(SP_KEY_ORDER_FINISHED);
     return isFirst ?? false;
   }
 
@@ -114,11 +117,30 @@ class SpUtils {
 
   static Future<BasisInfoBean?> getBasisInfo() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? basisStr = await prefs.getString(SP_KEY_BASIS_INFO);
+    String? basisStr = prefs.getString(SP_KEY_BASIS_INFO);
     if (basisStr != null) {
       return BasisInfoBean.fromJson(json.decode(basisStr));
     }
     return null;
+  }
+
+  /// 保存优惠券
+  static Future<bool> saveCouponAlert(String couponID) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool success = await prefs.setString(SP_KEY_COUPON_ALERT, couponID);
+    return success;
+  }
+
+  static Future<String?> getCouponAlert() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // String couponAlert = prefs!.getString(SP_KEY_COUPON_ALERT) ?? "";
+    // return couponAlert;
+    String? couponAlert = await prefs.getString(SP_KEY_COUPON_ALERT);
+    print("alertCoupon = $couponAlert");
+    if (couponAlert != null) {
+      return couponAlert;
+    }
+    return "";
   }
 
   static Future<bool?> clearUser() async {

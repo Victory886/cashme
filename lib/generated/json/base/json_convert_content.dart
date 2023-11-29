@@ -7,20 +7,21 @@ import 'package:flutter/material.dart' show debugPrint;
 import 'package:loannow/beans/account_delete_bean.dart';
 import 'package:loannow/beans/application_bean.dart';
 import 'package:loannow/beans/basis_info_bean.dart';
+import 'package:loannow/beans/coupon_alert_bean.dart';
 import 'package:loannow/beans/ip_check_bean.dart';
 import 'package:loannow/beans/loan_history_bean.dart';
 import 'package:loannow/beans/login_info_bean.dart';
 import 'package:loannow/beans/system_config_bean.dart';
 import 'package:loannow/beans/upload_sign_bean.dart';
 import 'package:loannow/beans/user_info_bean.dart';
+import 'package:loannow/beans/version_bean.dart';
 import 'package:loannow/generated/js_model.dart';
 
 JsonConvert jsonConvert = JsonConvert();
 
 typedef JsonConvertFunction<T> = T Function(Map<String, dynamic> json);
 typedef EnumConvertFunction<T> = T Function(String value);
-typedef ConvertExceptionHandler = void Function(
-    Object error, StackTrace stackTrace);
+typedef ConvertExceptionHandler = void Function(Object error, StackTrace stackTrace);
 
 class JsonConvert {
   static ConvertExceptionHandler? onError;
@@ -69,8 +70,7 @@ class JsonConvert {
       return null;
     }
     try {
-      return value
-          .map((dynamic e) => _asT<T>(e, enumConvert: enumConvert))
+      return value.map((dynamic e) => _asT<T>(e, enumConvert: enumConvert))
           .toList();
     } catch (e, stackTrace) {
       debugPrint('asT<$T> $e $stackTrace');
@@ -87,9 +87,8 @@ class JsonConvert {
       return null;
     }
     try {
-      return (value as List<dynamic>)
-          .map((dynamic e) => _asT<T>(e, enumConvert: enumConvert)!)
-          .toList();
+      return (value as List<dynamic>).map((dynamic e) =>
+      _asT<T>(e, enumConvert: enumConvert)!).toList();
     } catch (e, stackTrace) {
       debugPrint('asT<$T> $e $stackTrace');
       if (onError != null) {
@@ -141,128 +140,100 @@ class JsonConvert {
   //list is returned by type
   static M? _getListChildType<M>(List<Map<String, dynamic>> data) {
     if (<AccountDeleteBean>[] is M) {
-      return data
-          .map<AccountDeleteBean>(
-              (Map<String, dynamic> e) => AccountDeleteBean.fromJson(e))
-          .toList() as M;
+      return data.map<AccountDeleteBean>((Map<String, dynamic> e) =>
+          AccountDeleteBean.fromJson(e)).toList() as M;
     }
     if (<ApplicationBean>[] is M) {
-      return data
-          .map<ApplicationBean>(
-              (Map<String, dynamic> e) => ApplicationBean.fromJson(e))
-          .toList() as M;
+      return data.map<ApplicationBean>((Map<String, dynamic> e) =>
+          ApplicationBean.fromJson(e)).toList() as M;
     }
     if (<ApplicationLoanBasisInfo>[] is M) {
-      return data
-          .map<ApplicationLoanBasisInfo>(
-              (Map<String, dynamic> e) => ApplicationLoanBasisInfo.fromJson(e))
-          .toList() as M;
+      return data.map<ApplicationLoanBasisInfo>((Map<String, dynamic> e) =>
+          ApplicationLoanBasisInfo.fromJson(e)).toList() as M;
     }
     if (<ApplicationOrderInfo>[] is M) {
-      return data
-          .map<ApplicationOrderInfo>(
-              (Map<String, dynamic> e) => ApplicationOrderInfo.fromJson(e))
-          .toList() as M;
+      return data.map<ApplicationOrderInfo>((Map<String, dynamic> e) =>
+          ApplicationOrderInfo.fromJson(e)).toList() as M;
     }
     if (<ApplicationOrderInfoPaymentInfo>[] is M) {
-      return data
-          .map<ApplicationOrderInfoPaymentInfo>((Map<String, dynamic> e) =>
-              ApplicationOrderInfoPaymentInfo.fromJson(e))
-          .toList() as M;
+      return data.map<ApplicationOrderInfoPaymentInfo>((
+          Map<String, dynamic> e) =>
+          ApplicationOrderInfoPaymentInfo.fromJson(e)).toList() as M;
     }
     if (<ApplicationOrderInfoRepaymentInfo>[] is M) {
-      return data
-          .map<ApplicationOrderInfoRepaymentInfo>((Map<String, dynamic> e) =>
-              ApplicationOrderInfoRepaymentInfo.fromJson(e))
-          .toList() as M;
+      return data.map<ApplicationOrderInfoRepaymentInfo>((
+          Map<String, dynamic> e) =>
+          ApplicationOrderInfoRepaymentInfo.fromJson(e)).toList() as M;
     }
     if (<BasisInfoBean>[] is M) {
-      return data
-          .map<BasisInfoBean>(
-              (Map<String, dynamic> e) => BasisInfoBean.fromJson(e))
-          .toList() as M;
+      return data.map<BasisInfoBean>((Map<String, dynamic> e) =>
+          BasisInfoBean.fromJson(e)).toList() as M;
     }
     if (<BasisInfoContactPersons>[] is M) {
-      return data
-          .map<BasisInfoContactPersons>(
-              (Map<String, dynamic> e) => BasisInfoContactPersons.fromJson(e))
-          .toList() as M;
+      return data.map<BasisInfoContactPersons>((Map<String, dynamic> e) =>
+          BasisInfoContactPersons.fromJson(e)).toList() as M;
+    }
+    if (<CouponAlertBean>[] is M) {
+      return data.map<CouponAlertBean>((Map<String, dynamic> e) =>
+          CouponAlertBean.fromJson(e)).toList() as M;
     }
     if (<IpCheckBean>[] is M) {
-      return data
-          .map<IpCheckBean>((Map<String, dynamic> e) => IpCheckBean.fromJson(e))
-          .toList() as M;
+      return data.map<IpCheckBean>((Map<String, dynamic> e) =>
+          IpCheckBean.fromJson(e)).toList() as M;
     }
     if (<LoanHistoryBean>[] is M) {
-      return data
-          .map<LoanHistoryBean>(
-              (Map<String, dynamic> e) => LoanHistoryBean.fromJson(e))
-          .toList() as M;
+      return data.map<LoanHistoryBean>((Map<String, dynamic> e) =>
+          LoanHistoryBean.fromJson(e)).toList() as M;
     }
     if (<LoginInfoBean>[] is M) {
-      return data
-          .map<LoginInfoBean>(
-              (Map<String, dynamic> e) => LoginInfoBean.fromJson(e))
-          .toList() as M;
+      return data.map<LoginInfoBean>((Map<String, dynamic> e) =>
+          LoginInfoBean.fromJson(e)).toList() as M;
     }
     if (<SystemConfigBean>[] is M) {
-      return data
-          .map<SystemConfigBean>(
-              (Map<String, dynamic> e) => SystemConfigBean.fromJson(e))
-          .toList() as M;
+      return data.map<SystemConfigBean>((Map<String, dynamic> e) =>
+          SystemConfigBean.fromJson(e)).toList() as M;
     }
     if (<SystemConfigDictInfo>[] is M) {
-      return data
-          .map<SystemConfigDictInfo>(
-              (Map<String, dynamic> e) => SystemConfigDictInfo.fromJson(e))
-          .toList() as M;
+      return data.map<SystemConfigDictInfo>((Map<String, dynamic> e) =>
+          SystemConfigDictInfo.fromJson(e)).toList() as M;
     }
     if (<SystemConfigDictInfoServicePhones>[] is M) {
-      return data
-          .map<SystemConfigDictInfoServicePhones>((Map<String, dynamic> e) =>
-              SystemConfigDictInfoServicePhones.fromJson(e))
-          .toList() as M;
+      return data.map<SystemConfigDictInfoServicePhones>((
+          Map<String, dynamic> e) =>
+          SystemConfigDictInfoServicePhones.fromJson(e)).toList() as M;
     }
     if (<UploadSignBean>[] is M) {
-      return data
-          .map<UploadSignBean>(
-              (Map<String, dynamic> e) => UploadSignBean.fromJson(e))
-          .toList() as M;
+      return data.map<UploadSignBean>((Map<String, dynamic> e) =>
+          UploadSignBean.fromJson(e)).toList() as M;
     }
     if (<UserInfoBean>[] is M) {
-      return data
-          .map<UserInfoBean>(
-              (Map<String, dynamic> e) => UserInfoBean.fromJson(e))
-          .toList() as M;
+      return data.map<UserInfoBean>((Map<String, dynamic> e) =>
+          UserInfoBean.fromJson(e)).toList() as M;
     }
     if (<UserInfoCreditInfo>[] is M) {
-      return data
-          .map<UserInfoCreditInfo>(
-              (Map<String, dynamic> e) => UserInfoCreditInfo.fromJson(e))
-          .toList() as M;
+      return data.map<UserInfoCreditInfo>((Map<String, dynamic> e) =>
+          UserInfoCreditInfo.fromJson(e)).toList() as M;
     }
     if (<UserInfoCreditInfoCurrentLevel>[] is M) {
-      return data
-          .map<UserInfoCreditInfoCurrentLevel>((Map<String, dynamic> e) =>
-              UserInfoCreditInfoCurrentLevel.fromJson(e))
+      return data.map<UserInfoCreditInfoCurrentLevel>((
+          Map<String, dynamic> e) => UserInfoCreditInfoCurrentLevel.fromJson(e))
           .toList() as M;
     }
     if (<UserInfoCreditInfoNextLevel>[] is M) {
-      return data
-          .map<UserInfoCreditInfoNextLevel>((Map<String, dynamic> e) =>
-              UserInfoCreditInfoNextLevel.fromJson(e))
-          .toList() as M;
+      return data.map<UserInfoCreditInfoNextLevel>((Map<String, dynamic> e) =>
+          UserInfoCreditInfoNextLevel.fromJson(e)).toList() as M;
     }
-
+    if (<VersionBean>[] is M) {
+      return data.map<VersionBean>((Map<String, dynamic> e) =>
+          VersionBean.fromJson(e)).toList() as M;
+    }
     if (<JsModel>[] is M) {
-      return data
-          .map<JsModel>((Map<String, dynamic> e) => JsModel.fromJson(e))
+      return data.map<JsModel>((Map<String, dynamic> e) => JsModel.fromJson(e))
           .toList() as M;
     }
     if (<JsModelData>[] is M) {
-      return data
-          .map<JsModelData>((Map<String, dynamic> e) => JsModelData.fromJson(e))
-          .toList() as M;
+      return data.map<JsModelData>((Map<String, dynamic> e) =>
+          JsModelData.fromJson(e)).toList() as M;
     }
 
     debugPrint("${M.toString()} not found");
@@ -289,26 +260,28 @@ class JsonConvertClassCollection {
     (ApplicationBean).toString(): ApplicationBean.fromJson,
     (ApplicationLoanBasisInfo).toString(): ApplicationLoanBasisInfo.fromJson,
     (ApplicationOrderInfo).toString(): ApplicationOrderInfo.fromJson,
-    (ApplicationOrderInfoPaymentInfo).toString():
-        ApplicationOrderInfoPaymentInfo.fromJson,
-    (ApplicationOrderInfoRepaymentInfo).toString():
-        ApplicationOrderInfoRepaymentInfo.fromJson,
+    (ApplicationOrderInfoPaymentInfo)
+        .toString(): ApplicationOrderInfoPaymentInfo.fromJson,
+    (ApplicationOrderInfoRepaymentInfo)
+        .toString(): ApplicationOrderInfoRepaymentInfo.fromJson,
     (BasisInfoBean).toString(): BasisInfoBean.fromJson,
     (BasisInfoContactPersons).toString(): BasisInfoContactPersons.fromJson,
+    (CouponAlertBean).toString(): CouponAlertBean.fromJson,
     (IpCheckBean).toString(): IpCheckBean.fromJson,
     (LoanHistoryBean).toString(): LoanHistoryBean.fromJson,
     (LoginInfoBean).toString(): LoginInfoBean.fromJson,
     (SystemConfigBean).toString(): SystemConfigBean.fromJson,
     (SystemConfigDictInfo).toString(): SystemConfigDictInfo.fromJson,
-    (SystemConfigDictInfoServicePhones).toString():
-        SystemConfigDictInfoServicePhones.fromJson,
+    (SystemConfigDictInfoServicePhones)
+        .toString(): SystemConfigDictInfoServicePhones.fromJson,
     (UploadSignBean).toString(): UploadSignBean.fromJson,
     (UserInfoBean).toString(): UserInfoBean.fromJson,
     (UserInfoCreditInfo).toString(): UserInfoCreditInfo.fromJson,
-    (UserInfoCreditInfoCurrentLevel).toString():
-        UserInfoCreditInfoCurrentLevel.fromJson,
-    (UserInfoCreditInfoNextLevel).toString():
-        UserInfoCreditInfoNextLevel.fromJson,
+    (UserInfoCreditInfoCurrentLevel).toString(): UserInfoCreditInfoCurrentLevel
+        .fromJson,
+    (UserInfoCreditInfoNextLevel).toString(): UserInfoCreditInfoNextLevel
+        .fromJson,
+    (VersionBean).toString(): VersionBean.fromJson,
     (JsModel).toString(): JsModel.fromJson,
     (JsModelData).toString(): JsModelData.fromJson,
   };

@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-27 14:46:28
+ * @LastEditTime: 2023-11-27 16:00:17
  * @FilePath: /loannow/lib/config/app_config.dart
  */
 

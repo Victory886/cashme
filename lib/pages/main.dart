@@ -10,7 +10,6 @@ import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/pages/mine.dart';
 import './new_home_page.dart';
-import 'package:loannow/utils/fk_utils.dart';
 import 'package:loannow/utils/operation_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 
@@ -86,7 +85,9 @@ class MainPageState extends State<MainPage> {
                 height: tabbarHeight,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(img(R.tabbarBG)), fit: BoxFit.fill),
+                    fit: BoxFit.fill,
+                    image: AssetImage(img(R.tabbarBG)),
+                  ),
                 ),
                 child: StatefulBuilder(
                   builder: (context, setState) {

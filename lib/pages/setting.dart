@@ -3,6 +3,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:loannow/beans/account_delete_bean.dart';
+import 'package:loannow/beans/version_bean.dart';
 import 'package:loannow/config/app_colors.dart';
 import 'package:loannow/config/constants.dart';
 import 'package:loannow/config/router_names.dart';
@@ -14,6 +15,7 @@ import 'package:loannow/utils/phone_utils.dart';
 import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 import 'package:loannow/widget/titleBar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../beans/user_info_bean.dart';
 import '../utils/device_utils.dart';
@@ -76,11 +78,17 @@ class SettingPageState extends State<SettingPage> {
                 onClick: () {
                   /// 调用版本更新接口
 
-                  DioManager.getInstance().doRequest<Map<String, dynamic>>(
+                  DioManager.getInstance().doRequest<VersionBean>(
                     path: Urls.APPVERSION_NEEDUPDATE,
                     method: DioMethod.GET,
                     successCallBack: (result) {
-                      fLog(" vvvvv ${result}");
+                      if (result != null) {
+                        fLog(" vvvvv ${result.version}");
+
+                        if (result.version != version) {
+                          newVersion(result);
+                        }
+                      }
                     },
                     failCallBack: (result) {},
                   );
@@ -171,7 +179,9 @@ class SettingPageState extends State<SettingPage> {
                 child: Text(
                   rightText.toString(),
                   style: const TextStyle(
-                      color: AppColors.primaryColor, fontSize: 12),
+                    color: AppColors.primaryColor,
+                    fontSize: 12,
+                  ),
                 ),
               ),
             Image.asset(
@@ -200,20 +210,66 @@ class SettingPageState extends State<SettingPage> {
     );
   }
 
+  void newVersion(VersionBean model) {
+    // CupertinoAlertDialog(
+    //   content: SingleChildScrollView(
+    //     child: ListBody(
+    //       // ignore: prefer_const_literals_to_create_immutables
+    //       children: <Widget>[
+    //         Text("IOS风格"),
+    //         Text("是否要删除？"),
+    //         Text("一旦删除数据不可恢复!")
+    //       ],
+    //     ),
+    //   ),
+    //   actions: <Widget>[
+    //     CupertinoDialogAction(
+    //       child: Text("确定"),
+    //       onPressed: () {},
+    //     ),
+    //     CupertinoDialogAction(
+    //       child: Text("取消"),
+    //       onPressed: () {},
+    //     ),
+    //   ],
+    // );
+
+    DialogUtils.showCustomerDialog(
+      context: context,
+      title: "Update Available",
+      content: "A new version is available. Please update version now.",
+      confirmClick: () {
+        final Uri url = Uri.parse(model.downloadUrl ?? "");
+        launchUrl(url);
+        Navigator.pop(context);
+      },
+      cancelClick: () {
+        if (model.foreupdate ?? false) {
+          final Uri url = Uri.parse(model.downloadUrl ?? "");
+          launchUrl(url);
+          Navigator.pop(context);
+        } else {
+          Navigator.pop(context);
+        }
+      },
+    );
+  }
+
   void deleteAccount() {
     DioManager.getInstance().doRequest<AccountDeleteBean>(
-        path: Urls.MODIFY_PHONE,
-        method: DioMethod.POST,
-        successCallBack: (result) {
-          if (result == null) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, RouterNames.LOGIN, (route) => false);
-          } else {
-            BotToast.showText(
-                text: "5y2JPzT8/MfKWfy5tvhmBpAFvmWTn178R7OwFFXYERWYlbHqJ3Xd4vO2y176ALWGMQSR+Gw8uAoaGAcipdEszfIVnEb6ZBwn3e2Ty/yul6M="
-                    .aseUnlook() /* You have an unfinished order, please complete the order before proceeding. */);
-          }
-        });
+      path: Urls.MODIFY_PHONE,
+      method: DioMethod.POST,
+      successCallBack: (result) {
+        if (result == null) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, RouterNames.LOGIN, (route) => false);
+        } else {
+          BotToast.showText(
+              text: "5y2JPzT8/MfKWfy5tvhmBpAFvmWTn178R7OwFFXYERWYlbHqJ3Xd4vO2y176ALWGMQSR+Gw8uAoaGAcipdEszfIVnEb6ZBwn3e2Ty/yul6M="
+                  .aseUnlook() /* You have an unfinished order, please complete the order before proceeding. */);
+        }
+      },
+    );
   }
 
   @override

@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-20 10:34:25
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-27 15:29:45
+ * @LastEditTime: 2023-11-27 15:42:18
  * @FilePath: /loannow/lib/generated/js_model.dart
  */
 import 'dart:convert';
@@ -37,9 +37,9 @@ class JsModelData {
   JsModelData();
 
   factory JsModelData.fromJson(Map<String, dynamic> json) =>
-      $JsDataFromJson(json);
+      $JsModelDataFromJson(json);
 
-  Map<String, dynamic> toJson() => $JsDataToJson(this);
+  Map<String, dynamic> toJson() => $JsModelDataToJson(this);
 
   @override
   String toString() {

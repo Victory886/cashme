@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-23 16:11:32
+ * @LastEditTime: 2023-11-29 14:23:17
  * @FilePath: /loannow/lib/pages/web.dart
  */
 import 'dart:collection';
@@ -14,15 +14,16 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:loannow/utils/js_utils.dart';
 import 'package:loannow/widget/titleBar.dart';
 
-import '../utils/js_utils.dart';
+import '../utils/phone_utils.dart';
 
+@immutable
 class WebPage extends StatefulWidget {
   WebPage({
     Key? key,
     this.urlStr,
   }) : super(key: key);
 
-  String? urlStr = "";
+  late String? urlStr = "";
 
   @override
   State<StatefulWidget> createState() {
@@ -97,7 +98,7 @@ class WebPageState extends State<WebPage> {
                   }
                 }
 
-                debugPrint("Terry-----web----调用了----$url");
+                fLog("Terry-----web----调用了----$url");
                 Uri uri = widget.urlStr != null
                     ? Uri.parse(widget.urlStr ?? "")
                     : Uri.parse(url);

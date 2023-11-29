@@ -1,5 +1,6 @@
 {
   "dart.lineLength": 80,
   "gitlens.deepLinks.schemeOverride": false,
-  "editor.inlineSuggest.showToolbar": "onHover"
+  "editor.inlineSuggest.showToolbar": "onHover",
+  "chat.editor.wordWrap": "on"
 }

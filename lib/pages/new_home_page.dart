@@ -2,13 +2,15 @@
  * @Author: Terry
  * @Date: 2023-10-18 17:28:58
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-13 14:42:04
+ * @LastEditTime: 2023-11-29 17:52:43
  * @FilePath: /loannow/lib/pages/new_home_page.dart
  */
 
 import 'package:flutter/material.dart';
-import 'package:loannow/config/app_config.dart';
+import 'package:loannow/beans/coupon_alert_bean.dart';
 import 'package:loannow/pages/web.dart';
+import 'package:loannow/utils/phone_utils.dart';
+import 'package:loannow/config/app_config.dart';
 
 import '../config/urls.dart';
 import '../utils/sp_utils.dart';
@@ -19,8 +21,9 @@ import '../utils/operation_utils.dart';
 import '../beans/application_bean.dart';
 
 import '../utils/application_status_utils.dart';
-import 'package:loannow/pages/order_status.dart';
+import 'order_status.dart';
 
+import 'coupon_alert_view.dart';
 import 'new_loan_page.dart';
 
 /// 是否重新刷新订单状态
@@ -57,7 +60,7 @@ class NewHomePageState extends State<NewHomePage>
           ),
           StatefulBuilder(
             builder: (context, setState) {
-              debugPrint("000000000000 = StatefulBuilder");
+              fLog("000000000000 = StatefulBuilder");
               pageState = setState;
               if (showLoading) {
                 return const SizedBox.shrink();
@@ -69,6 +72,9 @@ class NewHomePageState extends State<NewHomePage>
                     //   refreshClick: getLatestApplication,
                     //   application: applicationBean!,
                     // );
+                    alertCoupon();
+
+                    OperationUtils.saveOperation('/home/repay');
                     return Container(
                       margin: const EdgeInsets.only(bottom: tabbarHeight),
                       child: WebPage(urlStr: WebPageUrl.repayUrl),
@@ -80,7 +86,7 @@ class NewHomePageState extends State<NewHomePage>
                     refreshClick: getLatestApplication,
                   );
                 } else {
-                  debugPrint("000000000 = ........");
+                  fLog("000000000 = ........");
                   if (isRolaodOrder) {
                     getLatestApplication(isInit: false);
                     return const SizedBox.shrink();
@@ -100,6 +106,35 @@ class NewHomePageState extends State<NewHomePage>
     super.initState();
     getData();
     OperationUtils.saveOperation('/home');
+  }
+
+  /// 优惠卷弹框
+  void alertCoupon() async {
+    DioManager.getInstance().doRequest<CouponAlertBean>(
+      path: Urls.COUPON_PROMPT,
+      method: DioMethod.GET,
+      successCallBack: (result) async {
+        if (result != null) {
+          String? cid = await SpUtils.getCouponAlert();
+          fLog("alertCoupon = ${result.id}   ===  ${cid.toString()}");
+          if (result.id.toString() != cid) {
+            // ignore: use_build_context_synchronously
+            showDialogFunction(result);
+          }
+        }
+      },
+    );
+  }
+
+  void showDialogFunction(CouponAlertBean model) {
+    SpUtils.saveCouponAlert(model.id.toString());
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CouponAlertViewWidget(model: model);
+      },
+    );
   }
 
   Future<void> getData() async {
@@ -125,7 +160,7 @@ class NewHomePageState extends State<NewHomePage>
   }
 
   Future<bool> getLatestApplication({bool isInit = false}) async {
-    debugPrint("000000000000 = getLatestApplication");
+    fLog("000000000000 = getLatestApplication");
     await DioManager.getInstance().doRequest<ApplicationBean>(
       path: Urls.APPLICATION_LATEST,
       method: DioMethod.GET,
@@ -138,7 +173,7 @@ class NewHomePageState extends State<NewHomePage>
         }
         pageState(() {});
 
-        debugPrint("000000000000000000000000002222 home$result");
+        fLog("000000000000000000000000002222 home$result");
       },
     );
     return true;

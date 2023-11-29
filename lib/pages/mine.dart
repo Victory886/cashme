@@ -126,7 +126,6 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                 // buildItem(img(R.meInApp), "In-app Enquire", () {}),
                 buildItem(img(R.meHotline), "Hotline", showHotlineDialog),
                 buildItem(img(R.meMessenger), "Messenger", () async {
-                  // showDialogFunction(context);
                   if (Constans.systemConfigBean?.dictInfo?.messagerAccount !=
                       null) {
                     String? urlScheme =
@@ -164,15 +163,6 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
           ),
         ],
       ),
-    );
-  }
-
-  void showDialogFunction(context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const CouponAlertViewWidget();
-      },
     );
   }
 

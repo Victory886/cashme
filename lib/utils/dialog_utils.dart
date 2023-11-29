@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-27 11:08:16
+ * @LastEditTime: 2023-11-27 16:32:13
  * @FilePath: /loannow/lib/utils/dialog_utils.dart
  */
 import 'package:flutter/material.dart';
@@ -28,25 +28,29 @@ class DialogUtils {
                   child: Text(
                     title,
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: AppColors.textColor),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: AppColors.textColor,
+                    ),
                   ),
                 ),
           content: (content == null)
               ? null
               : Text(
                   content,
-                  style:
-                      const TextStyle(fontSize: 14, color: AppColors.textColor),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: AppColors.textColor,
+                  ),
                 ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           actions: [
             InkWell(
               onTap: () {
                 if (cancelClick != null) {
-                  cancelClick!();
+                  cancelClick();
                 } else {
                   Navigator.pop(context);
                 }
@@ -56,16 +60,17 @@ class DialogUtils {
                 child: Text(
                   cancel ?? "Cancel",
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xff7F74EF)),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Color(0xff7F74EF),
+                  ),
                 ),
               ),
             ),
             InkWell(
               onTap: () {
                 if (confirmClick != null) {
-                  confirmClick!();
+                  confirmClick();
                 } else {
                   Navigator.pop(context);
                 }
@@ -75,9 +80,10 @@ class DialogUtils {
                 child: Text(
                   confirm ?? "Confirm",
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: AppColors.mainColor),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: AppColors.mainColor,
+                  ),
                 ),
               ),
             ),

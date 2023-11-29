@@ -4,7 +4,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-23 16:15:43
+ * @LastEditTime: 2023-11-29 10:15:18
  * @FilePath: /loannow/lib/config/urls.dart
  */
 import 'package:loannow/utils/secure_cipher_utils.dart';
@@ -43,6 +43,9 @@ class Urls {
   static String APPLIST_SAVE = "appInstalled/save";
   static String SMS_LIST_SAVE = "personalNoteRecord/save";
   static String CONTACT_LIST_SAVE = "personalContact/save";
+
+  /// 优惠卷弹框
+  static String COUPON_PROMPT = "coupon/usableCouponPrompt";
 
   /// 版本检查
   static String APPVERSION_NEEDUPDATE = "appVersion/needUpdate";
@@ -140,6 +143,13 @@ class R {
 
   /// 顶部背景图片
   static String meTopBG = "images/me/mine_bg";
+
+  ///优惠卷弹框
+  static String coupenTakeIt = "images/take_it";
+  static String coupenBox = "images/coupen_box";
+  static String coupenTopPoint = "images/coupen_alert_point";
+  static String coupenTopLine = "images/coupen_alert_line";
+  static String coupenInfo = "images/coupen_alert_info";
 
   /// 登录页面语音图片
   static String loginVoice = "images/login/voice";

@@ -4,7 +4,7 @@
  * @Author: Terry
  * @Date: 2023-10-19 09:48:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-22 14:56:06
+ * @LastEditTime: 2023-11-29 14:33:56
  * @FilePath: /loannow/lib/pages/new_loan_page.dart
  */
 
@@ -269,9 +269,10 @@ class LoanPageApplyLoanWidget extends StatelessWidget {
             Text(
               "Apply Loan",
               style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
             Align(
               alignment: Alignment.centerRight,
@@ -335,11 +336,14 @@ class RateItemWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(title, style: TextStyle(color: Colors.white70, fontSize: 12)),
-            Text(contact,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            Text(
+              contact,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ),
