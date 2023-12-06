@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-23 15:37:28
+ * @LastEditTime: 2023-12-05 15:06:54
  * @FilePath: /loannow/lib/utils/operation_utils.dart
  */
 import 'package:facebook_app_events/facebook_app_events.dart';
@@ -17,7 +17,11 @@ class OperationUtils {
   /// 发送后端的操作埋点
   static Future<void> saveOperation(String code) async {
     String? deviceId = await DeviceUtils.getDeviceId();
-    Map map = {"operationCode": code.aseUnlook(), "deviceId": deviceId};
+    Map map = {
+      "QAA+4qWWgfGAR7mkzIgTCQ==".aseUnlook() /* operationCode */ :
+          code.aseUnlook(),
+      "rx421BNaZibTudvlICRO/Q==".aseUnlook() /* deviceId */ : deviceId
+    };
     DioManager.getInstance().doRequest(
       path: Urls.OPERATION_RECORD,
       showLoading: false,
@@ -32,9 +36,12 @@ class OperationUtils {
     if (Constans.systemConfigBean != null) {
       FacebookAppEvents().logEvent(name: code);
       if (Constans.systemConfigBean!.thirdPartBuriedPoints!.contains(code)) {
-        if (code == "SubmitApplication") {
+        if (code ==
+            "suMARX6yb4Xi8h2hWxnwZRyDFRfr705vxmDbYTAn+MY="
+                .aseUnlook() /* SubmitApplication */) {
           FacebookAppEvents().logSubscribe(orderId: "");
-        } else if (code == "registered") {
+        } else if (code ==
+            "XwXUA5xNRdslvhhCGo6PRg==".aseUnlook() /* registered */) {
           FacebookAppEvents().logCompletedRegistration();
         }
       }

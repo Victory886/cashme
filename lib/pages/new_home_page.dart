@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-18 17:28:58
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-29 17:52:43
+ * @LastEditTime: 2023-12-05 11:15:37
  * @FilePath: /loannow/lib/pages/new_home_page.dart
  */
 
@@ -46,6 +46,15 @@ class NewHomePageState extends State<NewHomePage>
 
   ApplicationBean? applicationBean;
 
+// String? token = await SpUtils.getToken();
+
+  void showCouponAlert() async {
+    String? token = await SpUtils.getToken();
+    if (token != null) {
+      alertCoupon();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -72,7 +81,6 @@ class NewHomePageState extends State<NewHomePage>
                     //   refreshClick: getLatestApplication,
                     //   application: applicationBean!,
                     // );
-                    alertCoupon();
 
                     OperationUtils.saveOperation('/home/repay');
                     return Container(
@@ -87,10 +95,14 @@ class NewHomePageState extends State<NewHomePage>
                   );
                 } else {
                   fLog("000000000 = ........");
+
                   if (isRolaodOrder) {
                     getLatestApplication(isInit: false);
                     return const SizedBox.shrink();
                   }
+
+                  showCouponAlert();
+
                   return const NewLoanPage();
                 }
               }
@@ -108,6 +120,7 @@ class NewHomePageState extends State<NewHomePage>
     OperationUtils.saveOperation('/home');
   }
 
+  /// TODO: 1、(取消、回退、拒绝到期)；或者 2、订单接口没有数据的时候
   /// 优惠卷弹框
   void alertCoupon() async {
     DioManager.getInstance().doRequest<CouponAlertBean>(
@@ -116,7 +129,7 @@ class NewHomePageState extends State<NewHomePage>
       successCallBack: (result) async {
         if (result != null) {
           String? cid = await SpUtils.getCouponAlert();
-          fLog("alertCoupon = ${result.id}   ===  ${cid.toString()}");
+
           if (result.id.toString() != cid) {
             // ignore: use_build_context_synchronously
             showDialogFunction(result);
@@ -160,7 +173,6 @@ class NewHomePageState extends State<NewHomePage>
   }
 
   Future<bool> getLatestApplication({bool isInit = false}) async {
-    fLog("000000000000 = getLatestApplication");
     await DioManager.getInstance().doRequest<ApplicationBean>(
       path: Urls.APPLICATION_LATEST,
       method: DioMethod.GET,

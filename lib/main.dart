@@ -2,10 +2,11 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-29 14:25:23
+ * @LastEditTime: 2023-12-05 18:01:15
  * @FilePath: /loannow/lib/main.dart
  */
 import 'package:facebook_app_events/facebook_app_events.dart';
+import 'package:loannow/config/app_config.dart';
 import 'package:loannow/config/router_names.dart';
 import 'package:loannow/pages/modify_phone.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -18,23 +19,23 @@ import 'package:loannow/pages/setting.dart';
 import 'package:loannow/pages/start.dart';
 import 'package:loannow/pages/web.dart';
 
-void main() {
-  // SystemChrome.setSystemUIOverlayStyle(
-  //   const SystemUiOverlayStyle(
-  //     statusBarColor: Colors.transparent,
-  //     statusBarIconBrightness: Brightness.dark,
-  //   ),
-  // );
+import 'utils/device_utils.dart';
 
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   initFBSDK();
+  deviceID = await getDeviceID();
   runApp(const MyApp());
+}
+
+Future<String> getDeviceID() async {
+  String? deviceId = await DeviceUtils.getDeviceId();
+  return deviceId;
 }
 
 Future<void> initFBSDK() async {
   // await Future.delayed(Duration(seconds: 3));
-
   final facebookAppEvents = FacebookAppEvents();
   await facebookAppEvents.setAutoLogAppEventsEnabled(true);
   await facebookAppEvents.setAdvertiserTracking(enabled: true);
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
         RouterNames.SETTING: (context) => const SettingPage(),
         RouterNames.HISTORY: (context) => const HistoryPage(),
         RouterNames.MODIFY_PHONE: (context) => const ModifyPhonePage(),
-        RouterNames.WEB: (context) => WebPage(),
+        RouterNames.WEB: (context) => const WebPage(),
         RouterNames.CAMERA: (context) => CameraPage(),
       },
       initialRoute: RouterNames.START,

@@ -9,6 +9,8 @@ import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/pages/mine.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
+import '../config/image_config.dart';
 import './new_home_page.dart';
 import 'package:loannow/utils/operation_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
@@ -40,8 +42,10 @@ class MainPageState extends State<MainPage> {
         Object? arguments = ModalRoute.of(context)?.settings.arguments;
         if (arguments != null) {
           arguments as Map;
-          if (arguments.containsKey("loginSuccess") &&
-              arguments['loginSuccess']) {
+          if (arguments.containsKey(
+                  "6wdATu/PLoLy2oT7YCtHAA==".aseUnlook() /* loginSuccess */) &&
+              arguments[
+                  "6wdATu/PLoLy2oT7YCtHAA==".aseUnlook() /* loginSuccess */]) {
             getUploadSign();
           }
         }
@@ -116,7 +120,8 @@ class MainPageState extends State<MainPage> {
                                             ? R.tabbarCashS
                                             : R.tabbarCashN)),
                                         Text(
-                                          "Cash",
+                                          "iasBeV571vpJusmxiBJtcQ=="
+                                              .aseUnlook() /* Cash */,
                                           style: TextStyle(
                                             color: tabbarIndex == 0
                                                 ? AppColors.mainColor
@@ -147,7 +152,8 @@ class MainPageState extends State<MainPage> {
                                             ? R.tabbarMeS
                                             : R.tabbarMeN)),
                                         Text(
-                                          "Me",
+                                          "SheBqjxZH0yu5pUoDJjgzg=="
+                                              .aseUnlook() /* Me */,
                                           style: TextStyle(
                                             color: tabbarIndex == 2
                                                 ? AppColors.mainColor
@@ -197,8 +203,10 @@ class MainPageState extends State<MainPage> {
                                 context,
                                 RouterNames.WEB,
                                 arguments: {
-                                  'url': WebPageUrl.csUrl,
-                                  'showTitle': false
+                                  "vW9Mk2OPXFJFZeVsVxyxVg=="
+                                      .aseUnlook() /* url */ : WebPageUrl.csUrl,
+                                  "0G1BpuJo1t01gRqp3BFWxA=="
+                                      .aseUnlook() /* showTitle */ : false
                                 },
                               );
                             }
@@ -221,66 +229,6 @@ class MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      // PageView.builder(
-      //   itemBuilder: (context, index) {
-      //     return pageList[index];
-      //   },
-      //   controller: pageController,
-      //   physics: const NeverScrollableScrollPhysics(),
-      // ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   selectedItemColor: AppColors.mainColor,
-      //   unselectedItemColor: AppColors.textColor,
-      //   elevation: 3,
-      //   selectedFontSize: 12,
-      //   unselectedFontSize: 12,
-      //   currentIndex: currentIndex,
-      //   onTap: (tabIndex) async {
-      // if (tabIndex == 1 || tabIndex == 2) {
-      //   String? token = await SpUtils.getToken();
-      //   if (token == null) {
-      //     // ignore: use_build_context_synchronously
-      //     Navigator.pushNamed(context, RouterNames.LOGIN);
-      //     return;
-      //   }
-      // }
-      //     pageController.jumpToPage(tabIndex);
-      //     setState(() {
-      //       currentIndex = tabIndex;
-      //     });
-      //   },
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       label: 'Home',
-      //       icon: Image.asset("images/ic_home_n.png", width: 20),
-      //       activeIcon: Image.asset("images/ic_home_c.png", width: 20),
-      //     ),
-      //     const BottomNavigationBarItem(
-      //       label: '',
-      //       icon: Stack(
-      //         children: [],
-      //       ),
-      //       // activeIcon: Image.asset("images/ic_mine_c.png", width: 20),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       label: 'Me',
-      //       icon: Image.asset("images/ic_mine_n.png", width: 20),
-      //       activeIcon: Image.asset("images/ic_mine_c.png", width: 20),
-      //     ),
-      //   ],
-      // ),
-
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.white,
-      //   onPressed: () {
-      //     pageController.jumpToPage(1);
-      //     setState(() {
-      //       currentIndex = 1;
-      //     });
-      //   },
-      //   child: Image.asset(img(R.tabbarCS)),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, //要实现中间的按钮凸起效果，这行起作用
     );
   }
 

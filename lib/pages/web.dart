@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-29 14:23:17
+ * @LastEditTime: 2023-12-05 16:13:18
  * @FilePath: /loannow/lib/pages/web.dart
  */
 import 'dart:collection';
@@ -12,18 +12,16 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:loannow/utils/js_utils.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/widget/titleBar.dart';
 
 import '../utils/phone_utils.dart';
 
 @immutable
 class WebPage extends StatefulWidget {
-  WebPage({
-    Key? key,
-    this.urlStr,
-  }) : super(key: key);
+  const WebPage({Key? key, this.urlStr}) : super(key: key);
 
-  late String? urlStr = "";
+  final String? urlStr;
 
   @override
   State<StatefulWidget> createState() {
@@ -32,7 +30,7 @@ class WebPage extends StatefulWidget {
 }
 
 class WebPageState extends State<WebPage> {
-  String title = "Loading...";
+  String title = "4n9hzSJU0Lz7UlPu9YaaXg==".aseUnlook() /* Loading... */;
   late StateSetter titleState;
   late InAppWebViewController webViewController;
 
@@ -49,8 +47,11 @@ class WebPageState extends State<WebPage> {
     dynamic arguments;
     if (widget.urlStr == null) {
       arguments = ModalRoute.of(context)?.settings.arguments as Map;
-      if (arguments.containsKey("showTitle")) {
-        showTitle = arguments['showTitle'] as bool;
+      if (arguments.containsKey(
+          "0G1BpuJo1t01gRqp3BFWxA==".aseUnlook() /* showTitle */)) {
+        showTitle =
+            arguments["0G1BpuJo1t01gRqp3BFWxA==".aseUnlook() /* showTitle */]
+                as bool;
       }
     } else {
       showTitle = false;
@@ -89,9 +90,12 @@ class WebPageState extends State<WebPage> {
               onWebViewCreated: (controller) {
                 webViewController = controller;
                 int time = DateTime.now().millisecondsSinceEpoch;
-                String url = widget.urlStr ?? arguments["url"];
-                if (!url.contains(".html")) {
-                  if (url.contains("?")) {
+                String url = widget.urlStr ??
+                    arguments["vW9Mk2OPXFJFZeVsVxyxVg==".aseUnlook() /* url */];
+                if (!url.contains(
+                    "zYvrU7yRN7nZYqjA2aZRAQ==".aseUnlook() /* .html */)) {
+                  if (url.contains(
+                      "Yx5X8W4JbQW+k6UPrQpWAQ==".aseUnlook() /* ? */)) {
                     url = "$url&t=$time";
                   } else {
                     url = "$url?t=$time";
@@ -105,21 +109,30 @@ class WebPageState extends State<WebPage> {
                 webViewController.loadUrl(urlRequest: URLRequest(url: uri));
 
                 webViewController.addJavaScriptHandler(
-                  handlerName: "call",
+                  handlerName:
+                      "RsPp5dTOEB/m/aNsCxxDvQ==".aseUnlook() /* call */,
                   callback: (args) async {
                     if (args.isEmpty) return {};
 
                     String msg = args.last;
 
-                    if (msg.contains("ph_bridge") == false) return {};
-                    msg = msg.replaceAll("ph_bridge", "");
+                    if (msg.contains("HsI+F+lcH4xjucfJvLBP8Q=="
+                            .aseUnlook() /* ph_bridge */) ==
+                        false) return {};
+                    msg = msg.replaceAll(
+                        "HsI+F+lcH4xjucfJvLBP8Q==".aseUnlook() /* ph_bridge */,
+                        "");
                     List list = json.decode(msg);
                     for (var element in list) {
                       Map<String, dynamic> dict = element;
                       Map<String, dynamic> resMap =
                           await H5ToFlutterMethodHandler
                               .handleH5ToNativeMessage(
-                                  controller, dict, "call", context);
+                                  controller,
+                                  dict,
+                                  "RsPp5dTOEB/m/aNsCxxDvQ=="
+                                      .aseUnlook() /* call */,
+                                  context);
                       return resMap;
                     }
                   },
@@ -138,9 +151,7 @@ class WebPageState extends State<WebPage> {
 }
 
 class JSMgr {
-  static String jsStr = """
-
-;(function () {
+  static String jsStr = """;(function () {
   window.WebViewJavascriptBridge = {
     registerHandler: registerHandler,
     callHandler: callHandler,
@@ -173,11 +184,6 @@ class JSMgr {
     let sendMsgStr = 'ph_bridge' + JSON.stringify(sendMessageQueue);
     // console.log(sendMsg);
     window.flutter_inappwebview.callHandler('call',sendMsgStr).then(function(result) {
-                    // print to the console the data coming
-                    // from the Flutter side.
-                    console.log("原生回传给H5的数据");
-                    console.log(result);
-                    console.log(JSON.stringify(result));
                     _handleMessageFromObjC(result);
                 });
     sendMessageQueue = [];
@@ -190,9 +196,6 @@ class JSMgr {
       var message = messageJSON;
       var messageHandler;
       var responseCallback;
-
-  console.log(message);
-  console.log(message.handlerName);
 
       if (message.responseId) {
         responseCallback = responseCallbacks[message.responseId];
@@ -211,7 +214,6 @@ class JSMgr {
         var handler = messageHandlers[message.handlerName];
 
         if (!handler) {
-          console.log("WebViewJavascriptBridge: WARNING: no handler for message from ObjC:", message);
         } else {
 
           handler(message.data, responseCallback);

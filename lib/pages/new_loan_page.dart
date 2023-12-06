@@ -4,12 +4,13 @@
  * @Author: Terry
  * @Date: 2023-10-19 09:48:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-29 14:33:56
+ * @LastEditTime: 2023-12-04 11:44:07
  * @FilePath: /loannow/lib/pages/new_loan_page.dart
  */
 
 import 'dart:async';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:loannow/config/app_colors.dart';
 import 'package:loannow/config/app_config.dart';
@@ -18,6 +19,7 @@ import 'package:marquee/marquee.dart';
 
 // import 'package:marquee/marquee.dart';
 
+import '../config/image_config.dart';
 import '../config/operation_codes.dart';
 import '../config/router_names.dart';
 import '../config/urls.dart';
@@ -104,6 +106,8 @@ class _NewLoanPageState extends State<NewLoanPage> {
 
   @override
   Widget build(BuildContext context) {
+    // BotToast.showLoading();
+    // BotToast.showText(text: "正在加载中...");
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

@@ -2,19 +2,24 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-27 16:00:17
+ * @LastEditTime: 2023-12-01 11:34:21
  * @FilePath: /loannow/lib/config/app_config.dart
  */
 
 import 'package:flutter/material.dart';
 
 class AppConfig {
-  static const int APP_ID = 11;
+  static const int APP_ID = 0;
   static const int APP_PLATFORM = 2;
   static const String APP_LOGIN_PLATFORM = "APP";
   static const String APP_PACKAGE = "com.won.naol.loannow";
   static String APP_VERSION = "1.0.0"; // DeviceUtils.getAppVersion() as String;
 }
+
+/// 全局设备ID
+String deviceID = "";
+
+String appVersion = "";
 
 /// 获取设备的大小
 class Device {

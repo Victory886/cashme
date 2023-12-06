@@ -115,6 +115,8 @@ class SettingPageState extends State<SettingPage> {
             margin: const EdgeInsets.only(bottom: 50, left: 20, right: 20),
             child: InkWell(
               onTap: () {
+                out();
+                SpUtils.clearCouponAlert();
                 Navigator.pushNamedAndRemoveUntil(
                     context, RouterNames.LOGIN, (route) => false);
               },
@@ -252,6 +254,16 @@ class SettingPageState extends State<SettingPage> {
           Navigator.pop(context);
         }
       },
+    );
+  }
+
+  //
+
+  void out() {
+    DioManager.getInstance().doRequest<Map<String, dynamic>>(
+      path: Urls.SIGN_OUT,
+      method: DioMethod.GET,
+      successCallBack: (result) {},
     );
   }
 

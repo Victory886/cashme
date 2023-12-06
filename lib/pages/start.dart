@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:loannow/beans/ip_check_bean.dart';
 import 'package:loannow/beans/system_config_bean.dart';
 import 'package:loannow/config/constants.dart';
@@ -10,6 +9,8 @@ import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/utils/operation_utils.dart';
+
+import '../config/image_config.dart';
 
 /// 开始
 class StartPage extends StatefulWidget {

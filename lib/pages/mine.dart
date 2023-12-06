@@ -12,6 +12,7 @@ import 'package:loannow/utils/phone_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../config/image_config.dart';
 import 'coupon_alert_view.dart';
 
 class MinePage extends StatefulWidget {

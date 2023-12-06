@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 import 'dart:io';
 
@@ -17,10 +19,13 @@ import 'package:loannow/utils/device_utils.dart';
 import 'package:loannow/utils/dialog_utils.dart';
 import 'package:loannow/utils/operation_utils.dart';
 import 'package:loannow/utils/phone_utils.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 import 'package:loannow/widget/button.dart';
 import 'package:loannow/widget/titleBar.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import '../config/image_config.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -70,7 +75,8 @@ class LoginPageState extends State<LoginPage> {
       body: Column(
         children: [
           TitleBar(
-            title: "Login / Register",
+            title: "zp0kegXeQ52ixr3VkvlTwvyuBWOCvWXYlew5i3Mce5s="
+                .aseUnlook() /* Login / Register */,
             leftClick: () {
               goHome(false);
             },
@@ -103,7 +109,8 @@ class LoginPageState extends State<LoginPage> {
                                     : Colors.transparent,
                               ),
                             ),
-                            child: const Text("+63"),
+                            child: Text("yWALQgtVFHGDZdLHt9L1vg=="
+                                .aseUnlook() /* +63 */),
                           );
                         },
                       ),
@@ -128,7 +135,8 @@ class LoginPageState extends State<LoginPage> {
                                 color: const Color(0xff7F74EF),
                               ),
                             ),
-                            prefixText: "* ",
+                            prefixText:
+                                "FVaTNqQDSrQ4RFF8N9S7hw==".aseUnlook() /* *  */,
                             prefixStyle: const TextStyle(
                               fontSize: 20,
                               color: Color(0xffFF5400),
@@ -141,7 +149,9 @@ class LoginPageState extends State<LoginPage> {
                             ),
                             counterText: '',
                             isDense: false,
-                            hintText: "Enter your phone number",
+                            hintText:
+                                "wGndXIXIskJJetewWbP//BtBVeoDlwkvY4yyRS9D2Qk="
+                                    .aseUnlook() /* Enter your phone number */,
                             hintStyle: const TextStyle(
                               fontSize: 14,
                               color: Color(0xFF333333),
@@ -178,7 +188,8 @@ class LoginPageState extends State<LoginPage> {
                               color: const Color(0xff7F74EF),
                             ),
                           ),
-                          prefixText: "* ",
+                          prefixText:
+                              "FVaTNqQDSrQ4RFF8N9S7hw==".aseUnlook() /* *  */,
                           prefixStyle: const TextStyle(
                             fontSize: 20,
                             color: Color(0xffFF5400),
@@ -197,7 +208,9 @@ class LoginPageState extends State<LoginPage> {
                             color: Color(0xFF333333),
                             fontSize: 14,
                           ),
-                          hintText: "verification code",
+                          hintText:
+                              "LMoG/MELez3t/Y3uk2A2cCS2Bg6S1Q0pTSL5Vov/bao="
+                                  .aseUnlook() /* verification code */,
                         ),
                         onChanged: checkConfirmStatus,
                       ),
@@ -222,7 +235,8 @@ class LoginPageState extends State<LoginPage> {
                                 ),
                                 child: Text(
                                   count == Constans.CODE_COUNT_TIME
-                                      ? "Send"
+                                      ? "oHmwZXWRP6rUETzf/K1Wiw=="
+                                          .aseUnlook() /* Send */
                                       : "${count}s",
                                   style: const TextStyle(
                                     color: Colors.white,
@@ -277,7 +291,8 @@ class LoginPageState extends State<LoginPage> {
                               InkWell(
                                 onTap: showVoiceDialog,
                                 child: Text(
-                                  "Use voice verification code",
+                                  "cIHIrWDl7pFyeTv8Pf0KbN3pUqyy2aExfMVNDn3TGqk="
+                                      .aseUnlook() /* Use voice verification code */,
                                   style: TextStyle(
                                     color: _getCodeCount >= 2
                                         ? AppColors.mainColor
@@ -316,7 +331,8 @@ class LoginPageState extends State<LoginPage> {
                     builder: (context, setState) {
                       confirmButtonState = setState;
                       return Button(
-                        text: "Confirm",
+                        text: "wdjvxfObjmfPg5BLx25HTw=="
+                            .aseUnlook() /* Confirm */,
                         onClick: loginCheck,
                         disabled: confirmButtonDisable,
                       );
@@ -350,13 +366,15 @@ class LoginPageState extends State<LoginPage> {
                         RichText(
                           text: TextSpan(
                             children: [
-                              const TextSpan(
-                                text: "Read and agree",
+                              TextSpan(
+                                text: "zZumcUEpHti6L4gMRfScww=="
+                                    .aseUnlook() /* Read and agree */,
                                 style: TextStyle(
                                     color: Color(0xFF999999), fontSize: 12),
                               ),
                               TextSpan(
-                                text: " Privacy Policy",
+                                text: "llacZ8koIGcJbzXGyH6P4Q=="
+                                    .aseUnlook() /*  Privacy Policy */,
                                 style:
                                     const TextStyle(color: AppColors.mainColor),
                                 recognizer: TapGestureRecognizer()
@@ -366,7 +384,8 @@ class LoginPageState extends State<LoginPage> {
                                       RouterNames.WEB,
                                       arguments: {
                                         'url': Urls.WEB_URL_PRIVACY,
-                                        "showTitle": true
+                                        "0G1BpuJo1t01gRqp3BFWxA=="
+                                            .aseUnlook() /* showTitle */ : true
                                       },
                                     );
                                   },
@@ -435,8 +454,11 @@ class LoginPageState extends State<LoginPage> {
     OperationUtils.saveOperation(OperationCode.SHOW_VOICE_DIALOG);
     DialogUtils.showCustomerDialog(
       context: context,
-      title: "Use voice verification code",
-      content: "Pick up the call, then input the \nverification code you hear.",
+      title: "cIHIrWDl7pFyeTv8Pf0KbN3pUqyy2aExfMVNDn3TGqk="
+          .aseUnlook() /* Use voice verification code */,
+      content:
+          "X29rwD9p8HtFmCiyXgzEsEuxlgRVlarXyrxRiE8iRMAlHworZDlrkLjmoSy9yxYnY4bkjGHCBd9N2UfpH8JTbQ=="
+              .aseUnlook() /* Pick up the call, then input the \nverification code you hear. */,
       confirmClick: () {
         Navigator.pop(context);
         getCode(isVoice: true);
@@ -449,13 +471,15 @@ class LoginPageState extends State<LoginPage> {
 
     // 987123121 test phone
     if (phone.isEmpty) {
-      BotToast.showText(text: "Phone number error");
+      BotToast.showText(
+          text: "lOnpcxrrNHXtaFZSt7CEioQel/mmTFj1adTbZFpYUYs="
+              .aseUnlook() /* Phone number error */);
       phoneFocus.requestFocus();
       return;
     }
     var params = {
-      "phone": phone,
-      "codeLength": 4,
+      "nScZzQGkWfTQ/SIJPbB0OQ==".aseUnlook() /* phone */ : phone,
+      "5kCTXSK35xw/lwyPd+GuRg==".aseUnlook() /* codeLength */ : 4,
     };
     if (isVoice ?? false) {
       OperationUtils.saveOperation(OperationCode.SEND_VOICE_CODE);
@@ -479,7 +503,8 @@ class LoginPageState extends State<LoginPage> {
           OperationUtils.saveOperation(OperationCode.LOGIN_CODE_SUCCESS);
 
           /// 测试环境才可以直接显示验证码
-          if (Urls.BASE_URL.contains("phdev.bowenfin")) {
+          if (Urls.BASE_URL.contains(
+              "WyYnKKBw8J85lBHPSBkzmA==".aseUnlook() /* phdev.bowenfin */)) {
             codeController.value =
                 codeController.value.copyWith(text: result.toString());
           }
@@ -502,12 +527,17 @@ class LoginPageState extends State<LoginPage> {
 
   Future<void> loginCheck() async {
     if (!checked) {
-      BotToast.showText(text: "please read and agree privacy policy");
+      BotToast.showText(
+          text:
+              "+bHBl/6ylmBtbJhCzLN9D1DjZ0LYgIYW7LP2HLBe4+1v1fHeO8YxiUtcMeZxX44c"
+                  .aseUnlook() /* please read and agree privacy policy */);
       return;
     }
     String phone = PhoneUtils.formatPhone(phoneController.text);
     if (phone.isEmpty) {
-      BotToast.showText(text: "Phone number error");
+      BotToast.showText(
+          text: "lOnpcxrrNHXtaFZSt7CEioQel/mmTFj1adTbZFpYUYs="
+              .aseUnlook() /* Phone number error */);
       phoneFocus.requestFocus();
       return;
     }
@@ -519,7 +549,9 @@ class LoginPageState extends State<LoginPage> {
           return;
         }
         if (!status.isGranted) {
-          BotToast.showText(text: "Permission Denied");
+          BotToast.showText(
+              text: "pII/ru0Pj/iXMwl4DWXNInkd8L+X6bDXQo8mFnKkVDw="
+                  .aseUnlook() /* Permission Denied */);
           return;
         }
         // ignore: empty_catches
@@ -545,8 +577,10 @@ class LoginPageState extends State<LoginPage> {
 
   Future<bool> login() async {
     var params = {
-      "phone": PhoneUtils.formatPhone(phoneController.text),
-      "verifyCode": codeController.text,
+      "nScZzQGkWfTQ/SIJPbB0OQ==".aseUnlook() /* phone */ :
+          PhoneUtils.formatPhone(phoneController.text),
+      "kTZERlBg7//hrAku+TFWNA==".aseUnlook() /* verifyCode */ :
+          codeController.text,
     };
     bool success = false;
     await DioManager.getInstance().doRequest<LoginInfoBean>(
@@ -592,13 +626,16 @@ class LoginPageState extends State<LoginPage> {
 
   void goHome(bool loginSuccess) {
     Navigator.pushNamedAndRemoveUntil(
-        context, RouterNames.HOME, (route) => false,
-        arguments: {"loginSuccess": loginSuccess});
+        context, RouterNames.HOME, (route) => false, arguments: {
+      "6wdATu/PLoLy2oT7YCtHAA==".aseUnlook() /* loginSuccess */ : loginSuccess
+    });
   }
 
   void showPermissionDialog() {
     DialogUtils.showCustomerDialog(
-        context: context, content: "Permission denied");
+        context: context,
+        content: "Ok6LhACtPc0RvpfLuaSBpDSUz5Ob0Ynk4zMk6fsc64o="
+            .aseUnlook() /* Permission denied */);
   }
 
   @override

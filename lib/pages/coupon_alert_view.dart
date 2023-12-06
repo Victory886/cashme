@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:loannow/config/urls.dart';
-import 'package:loannow/utils/phone_utils.dart';
+import 'package:loannow/config/app_colors.dart';
 
 import '../beans/coupon_alert_bean.dart';
+import '../config/image_config.dart';
 
 class CouponAlertViewWidget extends StatelessWidget {
   const CouponAlertViewWidget({super.key, required this.model});
@@ -62,27 +62,14 @@ class MyWidget extends StatelessWidget {
   const MyWidget({super.key, required this.model});
   final CouponAlertBean model;
 
-  String getDaySuffix(int day) {
-    // 获取日期的后缀，例如 "st", "nd", "rd", "th"
-    if (day >= 11 && day <= 13) {
-      return 'th';
-    }
-    switch (day % 10) {
-      case 1:
-        return 'st';
-      case 2:
-        return 'nd';
-      case 3:
-        return 'rd';
-      default:
-        return 'th';
-    }
-  }
-
   String formatDate(DateTime dateTime) {
     // 使用 intl 包的 DateFormat 类来格式化日期
-    String day = getDaySuffix(dateTime.day);
-    String formattedDate = DateFormat("d'$day', yyyy").format(dateTime);
+    // String day = getDaySuffix(dateTime.day);
+    // String formattedDate = DateFormat("d'$day', yyyy").format(dateTime);
+    // return formattedDate;
+
+    // 使用 intl 包的 DateFormat 类来格式化日期
+    String formattedDate = DateFormat('MM/dd/yyyy').format(dateTime);
     return formattedDate;
   }
 
@@ -90,7 +77,7 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // 将时间戳转换为 DateTime 对象
     DateTime dateTime =
-        DateTime.fromMillisecondsSinceEpoch(model.createTime! ~/ 1000);
+        DateTime.fromMillisecondsSinceEpoch(model.endUsableTime!);
 
     // 使用 intl 包来格式化日期
     // String formattedDate = formatDate(dateTime);
@@ -99,12 +86,18 @@ class MyWidget extends StatelessWidget {
       width: 330,
       height: 318,
       decoration: const BoxDecoration(
-          color: Color(0xffC0CBF4),
-          borderRadius: BorderRadius.all(Radius.circular(20))),
+        color: Color(0xffC0CBF4),
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
+      ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
                 child: Container(
@@ -115,6 +108,7 @@ class MyWidget extends StatelessWidget {
                       const Text(
                         "Bonus Coupon\nYou Own",
                         maxLines: 2,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 20,
                           color: Color(0xff3C56E8),
@@ -155,7 +149,7 @@ class MyWidget extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Expire on Jan. ${formatDate(dateTime)}",
+                        "Expire on ${formatDate(dateTime)}",
                         style: const TextStyle(
                           fontSize: 10,
                           color: Color(0xff999999),
@@ -180,7 +174,7 @@ class MyWidget extends StatelessWidget {
             height: 40,
             alignment: Alignment.center,
             child: const Text(
-              "Get 1000p-2000pextra on the next loan",
+              "Get 1000p-2000p extra on the next loan",
               style: TextStyle(color: Color(0xff666666), fontSize: 12),
             ),
           ),

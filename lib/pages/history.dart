@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:loannow/beans/loan_history_bean.dart';
 import 'package:loannow/config/app_colors.dart';
@@ -6,6 +8,7 @@ import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/utils/application_status_utils.dart';
 import 'package:loannow/utils/format_utils.dart';
 import 'package:loannow/utils/operation_utils.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/widget/titleBar.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -27,7 +30,7 @@ class HistorypageState extends State<HistoryPage> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          TitleBar(title: "History"),
+          TitleBar(title: "JAsONIbSTebvXgAwKLqwuw==".aseUnlook() /* History */),
           Expanded(
             child: StatefulBuilder(
               builder: (contex, setState) {
@@ -47,8 +50,9 @@ class HistorypageState extends State<HistoryPage> {
                         ),
                         Container(
                           margin: const EdgeInsets.only(top: 12),
-                          child: const Text(
-                            "No history record",
+                          child: Text(
+                            "ZQ4LLkY36C2aLvI3wTl6HO3bJGI3kkOJNWuIty4fT2Q="
+                                .aseUnlook() /* No history record */,
                             style: TextStyle(
                                 fontSize: 14, color: AppColors.textColorhint),
                           ),
@@ -137,9 +141,11 @@ class HistorypageState extends State<HistoryPage> {
                                               color: AppColors.textColorhint),
                                         ),
                                       ),
-                                      Text("${item.statusDesc}",
-                                          style: TextStyle(
-                                              fontSize: 12, color: textColor))
+                                      Text(
+                                        "${item.statusDesc}",
+                                        style: TextStyle(
+                                            fontSize: 12, color: textColor),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -162,7 +168,8 @@ class HistorypageState extends State<HistoryPage> {
   @override
   void initState() {
     super.initState();
-    OperationUtils.saveOperation('/history');
+    OperationUtils.saveOperation(
+        "ryVTwPKooEIs/7cV2ixKaw==".aseUnlook() /* /history */);
     getData();
   }
 

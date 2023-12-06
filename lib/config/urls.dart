@@ -4,12 +4,13 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-29 10:15:18
+ * @LastEditTime: 2023-12-05 16:56:54
  * @FilePath: /loannow/lib/config/urls.dart
  */
 import 'package:loannow/utils/secure_cipher_utils.dart';
 
 class Urls {
+  ///正式环境：https://apinew.cashme.ph/
   static String BASE_URL = "http://api.cashloan.phdev.bowenfin.com/";
 
   static String WEB_URL_PRIVACY =
@@ -22,6 +23,7 @@ class Urls {
   static String LOGIN_VERFIFY_CODE_VOICE = "login/requestVoiceVerifyCode";
 
   static String SIGN_IN = "login/signIn";
+  static String SIGN_OUT = "login/signOut";
 
   static String DEVICE_SAVE = "device/save";
   static String USER_INFO = "member/userInfo";
@@ -65,8 +67,11 @@ class Urls {
 }
 
 class WebPageUrl {
+  /// 基础地址
   static String baseUrl = "http://cashmepera-phdev.bowenfin.com";
   // static String baseUrl = "http://192.168.200.171:8000";
+
+  ///正式环境：https://h5.cashme.ph/
 
   /// 基本信息页面地址
   static String applyStepBasalUrl = "$baseUrl/apply-step/basal";
@@ -91,70 +96,4 @@ class WebPageUrl {
 
   /// 渠道页面
   static String withdrawalUrl = "$baseUrl/apply-step/withdrawal";
-}
-
-class R {
-  /// 首页左上角logo图片
-  static String homeLogo = "images/home/home_logo";
-
-  /// 首页 中间大图
-  static String homeProgress = "images/home/home_progress";
-
-  /// 首页 下面的图片
-  static String homeLoan = "images/home/home_loan";
-
-  /// 首页背景图片
-  static String homeBg = "images/home_bg";
-
-  /// 首页 apply 按钮
-  static String homeApplyArrow = "images/home_apply_arrow";
-
-  /// app启动图片
-  static String appStartImg = "images/app_start";
-
-  /// app启动图的上logo
-  static String appStartLogoImg = "images/start_logo";
-
-  /// Tabbar 客服
-  static String tabbarCS = "images/tabbar/tabbar_cs";
-
-  /// Tabbar 背景
-  static String tabbarBG = "images/tabbar/tabbar_bg";
-
-  /// Tabbar 首页选中状态
-  static String tabbarCashS = "images/tabbar/tabbar_cash_s";
-
-  /// Tabbar 首页未选中状态
-  static String tabbarCashN = "images/tabbar/tabbar_cash_n";
-
-  /// Tabbar 我的选中状态
-  static String tabbarMeS = "images/tabbar/tabbar_me_s";
-
-  /// Tabbar 我的未选中状态
-  static String tabbarMeN = "images/tabbar/tabbar_me_n";
-
-  /// me
-  static String meCoupon = "images/me/me_coupon";
-  static String meHistory = "images/me/me_history";
-  static String meHotline = "images/me/me_hotline";
-  static String meInApp = "images/me/me_in_app";
-  static String meMessenger = "images/me/me_messenger";
-  static String mePrivacy = "images/me/me_privacy";
-
-  /// 顶部背景图片
-  static String meTopBG = "images/me/mine_bg";
-
-  ///优惠卷弹框
-  static String coupenTakeIt = "images/take_it";
-  static String coupenBox = "images/coupen_box";
-  static String coupenTopPoint = "images/coupen_alert_point";
-  static String coupenTopLine = "images/coupen_alert_line";
-  static String coupenInfo = "images/coupen_alert_info";
-
-  /// 登录页面语音图片
-  static String loginVoice = "images/login/voice";
-}
-
-String img(String imageName) {
-  return "$imageName.png";
 }

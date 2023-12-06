@@ -16,7 +16,7 @@ class BaseResponse<T> {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.result != null) {
       data['result'] = this.result;
     }

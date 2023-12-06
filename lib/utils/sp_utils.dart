@@ -143,6 +143,12 @@ class SpUtils {
     return "";
   }
 
+  static Future<bool> clearCouponAlert() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(SP_KEY_COUPON_ALERT);
+    return true;
+  }
+
   static Future<bool?> clearUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(SP_KEY_USER);

@@ -10,6 +10,8 @@ import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/base_response.dart';
 import 'package:loannow/utils/device_utils.dart';
+import 'package:loannow/utils/phone_utils.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 
 class DioManager {
@@ -32,6 +34,7 @@ class DioManager {
     var headers = {
       "Access-Control-Allow-Origin": "*",
       "version": AppConfig.APP_VERSION,
+      "rx421BNaZibTudvlICRO/Q==".aseUnlook() /* deviceId */ : deviceID,
       // "version": DeviceUtils.getAppVersion() as String,
       "packet_name": AppConfig.APP_PACKAGE,
       "appId": AppConfig.APP_ID,
@@ -43,6 +46,9 @@ class DioManager {
     } catch (e) {
       headers.addAll({"type": "web"});
     }
+
+    fLog("66666666666666 = $headers");
+
     dioOptions.headers = headers;
     dio = Dio(dioOptions);
     dio.interceptors
@@ -119,6 +125,16 @@ class DioManager {
         closeDialog();
       }
       if (e.message != null && e.message!.isNotEmpty && showErrorMsg) {
+        if (e.message!.contains("The request connection took longer than")) {
+          BotToast.showText(text: "System upgrading, please retry later.");
+          return;
+        }
+        if (e.message!.contains(
+            "This exception wasthrown because theresponse has a statuscode of 502 and RequestOptions.")) {
+          BotToast.showText(text: "System upgrading, please retry later.");
+          return;
+        }
+
         BotToast.showText(text: e.message!);
       }
       if (failCallBack != null)

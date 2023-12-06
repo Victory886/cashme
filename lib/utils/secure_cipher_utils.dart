@@ -2,12 +2,13 @@
  * @Author: Terry
  * @Date: 2023-11-23 13:55:50
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-27 11:32:14
+ * @LastEditTime: 2023-12-05 15:45:29
  * @FilePath: /loannow/lib/utils/secure_cipher_utils.dart
  */
 import 'package:encrypt/encrypt.dart';
 import 'package:loannow/utils/phone_utils.dart';
 
+/// TODO: 加密有问题
 final _key = Key.fromUtf8("flutterProject00"); // 16位,不能随意修改
 final _iv = IV.fromUtf8("ABCDEF9876543210"); // 16位,不能随意修改
 
@@ -69,7 +70,7 @@ extension StringExt on String {
       fLog("解密后 = [$decrypted]");
       return decrypted;
     } catch (e) {
-      fLog("解密失败，返回原文");
+      fLog("解密失败，返回原文 = $this");
       return this;
     }
   }
