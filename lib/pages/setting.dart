@@ -181,7 +181,7 @@ class SettingPageState extends State<SettingPage> {
                 child: Text(
                   rightText.toString(),
                   style: const TextStyle(
-                    color: AppColors.primaryColor,
+                    color: AppColors.mainColor,
                     fontSize: 12,
                   ),
                 ),

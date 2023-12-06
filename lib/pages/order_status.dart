@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_single_quotes, must_be_immutable
+// ignore_for_file: prefer_single_quotes, must_be_immutable, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +10,7 @@ import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/utils/application_status_utils.dart';
 import 'package:loannow/utils/operation_utils.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 import 'package:loannow/widget/titleBar.dart';
 
@@ -115,7 +116,8 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                     arguments: {
                       'url':
                           "${WebPageUrl.baseUrl}/history/${widget.application.id}/process",
-                      "showTitle": false
+                      "0G1BpuJo1t01gRqp3BFWxA==".aseUnlook() /* showTitle */ :
+                          false
                     },
                   );
                 },
@@ -125,8 +127,10 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        "Charge details",
+                      Text(
+                        // "sMokTWGm/9VowfjjFTylig==".aseUnlook() /* Charge details */,
+                        "Yq5rcehC/gZv1weY6/nKnQ=="
+                            .aseUnlook() /* Process record */,
                         style: TextStyle(color: AppColors.textColorLight),
                       ),
                       Container(
@@ -155,17 +159,22 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                                   arguments: {
                                     'url':
                                         "${WebPageUrl.withdrawalUrl}/?logId=$modifyID",
-                                    "showTitle": false
+                                    "0G1BpuJo1t01gRqp3BFWxA=="
+                                        .aseUnlook() /* showTitle */ : false
                                   },
                                 ).then((value) {
                                   if (value != null) {
                                     debugPrint("999999999999999 = $value");
                                     dynamic popData =
                                         value as Map<String, dynamic>;
-                                    dynamic arguments = popData["arguments"]
+                                    dynamic arguments = popData[
+                                            "vcY53FoOHHGxxzJi3mnJ4Q=="
+                                                .aseUnlook() /* arguments */]
                                         as Map<String, dynamic>;
                                     if (arguments != null) {
-                                      isRolaodOrder = arguments["isReload"];
+                                      isRolaodOrder = arguments[
+                                          "ElDouoU8JsIWA95o1xjc4w=="
+                                              .aseUnlook() /* isReload */];
                                       pageState(() {});
                                     }
                                   }
@@ -187,8 +196,9 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text(
-                                      "Click here for detailed instruction",
+                                    Text(
+                                      "ZFZyy9PluhApTJnmhzi8a3nnrPhfxn/skqLBNLw9+9LxYuQ2+7HTu475R0HUNpHW"
+                                          .aseUnlook() /* Click here for detailed instruction */,
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Color(0xff666666),
@@ -225,8 +235,9 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                                 child: Container(
                                   margin:
                                       const EdgeInsets.symmetric(horizontal: 8),
-                                  child: const Text(
-                                    "Add instagram account",
+                                  child: Text(
+                                    "65oMkqyN11BYBZ8rn89GqCp0+VvyWPugadlomkwtwrA="
+                                        .aseUnlook() /* Add instagram account */,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,
@@ -236,7 +247,9 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                                 ),
                               ),
                               Image.asset(
-                                  width: 12, "images/ic_more_white.png"),
+                                width: 12,
+                                "images/ic_more_white.png",
+                              ),
                             ],
                           ),
                         ),
@@ -264,10 +277,12 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                           Radius.circular(15),
                         ),
                       ),
-                      child: const Text(
-                        "Confirm",
+                      child: Text(
+                        "wdjvxfObjmfPg5BLx25HTw==".aseUnlook() /* Confirm */,
                         style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w500),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
@@ -282,7 +297,8 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                     horizontal: 15,
                   ),
                   decoration: const BoxDecoration(
-                    color: Color(0xffEFF4FF),
+                    color: Color(0xffFFFBF7),
+                    // color: Colors.red,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
                   child: Column(
@@ -292,11 +308,14 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                           Expanded(
                             child: Text(
                               showAccountInfo
-                                  ? "Contract Number"
-                                  : "Withdrawal method",
+                                  ? "pXNBjIYDDXVI/LqCvePnAg=="
+                                      .aseUnlook() /* Contract Number */
+                                  : "ogNG2JZqhvayJWTONYqY6Yjq5dhSmixOy6sqUlr5qE8="
+                                      .aseUnlook() /* Withdrawal method */,
                               style: const TextStyle(
-                                  color: AppColors.textColorLight,
-                                  fontSize: 12),
+                                color: AppColors.textColorLight,
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                           Text(
@@ -314,8 +333,10 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                             Expanded(
                               child: Text(
                                 showAccountInfo
-                                    ? "Withdrawal method"
-                                    : "Withdrawal Account",
+                                    ? "ogNG2JZqhvayJWTONYqY6Yjq5dhSmixOy6sqUlr5qE8="
+                                        .aseUnlook() /* Withdrawal method */
+                                    : "KpbpJrg6tc5DpdreMGEHWX50ugPcPkwwnaKaOIhLuvg="
+                                        .aseUnlook() /* Withdrawal Account */,
                                 style: const TextStyle(
                                     color: AppColors.textColorLight,
                                     fontSize: 12),
@@ -336,9 +357,11 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                             Expanded(
                               child: Text(
                                 showAccountInfo
-                                    ? "Click here for detailed instruction"
+                                    ? "ZFZyy9PluhApTJnmhzi8a3nnrPhfxn/skqLBNLw9+9LxYuQ2+7HTu475R0HUNpHW"
+                                        .aseUnlook() /* Click here for detailed instruction */
                                     : modifyID.isNotEmpty
-                                        ? "Change withdrawal method"
+                                        ? "NpMIYqs+UMfXUXOdnorVoj9ZIEEErMtdqgmKlxVV48Y="
+                                            .aseUnlook() /* Change withdrawal method */
                                         : "",
                                 style: const TextStyle(
                                   fontSize: 12,
@@ -355,7 +378,12 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                           Navigator.pushNamed(
                             context,
                             RouterNames.WEB,
-                            arguments: {'url': helpUrl, "showTitle": true},
+                            arguments: {
+                              "vW9Mk2OPXFJFZeVsVxyxVg==".aseUnlook() /* url */ :
+                                  helpUrl,
+                              "0G1BpuJo1t01gRqp3BFWxA=="
+                                  .aseUnlook() /* showTitle */ : true
+                            },
                           );
                         },
                       ),
@@ -410,7 +438,8 @@ class OrderStatusPageState extends State<OrderStatusPage> {
       method: DioMethod.GET,
       successCallBack: (result) {
         if (result != null) {
-          modifyID = result["id"].toString();
+          modifyID = result["enyd+2ERRQf7UaKB2w6Exw==".aseUnlook() /* id */]
+              .toString();
           debugPrint("0000000000000000000000000xxxx modifyID = $modifyID");
           if (modifyID.isNotEmpty) {
             if (type == 0) {
@@ -434,27 +463,32 @@ class OrderStatusPageState extends State<OrderStatusPage> {
     if (ApplicationStatusUtils.isExamine(status)) {
       statusImage = "images/img_evaluating.png";
       showInstagram = true;
-      page = titleStr = 'Under Review';
+      page =
+          titleStr = "g40BuUPaWhEhVQt7Grfyyw==".aseUnlook() /* Under Review */;
 
       content =
-          "Please pay attention to incoming calls or SMS, \nyour loan will be reviewed shortly.";
+          "DjDYDuUbLon8SihdSRarRxVDXStWGIN5uQLpJOr3niVbsua1/s3jld2zIdtZgZCbWxXiPNI1Ef0hrmYbRe3aWTwy0XyUAyB0tgyUDLBqQkj8XIUnd2dYPav6sqiiYhQ9"
+              .aseUnlook() /* Please pay attention to incoming calls or SMS, \nyour loan will be reviewed shortly. */;
       isModifyWithdrawal();
     } else if (ApplicationStatusUtils.isRollback(status) ||
         ApplicationStatusUtils.isRefuse(status)) {
       statusImage = "images/img_disapproved.png";
       showConfirm = true;
       showInstagram = false;
-      page = titleStr = 'Rejected';
-      content = "Sorry that we can’t issue you loan this time.";
+      page = titleStr = "2A/niqWH5/Dbq2Gfm1x/JA==".aseUnlook() /* Rejected */;
+      content =
+          "x8uHtFTf6iECiz+BPSvgDQTQzdzioUPE46BtlBTkwb7Osn5qkWV5z8fk2/xcoPK+"
+              .aseUnlook() /* Sorry that we can’t issue you loan this time. */;
       if (ApplicationStatusUtils.isRefuse(status)) page = 'refuse';
     } else if (ApplicationStatusUtils.isPass(status)) {
       statusImage = "images/img_approved.png";
       showPassView = true;
       showInstagram = false;
       showAccountInfo = false;
-      page = titleStr = 'Approved';
+      page = titleStr = "ieAfQ8fK1oselGqFiEc/wA==".aseUnlook() /* Approved */;
       content =
-          "Congrats! Your loan was approved already, \nplease repay in time.";
+          "ijbBx3Bm0uEbfvOSG//JRCwqOq3p5VtyxFs5D9f8qU5mpt4lUnPhw+NmVYayZs3iJEMUFtpHWMr6m0VuRceVO5jU9Qx2vHBAxVsRngrQGHw="
+              .aseUnlook() /* Congrats! Your loan was approved already, \nplease repay in time. */;
 
       isModifyWithdrawal();
 
@@ -466,9 +500,11 @@ class OrderStatusPageState extends State<OrderStatusPage> {
       statusImage = "images/img_withdraw.png";
       showAccountInfo = true;
       showInstagram = false;
-      page = titleStr = 'Withdraw Cash Now';
+      page = titleStr = "BLXrJ4XNmbDQtmiNT2dwSuT61GGMUZHTBb8CnRbyVdc="
+          .aseUnlook() /* Withdraw Cash Now */;
       content =
-          "Please refer to below instruction and \nwithdraw your cash now";
+          "e+qVm5qlMjW3f7bIT67h4YPhLMD7QlJbP+WxjviZTf3GNgknNkkb76HfnQ+a8d4yXow+9z30kimjW0Q5nV3Zdw=="
+              .aseUnlook() /* Please refer to below instruction and \nwithdraw your cash now */;
 
       if (widget.application.orderInfo != null) {
         paymentCode = widget.application.orderInfo!.paymentCode ?? "";
@@ -483,8 +519,12 @@ class OrderStatusPageState extends State<OrderStatusPage> {
     } else if (ApplicationStatusUtils.isAbandon(status)) {
       statusImage = "images/img_giveup.png";
       showConfirm = true;
+      showPassView = false;
       showInstagram = false;
-      page = titleStr = 'Given up withdrawal';
+      showAccountInfo = false;
+
+      page = titleStr = "hc3lVJXQxc0aazStdO2/oLsYoCIC7h7H9lFZbNlx1QY="
+          .aseUnlook() /* Given up withdrawal */;
       content =
           "Your loan has been cancelled. Reason: ${widget.application.statusDesc!}";
     } else if (ApplicationStatusUtils.isFinish(status) ||
@@ -492,12 +532,14 @@ class OrderStatusPageState extends State<OrderStatusPage> {
       statusImage = "images/img_finish.png";
       showConfirm = true;
       showInstagram = false;
-      page = titleStr = 'Fully Settled!';
+      page = titleStr =
+          "D1QzFylz1Rz++80AoJBqhQ==".aseUnlook() /* Fully Settled! */;
       content =
-          "Your loanable amount might be increased, \nwelcome to apply for a reloan.";
+          "wPROqIwhHfWhX6IICFG6Ssatde6JTXMxjpl3WANuEOvoUfC4Vp9FId9+qsv80hRb3Oe49jZYA/2IfqtwFSPbQl22OrTKbP5K+Shwd++VvTo="
+              .aseUnlook() /* Your loanable amount might be increased, \nwelcome to apply for a reloan. */;
       if (ApplicationStatusUtils.isRefuse(status)) page = 'close';
     } else if (ApplicationStatusUtils.isRepay(status)) {
-      page = titleStr = 'Repaid';
+      page = titleStr = "xIfWOpmTVGoABVnG8ZPwbA==".aseUnlook() /* Repaid */;
       content = "";
     }
 
@@ -538,8 +580,9 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                   ),
                 ),
               ),
-              const Text(
-                "Add instagram account",
+              Text(
+                "65oMkqyN11BYBZ8rn89GqCp0+VvyWPugadlomkwtwrA="
+                    .aseUnlook() /* Add instagram account */,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 16,
@@ -578,8 +621,8 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                 child: Container(
                   padding: const EdgeInsets.all(15),
                   alignment: Alignment.center,
-                  child: const Text(
-                    "Confirm",
+                  child: Text(
+                    "wdjvxfObjmfPg5BLx25HTw==".aseUnlook() /* Confirm */,
                     style: TextStyle(
                         color: AppColors.mainColor,
                         fontSize: 16,
@@ -601,7 +644,10 @@ class OrderStatusPageState extends State<OrderStatusPage> {
     DioManager.getInstance().doRequest(
       path: Urls.BASIS_INFO_SAVE,
       method: DioMethod.POST,
-      bodyParams: {'insAccount': insAccountController.text},
+      bodyParams: {
+        "Acl7FP5T9gZPBLgonytweQ==".aseUnlook() /* insAccount */ :
+            insAccountController.text
+      },
       successCallBack: (result) {
         basisInfo.insAccount = insAccountController.text;
         SpUtils.saveBasisInfo(basisInfo);

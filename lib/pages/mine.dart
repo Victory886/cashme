@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:loannow/beans/system_config_bean.dart';
@@ -9,11 +11,11 @@ import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/utils/operation_utils.dart';
 import 'package:loannow/utils/phone_utils.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../config/image_config.dart';
-import 'coupon_alert_view.dart';
 
 class MinePage extends StatefulWidget {
   const MinePage({super.key});
@@ -54,18 +56,25 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "LoanNow",
+                            Text(
+                              "hJnwYEU5GCAilZ97G6lL0Q=="
+                                  .aseUnlook() /* LoanNow */,
                               style: TextStyle(
-                                  fontSize: 20, color: AppColors.textColor),
+                                fontSize: 20,
+                                color: AppColors.textColor,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Container(
                               margin: const EdgeInsets.only(top: 2),
-                              child: const Text(
-                                "Personal line of credit",
+                              child: Text(
+                                "3QWgl4zDpCv6t841ZevYfeK3XmS0ZhNtCR/vZwXceUY="
+                                    .aseUnlook() /* Personal line of credit */,
                                 style: TextStyle(
-                                    fontSize: 12,
-                                    color: AppColors.textColorLight),
+                                  fontSize: 12,
+                                  color: AppColors.textColorLight,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],
@@ -101,32 +110,43 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                 ),
                 Container(
                   margin: const EdgeInsets.only(bottom: 25),
-                  child: const Text(
-                    "Welcome to LoanNow",
+                  child: Text(
+                    "kMLSQ1IQxdCW9Aelht7mMnE0/OJS1hSp1Zb5hB41txA="
+                        .aseUnlook() /* Welcome to LoanNow */,
                     style: TextStyle(
-                        fontSize: 14, color: AppColors.textColorLight),
+                      fontSize: 14,
+                      color: AppColors.textColorLight,
+                    ),
                   ),
                 ),
                 buildItem(
                   img(R.meHistory),
-                  "History",
+                  "JAsONIbSTebvXgAwKLqwuw==".aseUnlook() /* History */,
                   () {
                     Navigator.pushNamed(context, RouterNames.HISTORY);
                   },
                 ),
-                buildItem(img(R.meCoupon), "Coupon", () {
+                buildItem(img(R.meCoupon),
+                    "uwpr7AQuZH/32d71XJmDPQ==".aseUnlook() /* Coupon */, () {
                   Navigator.pushNamed(
                     context,
                     RouterNames.WEB,
                     arguments: {
-                      'url': WebPageUrl.couponUrl,
-                      'showTitle': false
+                      "vW9Mk2OPXFJFZeVsVxyxVg==".aseUnlook() /* url */ :
+                          WebPageUrl.couponUrl,
+                      "0G1BpuJo1t01gRqp3BFWxA==".aseUnlook() /* showTitle */ :
+                          false
                     },
                   );
                 }),
-                // buildItem(img(R.meInApp), "In-app Enquire", () {}),
-                buildItem(img(R.meHotline), "Hotline", showHotlineDialog),
-                buildItem(img(R.meMessenger), "Messenger", () async {
+                // buildItem(img(R.meInApp), "L6f6bd/tWQcROEzaBKn4IQ==".aseUnlook() /* In-app Enquire */, () {}),
+                buildItem(
+                    img(R.meHotline),
+                    "fZ2YvRTjhQE9m21Un6ynEQ==".aseUnlook() /* Hotline */,
+                    showHotlineDialog),
+                buildItem(img(R.meMessenger),
+                    "1/cl8p1KxabIeHLNqPbQwg==".aseUnlook() /* Messenger */,
+                    () async {
                   if (Constans.systemConfigBean?.dictInfo?.messagerAccount !=
                       null) {
                     String? urlScheme =
@@ -141,20 +161,23 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                       }
                     } else {
                       BotToast.showText(
-                          text: "The messenger app is not installed");
+                          text: "Igm3t6vFmbED6NkFYIQH32ETmxqJDdIKazZpgSMC732rRuJwzMJdSU1YkOHv6kDp"
+                              .aseUnlook() /* The messenger app is not installed */);
                     }
                   }
                 }),
                 buildItem(
                   img(R.mePrivacy),
-                  "Privacy Policy",
+                  "n9I4KxZfGaWlit+F3gQqkw==".aseUnlook() /* Privacy Policy */,
                   () {
                     Navigator.pushNamed(
                       context,
                       RouterNames.WEB,
                       arguments: {
-                        'url': Urls.WEB_URL_PRIVACY,
-                        'showTitle': true
+                        "vW9Mk2OPXFJFZeVsVxyxVg==".aseUnlook() /* url */ :
+                            Urls.WEB_URL_PRIVACY,
+                        "0G1BpuJo1t01gRqp3BFWxA==".aseUnlook() /* showTitle */ :
+                            true
                       },
                     );
                   },
@@ -290,8 +313,8 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                   ),
                   alignment: Alignment.center,
                   margin: const EdgeInsets.all(15),
-                  child: const Text(
-                    "Cancel",
+                  child: Text(
+                    "+5L2yZluy99EaF9BFwnTEw==".aseUnlook() /* Cancel */,
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -325,7 +348,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
     //             ),
     //           ),
     //           const Text(
-    //             "Hotline",
+    //             "fZ2YvRTjhQE9m21Un6ynEQ==".aseUnlook() /* Hotline */,
     //             style: TextStyle(fontSize: 16, color: AppColors.textColor, fontWeight: FontWeight.bold),
     //           ),
     //           ...childs
