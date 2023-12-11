@@ -1,73 +1,89 @@
 import 'package:loannow/generated/json/base/json_convert_content.dart';
 import 'package:loannow/beans/user_info_bean.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 
 UserInfoBean $UserInfoBeanFromJson(Map<String, dynamic> json) {
   final UserInfoBean userInfoBean = UserInfoBean();
-  final UserInfoCreditInfo? creditInfo = jsonConvert.convert<
-      UserInfoCreditInfo>(json['creditInfo']);
+  final UserInfoCreditInfo? creditInfo =
+      jsonConvert.convert<UserInfoCreditInfo>(
+          json["mXzulZjD1tVdttYB+e0gLQ==".aseUnlook() /* creditInfo */]);
   if (creditInfo != null) {
     userInfoBean.creditInfo = creditInfo;
   }
-  final String? deviceId = jsonConvert.convert<String>(json['deviceId']);
+  final String? deviceId = jsonConvert.convert<String>(
+      json["rx421BNaZibTudvlICRO/Q==".aseUnlook() /* deviceId */]);
   if (deviceId != null) {
     userInfoBean.deviceId = deviceId;
   }
-  final int? id = jsonConvert.convert<int>(json['id']);
+  final int? id = jsonConvert
+      .convert<int>(json["enyd+2ERRQf7UaKB2w6Exw==".aseUnlook() /* id */]);
   if (id != null) {
     userInfoBean.id = id;
   }
-  final String? ip = jsonConvert.convert<String>(json['ip']);
+  final String? ip = jsonConvert
+      .convert<String>(json["AGc4nrKXrDGl2p3bUcFZGw==".aseUnlook() /* ip */]);
   if (ip != null) {
     userInfoBean.ip = ip;
   }
-  final bool? isNew = jsonConvert.convert<bool>(json['isNew']);
+  final bool? isNew = jsonConvert
+      .convert<bool>(json["iVykR+4tS6eqVvk6R1w2aw==".aseUnlook() /* isNew */]);
   if (isNew != null) {
     userInfoBean.isNew = isNew;
   }
-  final int? lastLoginTime = jsonConvert.convert<int>(json['lastLoginTime']);
+  final int? lastLoginTime = jsonConvert.convert<int>(
+      json["WssTbKNy6dC23uTQvxQWVA==".aseUnlook() /* lastLoginTime */]);
   if (lastLoginTime != null) {
     userInfoBean.lastLoginTime = lastLoginTime;
   }
-  final bool? localIp = jsonConvert.convert<bool>(json['localIp']);
+  final bool? localIp = jsonConvert.convert<bool>(
+      json["Dac+DJ6/cPOxW9GPU00bEw==".aseUnlook() /* localIp */]);
   if (localIp != null) {
     userInfoBean.localIp = localIp;
   }
-  final int? membershipPromptLevel = jsonConvert.convert<int>(
-      json['membershipPromptLevel']);
+  final int? membershipPromptLevel = jsonConvert.convert<int>(json[
+      "pIbCQ9jQ0+y2HfPiLw5tR0HGZQvFQe5hfWAOWextM+k="
+          .aseUnlook() /* membershipPromptLevel */]);
   if (membershipPromptLevel != null) {
     userInfoBean.membershipPromptLevel = membershipPromptLevel;
   }
-  final String? referrer = jsonConvert.convert<String>(json['referrer']);
+  final String? referrer = jsonConvert.convert<String>(
+      json["8DHJyHCEtsa4zJ2LN3qMoA==".aseUnlook() /* referrer */]);
   if (referrer != null) {
     userInfoBean.referrer = referrer;
   }
-  final int? sourcePlatform = jsonConvert.convert<int>(json['sourcePlatform']);
+  final int? sourcePlatform = jsonConvert.convert<int>(
+      json["Tlh7IzqbDAWMOKFXi8wBWw==".aseUnlook() /* sourcePlatform */]);
   if (sourcePlatform != null) {
     userInfoBean.sourcePlatform = sourcePlatform;
   }
-  final String? sourceProductVersion = jsonConvert.convert<String>(
-      json['sourceProductVersion']);
+  final String? sourceProductVersion = jsonConvert.convert<String>(json[
+      "+bFLm1sZzHn4qpnRh5/NNcEtUkZyjInAGyXBewo+oyc="
+          .aseUnlook() /* sourceProductVersion */]);
   if (sourceProductVersion != null) {
     userInfoBean.sourceProductVersion = sourceProductVersion;
   }
-  final bool? stopMarketing = jsonConvert.convert<bool>(json['stopMarketing']);
+  final bool? stopMarketing = jsonConvert.convert<bool>(
+      json["6qqSQEkHDZliFK+DFqEaMg==".aseUnlook() /* stopMarketing */]);
   if (stopMarketing != null) {
     userInfoBean.stopMarketing = stopMarketing;
   }
-  final String? telephoneNo = jsonConvert.convert<String>(json['telephoneNo']);
+  final String? telephoneNo = jsonConvert.convert<String>(
+      json["QZkkEotg0ccVXSRRchK2SQ==".aseUnlook() /* telephoneNo */]);
   if (telephoneNo != null) {
     userInfoBean.telephoneNo = telephoneNo;
   }
-  final int? userLevel = jsonConvert.convert<int>(json['userLevel']);
+  final int? userLevel = jsonConvert.convert<int>(
+      json["cdQM0UCmE/ebx8QpWgm39Q==".aseUnlook() /* userLevel */]);
   if (userLevel != null) {
     userInfoBean.userLevel = userLevel;
   }
   final String? userLevelName = jsonConvert.convert<String>(
-      json['userLevelName']);
+      json["sx2OIVYFm//0heCHI/J0rQ==".aseUnlook() /* userLevelName */]);
   if (userLevelName != null) {
     userInfoBean.userLevelName = userLevelName;
   }
-  final int? userLevelScore = jsonConvert.convert<int>(json['userLevelScore']);
+  final int? userLevelScore = jsonConvert.convert<int>(
+      json["FqPm6S6fWWWfdg5OFa9OOw==".aseUnlook() /* userLevelScore */]);
   if (userLevelScore != null) {
     userInfoBean.userLevelScore = userLevelScore;
   }
@@ -76,22 +92,32 @@ UserInfoBean $UserInfoBeanFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> $UserInfoBeanToJson(UserInfoBean entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
-  data['creditInfo'] = entity.creditInfo?.toJson();
-  data['deviceId'] = entity.deviceId;
-  data['id'] = entity.id;
-  data['ip'] = entity.ip;
-  data['isNew'] = entity.isNew;
-  data['lastLoginTime'] = entity.lastLoginTime;
-  data['localIp'] = entity.localIp;
-  data['membershipPromptLevel'] = entity.membershipPromptLevel;
-  data['referrer'] = entity.referrer;
-  data['sourcePlatform'] = entity.sourcePlatform;
-  data['sourceProductVersion'] = entity.sourceProductVersion;
-  data['stopMarketing'] = entity.stopMarketing;
-  data['telephoneNo'] = entity.telephoneNo;
-  data['userLevel'] = entity.userLevel;
-  data['userLevelName'] = entity.userLevelName;
-  data['userLevelScore'] = entity.userLevelScore;
+  data["mXzulZjD1tVdttYB+e0gLQ==".aseUnlook() /* creditInfo */] =
+      entity.creditInfo?.toJson();
+  data["rx421BNaZibTudvlICRO/Q==".aseUnlook() /* deviceId */] = entity.deviceId;
+  data["enyd+2ERRQf7UaKB2w6Exw==".aseUnlook() /* id */] = entity.id;
+  data["AGc4nrKXrDGl2p3bUcFZGw==".aseUnlook() /* ip */] = entity.ip;
+  data["iVykR+4tS6eqVvk6R1w2aw==".aseUnlook() /* isNew */] = entity.isNew;
+  data["WssTbKNy6dC23uTQvxQWVA==".aseUnlook() /* lastLoginTime */] =
+      entity.lastLoginTime;
+  data["Dac+DJ6/cPOxW9GPU00bEw==".aseUnlook() /* localIp */] = entity.localIp;
+  data["pIbCQ9jQ0+y2HfPiLw5tR0HGZQvFQe5hfWAOWextM+k="
+      .aseUnlook() /* membershipPromptLevel */] = entity.membershipPromptLevel;
+  data["8DHJyHCEtsa4zJ2LN3qMoA==".aseUnlook() /* referrer */] = entity.referrer;
+  data["Tlh7IzqbDAWMOKFXi8wBWw==".aseUnlook() /* sourcePlatform */] =
+      entity.sourcePlatform;
+  data["+bFLm1sZzHn4qpnRh5/NNcEtUkZyjInAGyXBewo+oyc="
+      .aseUnlook() /* sourceProductVersion */] = entity.sourceProductVersion;
+  data["6qqSQEkHDZliFK+DFqEaMg==".aseUnlook() /* stopMarketing */] =
+      entity.stopMarketing;
+  data["QZkkEotg0ccVXSRRchK2SQ==".aseUnlook() /* telephoneNo */] =
+      entity.telephoneNo;
+  data["cdQM0UCmE/ebx8QpWgm39Q==".aseUnlook() /* userLevel */] =
+      entity.userLevel;
+  data["sx2OIVYFm//0heCHI/J0rQ==".aseUnlook() /* userLevelName */] =
+      entity.userLevelName;
+  data["FqPm6S6fWWWfdg5OFa9OOw==".aseUnlook() /* userLevelScore */] =
+      entity.userLevelScore;
   return data;
 }
 
@@ -122,8 +148,8 @@ extension UserInfoBeanExtension on UserInfoBean {
       ..isNew = isNew ?? this.isNew
       ..lastLoginTime = lastLoginTime ?? this.lastLoginTime
       ..localIp = localIp ?? this.localIp
-      ..membershipPromptLevel = membershipPromptLevel ??
-          this.membershipPromptLevel
+      ..membershipPromptLevel =
+          membershipPromptLevel ?? this.membershipPromptLevel
       ..referrer = referrer ?? this.referrer
       ..sourcePlatform = sourcePlatform ?? this.sourcePlatform
       ..sourceProductVersion = sourceProductVersion ?? this.sourceProductVersion
@@ -137,17 +163,20 @@ extension UserInfoBeanExtension on UserInfoBean {
 
 UserInfoCreditInfo $UserInfoCreditInfoFromJson(Map<String, dynamic> json) {
   final UserInfoCreditInfo userInfoCreditInfo = UserInfoCreditInfo();
-  final UserInfoCreditInfoCurrentLevel? currentLevel = jsonConvert.convert<
-      UserInfoCreditInfoCurrentLevel>(json['currentLevel']);
+  final UserInfoCreditInfoCurrentLevel? currentLevel =
+      jsonConvert.convert<UserInfoCreditInfoCurrentLevel>(
+          json["rZGw2LxAZ0bI1v/vANemUg==".aseUnlook() /* currentLevel */]);
   if (currentLevel != null) {
     userInfoCreditInfo.currentLevel = currentLevel;
   }
-  final int? currentScore = jsonConvert.convert<int>(json['currentScore']);
+  final int? currentScore = jsonConvert.convert<int>(
+      json["hSbj0nYV9Y6/SR+Xd3owTg==".aseUnlook() /* currentScore */]);
   if (currentScore != null) {
     userInfoCreditInfo.currentScore = currentScore;
   }
-  final UserInfoCreditInfoNextLevel? nextLevel = jsonConvert.convert<
-      UserInfoCreditInfoNextLevel>(json['nextLevel']);
+  final UserInfoCreditInfoNextLevel? nextLevel =
+      jsonConvert.convert<UserInfoCreditInfoNextLevel>(
+          json["COnVpnFQC27YukkRuw5SbA==".aseUnlook() /* nextLevel */]);
   if (nextLevel != null) {
     userInfoCreditInfo.nextLevel = nextLevel;
   }
@@ -156,9 +185,12 @@ UserInfoCreditInfo $UserInfoCreditInfoFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> $UserInfoCreditInfoToJson(UserInfoCreditInfo entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
-  data['currentLevel'] = entity.currentLevel?.toJson();
-  data['currentScore'] = entity.currentScore;
-  data['nextLevel'] = entity.nextLevel?.toJson();
+  data["rZGw2LxAZ0bI1v/vANemUg==".aseUnlook() /* currentLevel */] =
+      entity.currentLevel?.toJson();
+  data["hSbj0nYV9Y6/SR+Xd3owTg==".aseUnlook() /* currentScore */] =
+      entity.currentScore;
+  data["COnVpnFQC27YukkRuw5SbA==".aseUnlook() /* nextLevel */] =
+      entity.nextLevel?.toJson();
   return data;
 }
 
@@ -177,38 +209,47 @@ extension UserInfoCreditInfoExtension on UserInfoCreditInfo {
 
 UserInfoCreditInfoCurrentLevel $UserInfoCreditInfoCurrentLevelFromJson(
     Map<String, dynamic> json) {
-  final UserInfoCreditInfoCurrentLevel userInfoCreditInfoCurrentLevel = UserInfoCreditInfoCurrentLevel();
-  final int? creditScoreLower = jsonConvert.convert<int>(
-      json['creditScoreLower']);
+  final UserInfoCreditInfoCurrentLevel userInfoCreditInfoCurrentLevel =
+      UserInfoCreditInfoCurrentLevel();
+  final int? creditScoreLower = jsonConvert.convert<int>(json[
+      "5JTBSt4jha+FkYyTTnERFk6rsa7aEy1AeARMwznaHXE="
+          .aseUnlook() /* creditScoreLower */]);
   if (creditScoreLower != null) {
     userInfoCreditInfoCurrentLevel.creditScoreLower = creditScoreLower;
   }
-  final int? creditScoreUpper = jsonConvert.convert<int>(
-      json['creditScoreUpper']);
+  final int? creditScoreUpper = jsonConvert.convert<int>(json[
+      "+ZTJWutgDpcr5/+CrR/Yh6H072d4SW67u8vU+xFDVU4="
+          .aseUnlook() /* creditScoreUpper */]);
   if (creditScoreUpper != null) {
     userInfoCreditInfoCurrentLevel.creditScoreUpper = creditScoreUpper;
   }
-  final bool? deleted = jsonConvert.convert<bool>(json['deleted']);
+  final bool? deleted = jsonConvert.convert<bool>(
+      json["ingLnv3OFToeroW6S6GqNQ==".aseUnlook() /* deleted */]);
   if (deleted != null) {
     userInfoCreditInfoCurrentLevel.deleted = deleted;
   }
-  final String? description = jsonConvert.convert<String>(json['description']);
+  final String? description = jsonConvert.convert<String>(
+      json["uGN/qsvvQc8T9X5hXZuJ3g==".aseUnlook() /* description */]);
   if (description != null) {
     userInfoCreditInfoCurrentLevel.description = description;
   }
-  final String? iconUrl = jsonConvert.convert<String>(json['iconUrl']);
+  final String? iconUrl = jsonConvert.convert<String>(
+      json["B3TL4/YVBjI49VQHItLY3w==".aseUnlook() /* iconUrl */]);
   if (iconUrl != null) {
     userInfoCreditInfoCurrentLevel.iconUrl = iconUrl;
   }
-  final int? id = jsonConvert.convert<int>(json['id']);
+  final int? id = jsonConvert
+      .convert<int>(json["enyd+2ERRQf7UaKB2w6Exw==".aseUnlook() /* id */]);
   if (id != null) {
     userInfoCreditInfoCurrentLevel.id = id;
   }
-  final int? level = jsonConvert.convert<int>(json['level']);
+  final int? level = jsonConvert
+      .convert<int>(json["OsnaQaZYr7tJODVzKzPjlg==".aseUnlook() /* level */]);
   if (level != null) {
     userInfoCreditInfoCurrentLevel.level = level;
   }
-  final String? name = jsonConvert.convert<String>(json['name']);
+  final String? name = jsonConvert
+      .convert<String>(json["Ju3XkDFhqSVpWy/Sth2XKw==".aseUnlook() /* name */]);
   if (name != null) {
     userInfoCreditInfoCurrentLevel.name = name;
   }
@@ -218,18 +259,22 @@ UserInfoCreditInfoCurrentLevel $UserInfoCreditInfoCurrentLevelFromJson(
 Map<String, dynamic> $UserInfoCreditInfoCurrentLevelToJson(
     UserInfoCreditInfoCurrentLevel entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
-  data['creditScoreLower'] = entity.creditScoreLower;
-  data['creditScoreUpper'] = entity.creditScoreUpper;
-  data['deleted'] = entity.deleted;
-  data['description'] = entity.description;
-  data['iconUrl'] = entity.iconUrl;
-  data['id'] = entity.id;
-  data['level'] = entity.level;
-  data['name'] = entity.name;
+  data["5JTBSt4jha+FkYyTTnERFk6rsa7aEy1AeARMwznaHXE="
+      .aseUnlook() /* creditScoreLower */] = entity.creditScoreLower;
+  data["+ZTJWutgDpcr5/+CrR/Yh6H072d4SW67u8vU+xFDVU4="
+      .aseUnlook() /* creditScoreUpper */] = entity.creditScoreUpper;
+  data["ingLnv3OFToeroW6S6GqNQ==".aseUnlook() /* deleted */] = entity.deleted;
+  data["uGN/qsvvQc8T9X5hXZuJ3g==".aseUnlook() /* description */] =
+      entity.description;
+  data["B3TL4/YVBjI49VQHItLY3w==".aseUnlook() /* iconUrl */] = entity.iconUrl;
+  data["enyd+2ERRQf7UaKB2w6Exw==".aseUnlook() /* id */] = entity.id;
+  data["OsnaQaZYr7tJODVzKzPjlg==".aseUnlook() /* level */] = entity.level;
+  data["Ju3XkDFhqSVpWy/Sth2XKw==".aseUnlook() /* name */] = entity.name;
   return data;
 }
 
-extension UserInfoCreditInfoCurrentLevelExtension on UserInfoCreditInfoCurrentLevel {
+extension UserInfoCreditInfoCurrentLevelExtension
+    on UserInfoCreditInfoCurrentLevel {
   UserInfoCreditInfoCurrentLevel copyWith({
     int? creditScoreLower,
     int? creditScoreUpper,
@@ -254,38 +299,47 @@ extension UserInfoCreditInfoCurrentLevelExtension on UserInfoCreditInfoCurrentLe
 
 UserInfoCreditInfoNextLevel $UserInfoCreditInfoNextLevelFromJson(
     Map<String, dynamic> json) {
-  final UserInfoCreditInfoNextLevel userInfoCreditInfoNextLevel = UserInfoCreditInfoNextLevel();
-  final int? creditScoreLower = jsonConvert.convert<int>(
-      json['creditScoreLower']);
+  final UserInfoCreditInfoNextLevel userInfoCreditInfoNextLevel =
+      UserInfoCreditInfoNextLevel();
+  final int? creditScoreLower = jsonConvert.convert<int>(json[
+      "5JTBSt4jha+FkYyTTnERFk6rsa7aEy1AeARMwznaHXE="
+          .aseUnlook() /* creditScoreLower */]);
   if (creditScoreLower != null) {
     userInfoCreditInfoNextLevel.creditScoreLower = creditScoreLower;
   }
-  final int? creditScoreUpper = jsonConvert.convert<int>(
-      json['creditScoreUpper']);
+  final int? creditScoreUpper = jsonConvert.convert<int>(json[
+      "+ZTJWutgDpcr5/+CrR/Yh6H072d4SW67u8vU+xFDVU4="
+          .aseUnlook() /* creditScoreUpper */]);
   if (creditScoreUpper != null) {
     userInfoCreditInfoNextLevel.creditScoreUpper = creditScoreUpper;
   }
-  final bool? deleted = jsonConvert.convert<bool>(json['deleted']);
+  final bool? deleted = jsonConvert.convert<bool>(
+      json["ingLnv3OFToeroW6S6GqNQ==".aseUnlook() /* deleted */]);
   if (deleted != null) {
     userInfoCreditInfoNextLevel.deleted = deleted;
   }
-  final String? description = jsonConvert.convert<String>(json['description']);
+  final String? description = jsonConvert.convert<String>(
+      json["uGN/qsvvQc8T9X5hXZuJ3g==".aseUnlook() /* description */]);
   if (description != null) {
     userInfoCreditInfoNextLevel.description = description;
   }
-  final String? iconUrl = jsonConvert.convert<String>(json['iconUrl']);
+  final String? iconUrl = jsonConvert.convert<String>(
+      json["B3TL4/YVBjI49VQHItLY3w==".aseUnlook() /* iconUrl */]);
   if (iconUrl != null) {
     userInfoCreditInfoNextLevel.iconUrl = iconUrl;
   }
-  final int? id = jsonConvert.convert<int>(json['id']);
+  final int? id = jsonConvert
+      .convert<int>(json["enyd+2ERRQf7UaKB2w6Exw==".aseUnlook() /* id */]);
   if (id != null) {
     userInfoCreditInfoNextLevel.id = id;
   }
-  final int? level = jsonConvert.convert<int>(json['level']);
+  final int? level = jsonConvert
+      .convert<int>(json["OsnaQaZYr7tJODVzKzPjlg==".aseUnlook() /* level */]);
   if (level != null) {
     userInfoCreditInfoNextLevel.level = level;
   }
-  final String? name = jsonConvert.convert<String>(json['name']);
+  final String? name = jsonConvert
+      .convert<String>(json["Ju3XkDFhqSVpWy/Sth2XKw==".aseUnlook() /* name */]);
   if (name != null) {
     userInfoCreditInfoNextLevel.name = name;
   }
@@ -295,14 +349,17 @@ UserInfoCreditInfoNextLevel $UserInfoCreditInfoNextLevelFromJson(
 Map<String, dynamic> $UserInfoCreditInfoNextLevelToJson(
     UserInfoCreditInfoNextLevel entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
-  data['creditScoreLower'] = entity.creditScoreLower;
-  data['creditScoreUpper'] = entity.creditScoreUpper;
-  data['deleted'] = entity.deleted;
-  data['description'] = entity.description;
-  data['iconUrl'] = entity.iconUrl;
-  data['id'] = entity.id;
-  data['level'] = entity.level;
-  data['name'] = entity.name;
+  data["5JTBSt4jha+FkYyTTnERFk6rsa7aEy1AeARMwznaHXE="
+      .aseUnlook() /* creditScoreLower */] = entity.creditScoreLower;
+  data["+ZTJWutgDpcr5/+CrR/Yh6H072d4SW67u8vU+xFDVU4="
+      .aseUnlook() /* creditScoreUpper */] = entity.creditScoreUpper;
+  data["ingLnv3OFToeroW6S6GqNQ==".aseUnlook() /* deleted */] = entity.deleted;
+  data["uGN/qsvvQc8T9X5hXZuJ3g==".aseUnlook() /* description */] =
+      entity.description;
+  data["B3TL4/YVBjI49VQHItLY3w==".aseUnlook() /* iconUrl */] = entity.iconUrl;
+  data["enyd+2ERRQf7UaKB2w6Exw==".aseUnlook() /* id */] = entity.id;
+  data["OsnaQaZYr7tJODVzKzPjlg==".aseUnlook() /* level */] = entity.level;
+  data["Ju3XkDFhqSVpWy/Sth2XKw==".aseUnlook() /* name */] = entity.name;
   return data;
 }
 
