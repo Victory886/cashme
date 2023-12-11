@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
@@ -25,6 +26,7 @@ import 'package:loannow/widget/button.dart';
 import 'package:loannow/widget/titleBar.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../config/app_config.dart';
 import '../config/image_config.dart';
 
 class LoginPage extends StatefulWidget {
@@ -408,10 +410,13 @@ class LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+
+    isOpenLoginPage = true;
+
     _getCodeCount = 0;
     SpUtils.clearUser();
     phoneFocus.addListener(_onFocusChange);
-    OperationUtils.saveOperation('/login');
+    OperationUtils.saveOperation("nMCVwuVpicWBpkdi/1pJqA==" /*"/login"*/);
   }
 
   void changeChecked() {
@@ -456,9 +461,7 @@ class LoginPageState extends State<LoginPage> {
       context: context,
       title: "cIHIrWDl7pFyeTv8Pf0KbN3pUqyy2aExfMVNDn3TGqk="
           .aseUnlook() /* Use voice verification code */,
-      content:
-          "X29rwD9p8HtFmCiyXgzEsEuxlgRVlarXyrxRiE8iRMAlHworZDlrkLjmoSy9yxYnY4bkjGHCBd9N2UfpH8JTbQ=="
-              .aseUnlook() /* Pick up the call, then input the \nverification code you hear. */,
+      content: "Pick up the call, then input the \nverification code you hear.",
       confirmClick: () {
         Navigator.pop(context);
         getCode(isVoice: true);
@@ -568,7 +571,9 @@ class LoginPageState extends State<LoginPage> {
               method: DioMethod.POST,
               bodyParams: results[1],
               showLoading: false,
-              successCallBack: (result) {},
+              successCallBack: (result) {
+                fLog("device_save-----success = $result");
+              },
             ),
           }
       },
@@ -610,6 +615,7 @@ class LoginPageState extends State<LoginPage> {
 
   Future<String> getDeviceInfo() async {
     var deviceInfo = await DeviceUtils.getDeviceInfo();
+    deviceInfo = json.decode(deviceInfo);
     return deviceInfo;
   }
 
@@ -644,6 +650,7 @@ class LoginPageState extends State<LoginPage> {
     if (timer != null) {
       timer?.cancel();
     }
+    isOpenLoginPage = false;
     phoneController.dispose();
     codeController.dispose();
   }

@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-18 17:28:58
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-05 11:15:37
+ * @LastEditTime: 2023-12-07 17:07:06
  * @FilePath: /loannow/lib/pages/new_home_page.dart
  */
 
@@ -11,6 +11,7 @@ import 'package:loannow/beans/coupon_alert_bean.dart';
 import 'package:loannow/pages/web.dart';
 import 'package:loannow/utils/phone_utils.dart';
 import 'package:loannow/config/app_config.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 
 import '../config/urls.dart';
 import '../utils/sp_utils.dart';
@@ -69,7 +70,8 @@ class NewHomePageState extends State<NewHomePage>
           ),
           StatefulBuilder(
             builder: (context, setState) {
-              fLog("000000000000 = StatefulBuilder");
+              fLog("nm0TzpbFZVXPl2DPEx40ct3isoEchh96leVqBt1x/VA="
+                  .aseUnlook() /* 000000000000 = StatefulBuilder */);
               pageState = setState;
               if (showLoading) {
                 return const SizedBox.shrink();
@@ -82,7 +84,8 @@ class NewHomePageState extends State<NewHomePage>
                     //   application: applicationBean!,
                     // );
 
-                    OperationUtils.saveOperation('/home/repay');
+                    OperationUtils.saveOperation("2m/LfU5GSAca1AkZ5DmQTA=="
+                        .aseUnlook() /* /home/repay */);
                     return Container(
                       margin: const EdgeInsets.only(bottom: tabbarHeight),
                       child: WebPage(urlStr: WebPageUrl.repayUrl),
@@ -117,7 +120,8 @@ class NewHomePageState extends State<NewHomePage>
   void initState() {
     super.initState();
     getData();
-    OperationUtils.saveOperation('/home');
+    OperationUtils.saveOperation(
+        "OKxTW7o3wjYGBAQEGMvqcQ==".aseUnlook() /* /home */);
   }
 
   /// TODO: 1、(取消、回退、拒绝到期)；或者 2、订单接口没有数据的时候

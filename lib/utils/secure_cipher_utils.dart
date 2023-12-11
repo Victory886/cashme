@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-11-23 13:55:50
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-05 15:45:29
+ * @LastEditTime: 2023-12-07 15:47:22
  * @FilePath: /loannow/lib/utils/secure_cipher_utils.dart
  */
 import 'package:encrypt/encrypt.dart';

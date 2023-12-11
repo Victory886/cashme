@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names
+
 /*
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
@@ -20,6 +22,8 @@ class AppConfig {
 String deviceID = "";
 
 String appVersion = "";
+
+bool isOpenLoginPage = false;
 
 /// 获取设备的大小
 class Device {

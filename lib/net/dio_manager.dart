@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
@@ -9,7 +10,6 @@ import 'package:loannow/config/constants.dart';
 import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/base_response.dart';
-import 'package:loannow/utils/device_utils.dart';
 import 'package:loannow/utils/phone_utils.dart';
 import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
@@ -33,13 +33,13 @@ class DioManager {
     dioOptions.receiveTimeout = Constans.DIO_TIME_OUT;
     var headers = {
       "Access-Control-Allow-Origin": "*",
-      "version": AppConfig.APP_VERSION,
-      "rx421BNaZibTudvlICRO/Q==".aseUnlook() /* deviceId */ : deviceID,
-      // "version": DeviceUtils.getAppVersion() as String,
-      "packet_name": AppConfig.APP_PACKAGE,
+      // "Content-Type": "application/json",
+      "deviceId": deviceID,
       "appId": AppConfig.APP_ID,
+      "version": AppConfig.APP_VERSION,
+      "platform": AppConfig.APP_PLATFORM,
+      "packet_name": AppConfig.APP_PACKAGE,
       "loginPlatform": AppConfig.APP_LOGIN_PLATFORM,
-      "platform": AppConfig.APP_PLATFORM
     };
     try {
       headers.addAll({"type": Platform.operatingSystem});
@@ -47,61 +47,82 @@ class DioManager {
       headers.addAll({"type": "web"});
     }
 
-    fLog("66666666666666 = $headers");
-
     dioOptions.headers = headers;
     dio = Dio(dioOptions);
-    dio.interceptors
-        .add(InterceptorsWrapper(onRequest: (options, handler) async {
-      String? token = await SpUtils.getToken();
-      if (token != null && token.isNotEmpty)
-        options.headers.addAll({"token": token});
-      // String? deviceId = await DeviceUtils.getDeviceId();
-      // if (deviceId != null && deviceId.isNotEmpty)
-      // options.headers.addAll({"deviceId": deviceId});
-      // String? referrer = await DeviceUtils.getInstallReferrer();
-      // if (referrer != null && referrer.isNotEmpty)
-      //   options.headers.addAll({"google_referer": referrer});
-      return handler.next(options);
-    }));
+    dio.interceptors.add(
+      InterceptorsWrapper(onRequest: (options, handler) async {
+        String? token = await SpUtils.getToken();
+        if (token != null && token.isNotEmpty) {
+          options.headers.addAll({"token": token});
+        }
+        return handler.next(options);
+      }),
+    );
     dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
   }
 
-  doRequest<T>(
-      {required String path,
-      required DioMethod method,
-      required Function(T? result) successCallBack,
-      Map<String, dynamic>? urlParams,
-      Object? bodyParams,
-      Function(BaseResponse baseResponse)? failCallBack,
-      bool showLoading = true,
-      bool showErrorMsg = true,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+  doRequest<T>({
+    required String path,
+    required DioMethod method,
+    required Function(T? result) successCallBack,
+    Map<String, dynamic>? urlParams,
+    Object? bodyParams,
+    Function(BaseResponse baseResponse)? failCallBack,
+    bool showLoading = true,
+    bool showErrorMsg = true,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
     Function? closeDialog;
     if (showLoading) closeDialog = BotToast.showLoading();
-    Options options = Options(method: method.name);
+
+    path = path.aseLook(pwd: PWD.server);
+    dioOptions.headers.addAll({"x_x_path": path});
+    Options options = Options(method: method.name, headers: dioOptions.headers);
+    options.responseType = ResponseType.plain;
+
+    Uint8List uint8List = Uint8List(0);
+    if (bodyParams != null) {
+      String jsonString = jsonEncode(bodyParams);
+      jsonString = jsonString.aseLook(pwd: PWD.server);
+
+      List<int> utf8Bytes = utf8.encode(jsonString);
+      uint8List = Uint8List.fromList(utf8Bytes);
+
+      // fLog("header = params = ${jsonString.aseUnlook(pwd: PWD.server)}");
+    }
+
     try {
-      Response response = await dio.request(path,
-          options: options,
-          queryParameters: urlParams,
-          data: bodyParams,
-          onSendProgress: onSendProgress,
-          onReceiveProgress: onReceiveProgress);
+      Response response = await dio.request(
+        path,
+        data: utf8.decode(uint8List),
+        options: options,
+        queryParameters: urlParams,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      );
+
       if (closeDialog != null) {
         closeDialog();
       }
+
       if (response.statusCode == 200) {
         var result = response.data;
         if (response.data is String) {
-          result = json.decode(response.data);
+          result = await json
+              .decode(response.data.toString().aseUnlook(pwd: PWD.server));
         }
         BaseResponse<T> baseResponse = BaseResponse<T>.fromJson(result);
+
         if (baseResponse.code == 200) {
           successCallBack(baseResponse.result);
         } else if (baseResponse.code == 401) {
-          navigatorKey.currentState
-              ?.pushNamedAndRemoveUntil(RouterNames.LOGIN, (route) => false);
+          if (!isOpenLoginPage) {
+            navigatorKey.currentState
+                ?.pushNamedAndRemoveUntil(RouterNames.LOGIN, (route) => false);
+          }
+
+          return;
         } else {
           if (showErrorMsg &&
               baseResponse.msg != null &&
@@ -121,6 +142,8 @@ class DioManager {
               code: response.statusCode, msg: response.statusMessage));
       }
     } on DioException catch (e) {
+      fLog("header = ------E =  ${e.error.toString()}");
+
       if (closeDialog != null) {
         closeDialog();
       }
@@ -129,8 +152,7 @@ class DioManager {
           BotToast.showText(text: "System upgrading, please retry later.");
           return;
         }
-        if (e.message!.contains(
-            "This exception wasthrown because theresponse has a statuscode of 502 and RequestOptions.")) {
+        if (e.message!.contains("502")) {
           BotToast.showText(text: "System upgrading, please retry later.");
           return;
         }

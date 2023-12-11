@@ -6,6 +6,7 @@ import 'package:loannow/config/app_colors.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/utils/js_utils.dart';
 import 'package:loannow/utils/operation_utils.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 
 // ignore: must_be_immutable
 class RepayingPage extends StatefulWidget {
@@ -118,7 +119,8 @@ class RepayingPageState extends State<RepayingPage> {
               onWebViewCreated: (controller) {
                 webViewController = controller;
                 webViewController.addJavaScriptHandler(
-                  handlerName: "callFlutter",
+                  handlerName:
+                      "KB2lXR4Wl2B5pozB5IuXVQ==".aseUnlook() /* callFlutter */,
                   callback: (args) {
                     JSUtils.handleJSCall(webViewController, args[0], context);
                   },
@@ -134,6 +136,7 @@ class RepayingPageState extends State<RepayingPage> {
   @override
   void initState() {
     super.initState();
-    OperationUtils.saveOperation('/home/repay');
+    OperationUtils.saveOperation(
+        "2m/LfU5GSAca1AkZ5DmQTA==".aseUnlook() /* /home/repay */);
   }
 }

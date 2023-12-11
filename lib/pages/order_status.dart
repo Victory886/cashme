@@ -467,8 +467,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
           titleStr = "g40BuUPaWhEhVQt7Grfyyw==".aseUnlook() /* Under Review */;
 
       content =
-          "DjDYDuUbLon8SihdSRarRxVDXStWGIN5uQLpJOr3niVbsua1/s3jld2zIdtZgZCbWxXiPNI1Ef0hrmYbRe3aWTwy0XyUAyB0tgyUDLBqQkj8XIUnd2dYPav6sqiiYhQ9"
-              .aseUnlook() /* Please pay attention to incoming calls or SMS, \nyour loan will be reviewed shortly. */;
+          "Please pay attention to incoming calls or SMS, \nyour loan will be reviewed shortly.";
       isModifyWithdrawal();
     } else if (ApplicationStatusUtils.isRollback(status) ||
         ApplicationStatusUtils.isRefuse(status)) {
@@ -487,8 +486,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
       showAccountInfo = false;
       page = titleStr = "ieAfQ8fK1oselGqFiEc/wA==".aseUnlook() /* Approved */;
       content =
-          "ijbBx3Bm0uEbfvOSG//JRCwqOq3p5VtyxFs5D9f8qU5mpt4lUnPhw+NmVYayZs3iJEMUFtpHWMr6m0VuRceVO5jU9Qx2vHBAxVsRngrQGHw="
-              .aseUnlook() /* Congrats! Your loan was approved already, \nplease repay in time. */;
+          "Congrats! Your loan was approved already, \nplease repay in time.";
 
       isModifyWithdrawal();
 
@@ -503,8 +501,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
       page = titleStr = "BLXrJ4XNmbDQtmiNT2dwSuT61GGMUZHTBb8CnRbyVdc="
           .aseUnlook() /* Withdraw Cash Now */;
       content =
-          "e+qVm5qlMjW3f7bIT67h4YPhLMD7QlJbP+WxjviZTf3GNgknNkkb76HfnQ+a8d4yXow+9z30kimjW0Q5nV3Zdw=="
-              .aseUnlook() /* Please refer to below instruction and \nwithdraw your cash now */;
+          "Please refer to below instruction and \nwithdraw your cash now";
 
       if (widget.application.orderInfo != null) {
         paymentCode = widget.application.orderInfo!.paymentCode ?? "";
@@ -535,8 +532,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
       page = titleStr =
           "D1QzFylz1Rz++80AoJBqhQ==".aseUnlook() /* Fully Settled! */;
       content =
-          "wPROqIwhHfWhX6IICFG6Ssatde6JTXMxjpl3WANuEOvoUfC4Vp9FId9+qsv80hRb3Oe49jZYA/2IfqtwFSPbQl22OrTKbP5K+Shwd++VvTo="
-              .aseUnlook() /* Your loanable amount might be increased, \nwelcome to apply for a reloan. */;
+          "Your loanable amount might be increased, \nwelcome to apply for a reloan.";
       if (ApplicationStatusUtils.isRefuse(status)) page = 'close';
     } else if (ApplicationStatusUtils.isRepay(status)) {
       page = titleStr = "xIfWOpmTVGoABVnG8ZPwbA==".aseUnlook() /* Repaid */;
