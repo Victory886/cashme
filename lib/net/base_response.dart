@@ -8,20 +8,20 @@ class BaseResponse<T> {
   BaseResponse({this.result, this.code, this.msg});
 
   BaseResponse.fromJson(Map<String, dynamic> json) {
-    if (json['result'] != null && json['result'] != 'null') {
-      result = JsonConvert.fromJsonAsT<T>(json['result']);
+    if (json["result"] != null && json["result"] != 'null') {
+      result = JsonConvert.fromJsonAsT<T>(json["result"]);
     }
-    code = json['code'];
-    msg = json['msg'];
+    code = json["code"];
+    msg = json["msg"];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.result != null) {
-      data['result'] = this.result;
+      data["result"] = this.result;
     }
-    data['code'] = this.code;
-    data['msg'] = this.msg;
+    data["code"] = this.code;
+    data["msg"] = this.msg;
     return data;
   }
 }
