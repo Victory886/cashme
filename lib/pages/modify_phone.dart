@@ -11,6 +11,7 @@ import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/utils/operation_utils.dart';
 import 'package:loannow/utils/phone_utils.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 import 'package:loannow/widget/button.dart';
 import 'package:loannow/widget/titleBar.dart';
@@ -44,7 +45,8 @@ class ModifyPhonePageState extends State<ModifyPhonePage> {
           ),
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 60),
+              padding: const EdgeInsets.only(
+                  left: 15, right: 15, top: 10, bottom: 60),
               children: [
                 Container(
                   margin: const EdgeInsets.only(top: 15),
@@ -73,14 +75,17 @@ class ModifyPhonePageState extends State<ModifyPhonePage> {
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(left: 50),
                           focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.primaryColor, width: 0.5),
+                            borderSide: BorderSide(
+                                color: AppColors.primaryColor, width: 0.5),
                           ),
                           enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.dividerColor, width: 0.5),
+                            borderSide: BorderSide(
+                                color: AppColors.dividerColor, width: 0.5),
                           ),
                           counterText: '',
                           hintText: "Enter your phone number",
-                          hintStyle: TextStyle(color: Color(0xFF999999), fontSize: 14),
+                          hintStyle:
+                              TextStyle(color: Color(0xFF999999), fontSize: 14),
                         ),
                         onChanged: checkConfirmStatus,
                       )
@@ -99,13 +104,16 @@ class ModifyPhonePageState extends State<ModifyPhonePage> {
                         maxLength: 4,
                         decoration: const InputDecoration(
                           focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.primaryColor, width: 0.5),
+                            borderSide: BorderSide(
+                                color: AppColors.primaryColor, width: 0.5),
                           ),
                           enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.dividerColor, width: 0.5),
+                            borderSide: BorderSide(
+                                color: AppColors.dividerColor, width: 0.5),
                           ),
                           counterText: '',
-                          hintStyle: TextStyle(color: Color(0xFF999999), fontSize: 14),
+                          hintStyle:
+                              TextStyle(color: Color(0xFF999999), fontSize: 14),
                           hintText: "verification code",
                         ),
                         onChanged: checkConfirmStatus,
@@ -118,8 +126,12 @@ class ModifyPhonePageState extends State<ModifyPhonePage> {
                             return InkWell(
                               onTap: getCode,
                               child: Text(
-                                count == Constans.CODE_COUNT_TIME ? "Send" : "${count}s",
-                                style: const TextStyle(color: AppColors.primaryColor, fontWeight: FontWeight.w600),
+                                count == Constans.CODE_COUNT_TIME
+                                    ? "Send"
+                                    : "${count}s",
+                                style: const TextStyle(
+                                    color: AppColors.primaryColor,
+                                    fontWeight: FontWeight.w600),
                               ),
                             );
                           },
@@ -163,7 +175,10 @@ class ModifyPhonePageState extends State<ModifyPhonePage> {
                     confirmButtonState = setState;
                     return Container(
                       margin: const EdgeInsets.only(top: 30),
-                      child: Button(text: "Confirm", disabled: confirmButtonDisable, onClick: modify),
+                      child: Button(
+                          text: "Confirm",
+                          disabled: confirmButtonDisable,
+                          onClick: modify),
                     );
                   },
                 ),
@@ -198,7 +213,8 @@ class ModifyPhonePageState extends State<ModifyPhonePage> {
   }
 
   void checkConfirmStatus(text) {
-    confirmButtonDisable = phoneController.text.length < 10 || codeController.text.length < 4;
+    confirmButtonDisable =
+        phoneController.text.length < 10 || codeController.text.length < 4;
     confirmButtonState(() {});
   }
 
@@ -263,7 +279,8 @@ class ModifyPhonePageState extends State<ModifyPhonePage> {
       method: DioMethod.GET,
       successCallBack: (result) {
         SpUtils.saveUserInfo(result!);
-        Navigator.pushNamedAndRemoveUntil(context, RouterNames.HOME, (route) => false);
+        Navigator.pushNamedAndRemoveUntil(
+            context, RouterNames.HOME.aseUnlook(), (route) => false);
       },
     );
   }

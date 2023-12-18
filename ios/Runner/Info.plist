@@ -25,18 +25,20 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb339625895227532</string>
+				<string>fb1085371562806413</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>FacebookAppID</key>
-	<string>339625895227532</string>
+	<string>1085371562806413</string>
 	<key>FacebookClientToken</key>
-	<string>51fac90b39840dd5cad5b03f5430d930</string>
+	<string>0ee1a2b2fa359d81ff82833ada4f3ca5</string>
 	<key>FacebookDisplayName</key>
 	<string>Cashme</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -52,7 +54,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Privacy - Camera Usage Description</string>
+	<string>Authorize access to camera to take your ID pic.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>We will use your data to generate exclusive ads for you.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

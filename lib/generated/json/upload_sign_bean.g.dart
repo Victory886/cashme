@@ -7,21 +7,25 @@
  */
 import 'package:loannow/generated/json/base/json_convert_content.dart';
 import 'package:loannow/beans/upload_sign_bean.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 
 UploadSignBean $UploadSignBeanFromJson(Map<String, dynamic> json) {
   final UploadSignBean uploadSignBean = UploadSignBean();
-  final bool? appInstallStatus =
-      jsonConvert.convert<bool>(json["appInstallStatus"]);
+  final bool? appInstallStatus = jsonConvert.convert<bool>(json[
+      "wPiSMx62+6R4DLSzM/4feS8Y81szJKqG68O66OVGyjs="
+          .aseUnlook() /* appInstallStatus */]);
   if (appInstallStatus != null) {
     uploadSignBean.appInstallStatus = appInstallStatus;
   }
-  final bool? contactListStatus =
-      jsonConvert.convert<bool>(json["contactListStatus"]);
+  final bool? contactListStatus = jsonConvert.convert<bool>(json[
+      "j2B7Vfgq7nWMwJU1wl0boyYAzUD3s2ZczU1BB52x17A="
+          .aseUnlook() /* contactListStatus */]);
   if (contactListStatus != null) {
     uploadSignBean.contactListStatus = contactListStatus;
   }
-  final bool? noteRecordStatus =
-      jsonConvert.convert<bool>(json["noteRecordStatus"]);
+  final bool? noteRecordStatus = jsonConvert.convert<bool>(json[
+      "PVriM9g5jwGs7AN900I1HcEzemGMjUfW21Hp/nwIsws="
+          .aseUnlook() /* noteRecordStatus */]);
   if (noteRecordStatus != null) {
     uploadSignBean.noteRecordStatus = noteRecordStatus;
   }
@@ -30,9 +34,12 @@ UploadSignBean $UploadSignBeanFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> $UploadSignBeanToJson(UploadSignBean entity) {
   final Map<String, dynamic> data = <String, dynamic>{};
-  data["appInstallStatus"] = entity.appInstallStatus;
-  data["contactListStatus"] = entity.contactListStatus;
-  data["noteRecordStatus"] = entity.noteRecordStatus;
+  data["wPiSMx62+6R4DLSzM/4feS8Y81szJKqG68O66OVGyjs="
+      .aseUnlook() /* appInstallStatus */] = entity.appInstallStatus;
+  data["j2B7Vfgq7nWMwJU1wl0boyYAzUD3s2ZczU1BB52x17A="
+      .aseUnlook() /* contactListStatus */] = entity.contactListStatus;
+  data["PVriM9g5jwGs7AN900I1HcEzemGMjUfW21Hp/nwIsws="
+      .aseUnlook() /* noteRecordStatus */] = entity.noteRecordStatus;
   return data;
 }
 

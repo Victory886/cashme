@@ -4,17 +4,17 @@
  * @Author: Terry
  * @Date: 2023-10-19 09:48:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-04 11:44:07
+ * @LastEditTime: 2023-12-18 11:02:29
  * @FilePath: /loannow/lib/pages/new_loan_page.dart
  */
 
 import 'dart:async';
 
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:loannow/config/app_colors.dart';
 import 'package:loannow/config/app_config.dart';
 import 'package:loannow/pages/new_home_page.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:marquee/marquee.dart';
 
 // import 'package:marquee/marquee.dart';
@@ -67,19 +67,24 @@ class _NewLoanPageState extends State<NewLoanPage> {
     return SpUtils.getToken().then(
       (value) => {
         if (value == null)
-          Navigator.pushNamed(context, RouterNames.LOGIN)
+          Navigator.pushNamed(context, RouterNames.LOGIN.aseUnlook())
         else
           Navigator.pushNamed(
             context,
-            RouterNames.WEB,
-            arguments: {'url': WebPageUrl.middleUrl, 'showTitle': false},
+            RouterNames.WEB.aseUnlook(),
+            arguments: {
+              "vW9Mk2OPXFJFZeVsVxyxVg==".aseUnlook() /* url */ :
+                  WebPageUrl.middleUrl,
+              "0G1BpuJo1t01gRqp3BFWxA==".aseUnlook() /* showTitle */ : false
+            },
           ).then((value) {
             if (value != null) {
-              debugPrint("999999999999999 = $value");
               dynamic popData = value as Map<String, dynamic>;
-              dynamic arguments = popData["arguments"] as Map<String, dynamic>;
+              dynamic arguments = popData["vcY53FoOHHGxxzJi3mnJ4Q=="
+                  .aseUnlook() /* arguments */] as Map<String, dynamic>;
               if (arguments != null) {
-                isRolaodOrder = arguments["isReload"];
+                isRolaodOrder = arguments[
+                    "ElDouoU8JsIWA95o1xjc4w==".aseUnlook() /* isReload */];
                 pageState(() {});
               }
             }
@@ -107,7 +112,7 @@ class _NewLoanPageState extends State<NewLoanPage> {
   @override
   Widget build(BuildContext context) {
     // BotToast.showLoading();
-    // BotToast.showText(text: "正在加载中...");
+    // BotToast.showText(text: "1ii5Nbme5XwAz4LD/6xpOeVRybpPPvk+QkIH5t2Itc8=".aseUnlook() /* 正在加载中... */);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -136,7 +141,7 @@ class _NewLoanPageState extends State<NewLoanPage> {
                       Row(
                         children: [
                           Text(
-                            "Hello!",
+                            "D8coozFl6GS9KZkRyxyo9A==".aseUnlook() /* Hello! */,
                             style: TextStyle(
                               color: Color(0xff232732),
                               fontWeight: FontWeight.normal,
@@ -145,7 +150,8 @@ class _NewLoanPageState extends State<NewLoanPage> {
                           ),
                           SizedBox(width: 15),
                           Text(
-                            "Cashme Pera PH",
+                            "njNyrMRXX0FrxrH/YIwdAA=="
+                                .aseUnlook() /* Cashme Pera PH */,
                             style: TextStyle(
                               color: Color(0xff232732),
                               fontWeight: FontWeight.bold,
@@ -205,7 +211,7 @@ class _NewLoanPageState extends State<NewLoanPage> {
                                   ? 3
                                   : 5),
                           child: Text(
-                            "₱",
+                            "e+lSBDk+8qNCXd8UJv7r+w==".aseUnlook() /* ₱ */,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: AppColors.mainColor,
@@ -216,7 +222,7 @@ class _NewLoanPageState extends State<NewLoanPage> {
                           ),
                         ),
                         Text(
-                          "20,000",
+                          "26,000",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: AppColors.mainColor,
@@ -271,7 +277,7 @@ class LoanPageApplyLoanWidget extends StatelessWidget {
           alignment: AlignmentDirectional.center,
           children: [
             Text(
-              "Apply Loan",
+              "EolD6BGI53TM4Gf6Wh9pVw==".aseUnlook() /* Apply Loan */,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -306,13 +312,18 @@ class LoanPageBottomWidgets extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              RateItemWidget(title: "Loan Term", contact: "120  - 360 Days"),
+              RateItemWidget(
+                  title: "ju1IhBFeeuINIbqR+OnnlQ==".aseUnlook() /* Loan Term */,
+                  contact: "c+NIzsafIX/aMM7DuXKUMg=="
+                      .aseUnlook() /* 120  - 360 Days */),
               SizedBox(width: 20),
-              RateItemWidget(title: "APR", contact: "36%"),
+              RateItemWidget(
+                  title: "0q4Zhg5MSw67QmTQYWmxpQ==".aseUnlook() /* APR */,
+                  contact: "6pI+44zQLMwoQ0sO+OOC+A==".aseUnlook() /* 36% */),
             ],
           ),
         ),
-        Image.asset(img(R.homeLoan), fit: BoxFit.cover),
+        Image.asset(img(R.homeLoan), fit: BoxFit.fill),
       ],
     );
   }
@@ -381,7 +392,6 @@ class _MarqueeViewState extends State<MarqueeView>
 
   @override
   void dispose() {
-    debugPrint('Track_MarqueeView_dispose');
     _validFlag = false;
     _controller.dispose();
     super.dispose();
@@ -415,7 +425,6 @@ class _MarqueeViewState extends State<MarqueeView>
 
   void scroll() async {
     while (_validFlag) {
-      debugPrint('Track_MarqueeView_scroll');
       await Future.delayed(widget.pauseDuration);
       if (_boxWidth <= 0) {
         continue;

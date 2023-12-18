@@ -83,7 +83,11 @@ class DioManager {
 
     Uint8List uint8List = Uint8List(0);
     if (bodyParams != null) {
-      String jsonString = jsonEncode(bodyParams);
+      String jsonString = "";
+      if (bodyParams is Map) {
+        jsonString = jsonEncode(bodyParams);
+      }
+      fLog("888888888888 = ${bodyParams.runtimeType} === $jsonString");
       jsonString = jsonString.aseLook(pwd: PWD.server);
 
       List<int> utf8Bytes = utf8.encode(jsonString);
@@ -118,8 +122,8 @@ class DioManager {
           successCallBack(baseResponse.result);
         } else if (baseResponse.code == 401) {
           if (!isOpenLoginPage) {
-            navigatorKey.currentState
-                ?.pushNamedAndRemoveUntil(RouterNames.LOGIN, (route) => false);
+            navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                RouterNames.LOGIN.aseUnlook(), (route) => false);
           }
 
           return;

@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-18 17:28:58
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-07 17:07:06
+ * @LastEditTime: 2023-12-18 13:44:05
  * @FilePath: /loannow/lib/pages/new_home_page.dart
  */
 
@@ -59,7 +59,6 @@ class NewHomePageState extends State<NewHomePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
     return Scaffold(
       body: Stack(
         children: [
@@ -121,7 +120,8 @@ class NewHomePageState extends State<NewHomePage>
     super.initState();
     getData();
     OperationUtils.saveOperation(
-        "OKxTW7o3wjYGBAQEGMvqcQ==".aseUnlook() /* /home */);
+      "OKxTW7o3wjYGBAQEGMvqcQ==".aseUnlook() /* /home */,
+    );
   }
 
   /// TODO: 1、(取消、回退、拒绝到期)；或者 2、订单接口没有数据的时候
@@ -133,7 +133,6 @@ class NewHomePageState extends State<NewHomePage>
       successCallBack: (result) async {
         if (result != null) {
           String? cid = await SpUtils.getCouponAlert();
-
           if (result.id.toString() != cid) {
             // ignore: use_build_context_synchronously
             showDialogFunction(result);

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -108,7 +110,7 @@ class RepayingPageState extends State<RepayingPage> {
           ),
           Expanded(
             child: InAppWebView(
-              initialUrlRequest: URLRequest(url: Uri.parse(Urls.WEB_URL_REPAY)),
+              // initialUrlRequest: URLRequest(url: Uri.parse(Urls.WEB_URL_REPAY)),
               onProgressChanged: (controller, progress) {
                 if (progress > 80) {
                   BotToast.closeAllLoading();
@@ -116,13 +118,56 @@ class RepayingPageState extends State<RepayingPage> {
                   BotToast.showLoading();
                 }
               },
+
+              // onWebViewCreated: (controller) {
+              //   webViewController = controller;
+              //   webViewController.addJavaScriptHandler(
+              //     handlerName:
+              //         "KB2lXR4Wl2B5pozB5IuXVQ==".aseUnlook() /* callFlutter */,
+              //     callback: (args) {
+              //       // JSUtils.handleJSCall(webViewController, args[0], context);
+              //     },
+              //   );
+              // },
+
               onWebViewCreated: (controller) {
                 webViewController = controller;
+                int time = DateTime.now().millisecondsSinceEpoch;
+                webViewController.loadUrl(
+                  urlRequest: URLRequest(
+                    url: Uri.parse(
+                      "${Urls.WEB_URL_REPAY}&t=$time",
+                    ),
+                  ),
+                );
+
                 webViewController.addJavaScriptHandler(
                   handlerName:
-                      "KB2lXR4Wl2B5pozB5IuXVQ==".aseUnlook() /* callFlutter */,
-                  callback: (args) {
-                    JSUtils.handleJSCall(webViewController, args[0], context);
+                      "RsPp5dTOEB/m/aNsCxxDvQ==".aseUnlook() /* call */,
+                  callback: (args) async {
+                    if (args.isEmpty) return {};
+
+                    String msg = args.last;
+
+                    if (msg.contains("HsI+F+lcH4xjucfJvLBP8Q=="
+                            .aseUnlook() /* ph_bridge */) ==
+                        false) return {};
+                    msg = msg.replaceAll(
+                        "HsI+F+lcH4xjucfJvLBP8Q==".aseUnlook() /* ph_bridge */,
+                        "");
+                    List list = json.decode(msg);
+                    for (var element in list) {
+                      Map<String, dynamic> dict = element;
+                      Map<String, dynamic> resMap =
+                          await H5ToFlutterMethodHandler
+                              .handleH5ToNativeMessage(
+                        controller,
+                        dict,
+                        "RsPp5dTOEB/m/aNsCxxDvQ==".aseUnlook() /* call */,
+                        context,
+                      );
+                      return resMap;
+                    }
                   },
                 );
               },

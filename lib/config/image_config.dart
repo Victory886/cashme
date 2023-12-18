@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-12-04 15:24:04
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-04 15:24:26
+ * @LastEditTime: 2023-12-18 11:34:06
  * @FilePath: /loannow/lib/config/image_config.dart
  */
 class R {
@@ -62,6 +62,7 @@ class R {
   static String coupenTopPoint = "images/coupen_alert_point";
   static String coupenTopLine = "images/coupen_alert_line";
   static String coupenInfo = "images/coupen_alert_info";
+  static String coupenRank = "images/coupon_rank";
 
   /// 登录页面语音图片
   static String loginVoice = "images/login/voice";

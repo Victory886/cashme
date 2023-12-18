@@ -16,6 +16,7 @@ import 'package:loannow/config/operation_codes.dart';
 import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
+import 'package:loannow/pages/main.dart';
 import 'package:loannow/utils/device_utils.dart';
 import 'package:loannow/utils/dialog_utils.dart';
 import 'package:loannow/utils/operation_utils.dart';
@@ -74,62 +75,119 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          TitleBar(
-            title: "zp0kegXeQ52ixr3VkvlTwvyuBWOCvWXYlew5i3Mce5s="
-                .aseUnlook() /* Login / Register */,
-            leftClick: () {
-              goHome(false);
-            },
-          ),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.only(
-                  left: 15, right: 15, top: 30, bottom: 60),
-              children: [
-                Container(
-                  height: 50,
-                  margin: const EdgeInsets.only(top: 30),
-                  child: Stack(
-                    alignment: Alignment.centerLeft,
-                    children: [
-                      StatefulBuilder(
-                        builder: (context, setState) {
-                          focusState = setState;
-                          return Container(
-                            width: 70,
-                            height: 60,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: const Color(0xffF4F4F4),
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(
-                                width: tfBorderW,
-                                color: isFocus
-                                    ? const Color(0xff7F74EF)
-                                    : Colors.transparent,
+      body: WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Column(
+          children: [
+            TitleBar(
+              title: "zp0kegXeQ52ixr3VkvlTwvyuBWOCvWXYlew5i3Mce5s="
+                  .aseUnlook() /* Login / Register */,
+              leftClick: () {
+                goHome(false);
+              },
+            ),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.only(
+                    left: 15, right: 15, top: 30, bottom: 60),
+                children: [
+                  Container(
+                    height: 50,
+                    margin: const EdgeInsets.only(top: 30),
+                    child: Stack(
+                      alignment: Alignment.centerLeft,
+                      children: [
+                        StatefulBuilder(
+                          builder: (context, setState) {
+                            focusState = setState;
+                            return Container(
+                              width: 70,
+                              height: 60,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: const Color(0xffF4F4F4),
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(
+                                  width: tfBorderW,
+                                  color: isFocus
+                                      ? const Color(0xff7F74EF)
+                                      : Colors.transparent,
+                                ),
+                              ),
+                              child: Text("yWALQgtVFHGDZdLHt9L1vg=="
+                                  .aseUnlook() /* +63 */),
+                            );
+                          },
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 80),
+                          color: const Color(0xffF4F4F4),
+                          alignment: Alignment.center,
+                          child: TextField(
+                            maxLines: 1,
+                            maxLength: 12,
+                            focusNode: phoneFocus,
+                            controller: phoneController,
+                            keyboardType: TextInputType.number,
+                            textAlignVertical: TextAlignVertical.bottom,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: tfBorderW,
+                                  color: const Color(0xff7F74EF),
+                                ),
+                              ),
+                              prefixText: "FVaTNqQDSrQ4RFF8N9S7hw=="
+                                  .aseUnlook() /* *  */,
+                              prefixStyle: const TextStyle(
+                                fontSize: 20,
+                                color: Color(0xffFF5400),
+                              ),
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: 0,
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              counterText: '',
+                              isDense: false,
+                              hintText:
+                                  "wGndXIXIskJJetewWbP//BtBVeoDlwkvY4yyRS9D2Qk="
+                                      .aseUnlook() /* Enter your phone number */,
+                              hintStyle: const TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF333333),
                               ),
                             ),
-                            child: Text("yWALQgtVFHGDZdLHt9L1vg=="
-                                .aseUnlook() /* +63 */),
-                          );
-                        },
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 80),
-                        color: const Color(0xffF4F4F4),
-                        alignment: Alignment.center,
-                        child: TextField(
-                          maxLines: 1,
-                          maxLength: 12,
-                          focusNode: phoneFocus,
-                          controller: phoneController,
+                            onChanged: checkConfirmStatus,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  /// 验证码
+                  Container(
+                    height: 50,
+                    margin: const EdgeInsets.only(top: 20),
+                    alignment: Alignment.center,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        TextField(
                           keyboardType: TextInputType.number,
-                          textAlignVertical: TextAlignVertical.bottom,
+                          maxLines: 1,
+                          maxLength: 4,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
                           ],
+                          controller: codeController,
+                          textAlignVertical: TextAlignVertical.bottom,
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -146,263 +204,212 @@ class LoginPageState extends State<LoginPage> {
                             enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(
                                 width: 0,
-                                color: Colors.transparent,
+                                color: AppColors.dividerColor,
                               ),
                             ),
-                            counterText: '',
-                            isDense: false,
-                            hintText:
-                                "wGndXIXIskJJetewWbP//BtBVeoDlwkvY4yyRS9D2Qk="
-                                    .aseUnlook() /* Enter your phone number */,
-                            hintStyle: const TextStyle(
-                              fontSize: 14,
-                              color: Color(0xFF333333),
+                            errorBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red),
                             ),
+                            counterText: '',
+                            hintStyle: const TextStyle(
+                              color: Color(0xFF333333),
+                              fontSize: 14,
+                            ),
+                            hintText:
+                                "LMoG/MELez3t/Y3uk2A2cCS2Bg6S1Q0pTSL5Vov/bao="
+                                    .aseUnlook() /* verification code */,
                           ),
                           onChanged: checkConfirmStatus,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                /// 验证码
-                Container(
-                  height: 50,
-                  margin: const EdgeInsets.only(top: 20),
-                  alignment: Alignment.center,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      TextField(
-                        keyboardType: TextInputType.number,
-                        maxLines: 1,
-                        maxLength: 4,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        controller: codeController,
-                        textAlignVertical: TextAlignVertical.bottom,
-                        decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: tfBorderW,
-                              color: const Color(0xff7F74EF),
-                            ),
-                          ),
-                          prefixText:
-                              "FVaTNqQDSrQ4RFF8N9S7hw==".aseUnlook() /* *  */,
-                          prefixStyle: const TextStyle(
-                            fontSize: 20,
-                            color: Color(0xffFF5400),
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 0,
-                              color: AppColors.dividerColor,
-                            ),
-                          ),
-                          errorBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red),
-                          ),
-                          counterText: '',
-                          hintStyle: const TextStyle(
-                            color: Color(0xFF333333),
-                            fontSize: 14,
-                          ),
-                          hintText:
-                              "LMoG/MELez3t/Y3uk2A2cCS2Bg6S1Q0pTSL5Vov/bao="
-                                  .aseUnlook() /* verification code */,
-                        ),
-                        onChanged: checkConfirmStatus,
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: StatefulBuilder(
-                          builder: (context, setState) {
-                            countState = setState;
-                            return InkWell(
-                              onTap: getCode,
-                              child: Container(
-                                width: 77,
-                                height: 56,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff7F74EF),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  border: Border.all(
-                                    width: 0,
-                                    color: Colors.transparent,
-                                  ),
-                                ),
-                                child: Text(
-                                  count == Constans.CODE_COUNT_TIME
-                                      ? "oHmwZXWRP6rUETzf/K1Wiw=="
-                                          .aseUnlook() /* Send */
-                                      : "${count}s",
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                StatefulBuilder(
-                  builder: (context, setState) {
-                    codeErrorState = setState;
-                    if (codeError) {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset("images/ic_info_red.png", width: 15),
-                            Container(
-                              margin: const EdgeInsets.only(left: 5),
-                              child: const Text(
-                                "Verification code error",
-                                style: TextStyle(color: Color(0xFFF94D3F)),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    } else {
-                      return const SizedBox(height: 20);
-                    }
-                  },
-                ),
-                StatefulBuilder(
-                  builder: (context, setState) {
-                    voiceCodeState = setState;
-                    if (showVoice) {
-                      return Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 40),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: showVoiceDialog,
-                                child: Text(
-                                  "cIHIrWDl7pFyeTv8Pf0KbN3pUqyy2aExfMVNDn3TGqk="
-                                      .aseUnlook() /* Use voice verification code */,
-                                  style: TextStyle(
-                                    color: _getCodeCount >= 2
-                                        ? AppColors.mainColor
-                                        : AppColors.textColorhint,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 15),
-                              InkWell(
-                                onTap: showVoiceDialog,
-                                child: Container(
-                                  width: 50,
-                                  height: 36,
-                                  decoration: BoxDecoration(
-                                    color: _getCodeCount >= 2
-                                        ? AppColors.mainColor
-                                        : const Color(0xffD5D5D5),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  child: Image.asset(img(R.loginVoice)),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  },
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 60, bottom: 20),
-                  child: StatefulBuilder(
-                    builder: (context, setState) {
-                      confirmButtonState = setState;
-                      return Button(
-                        text: "wdjvxfObjmfPg5BLx25HTw=="
-                            .aseUnlook() /* Confirm */,
-                        onClick: loginCheck,
-                        disabled: confirmButtonDisable,
-                      );
-                    },
-                  ),
-                ),
-                Container(
-                  // color: Colors.red,
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.only(top: 10, bottom: 20),
-                  child: InkWell(
-                    onTap: changeChecked,
-                    child: Row(
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(right: 10),
+                        Align(
+                          alignment: Alignment.centerRight,
                           child: StatefulBuilder(
                             builder: (context, setState) {
-                              checkedState = setState;
-                              return Image.asset(
-                                checked
-                                    ? "images/ic_checked.png"
-                                    : "images/ic_check.png",
-                                width: 20,
+                              countState = setState;
+                              return InkWell(
+                                onTap: getCode,
+                                child: Container(
+                                  width: 77,
+                                  height: 56,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xff7F74EF),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    border: Border.all(
+                                      width: 0,
+                                      color: Colors.transparent,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    count == Constans.CODE_COUNT_TIME
+                                        ? "oHmwZXWRP6rUETzf/K1Wiw=="
+                                            .aseUnlook() /* Send */
+                                        : "${count}s",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
                               );
                             },
-                          ),
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "zZumcUEpHti6L4gMRfScww=="
-                                    .aseUnlook() /* Read and agree */,
-                                style: TextStyle(
-                                    color: Color(0xFF999999), fontSize: 12),
-                              ),
-                              TextSpan(
-                                text: "llacZ8koIGcJbzXGyH6P4Q=="
-                                    .aseUnlook() /*  Privacy Policy */,
-                                style:
-                                    const TextStyle(color: AppColors.mainColor),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      RouterNames.WEB,
-                                      arguments: {
-                                        'url': Urls.WEB_URL_PRIVACY,
-                                        "0G1BpuJo1t01gRqp3BFWxA=="
-                                            .aseUnlook() /* showTitle */ : true
-                                      },
-                                    );
-                                  },
-                              ),
-                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
+                  StatefulBuilder(
+                    builder: (context, setState) {
+                      codeErrorState = setState;
+                      if (codeError) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset("images/ic_info_red.png", width: 15),
+                              Container(
+                                margin: const EdgeInsets.only(left: 5),
+                                child: const Text(
+                                  "Verification code error",
+                                  style: TextStyle(color: Color(0xFFF94D3F)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return const SizedBox(height: 20);
+                      }
+                    },
+                  ),
+                  StatefulBuilder(
+                    builder: (context, setState) {
+                      voiceCodeState = setState;
+                      if (showVoice) {
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            padding: const EdgeInsets.only(top: 40),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: showVoiceDialog,
+                                  child: Text(
+                                    "cIHIrWDl7pFyeTv8Pf0KbN3pUqyy2aExfMVNDn3TGqk="
+                                        .aseUnlook() /* Use voice verification code */,
+                                    style: TextStyle(
+                                      color: _getCodeCount >= 2
+                                          ? AppColors.mainColor
+                                          : AppColors.textColorhint,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 15),
+                                InkWell(
+                                  onTap: showVoiceDialog,
+                                  child: Container(
+                                    width: 50,
+                                    height: 36,
+                                    decoration: BoxDecoration(
+                                      color: _getCodeCount >= 2
+                                          ? AppColors.mainColor
+                                          : const Color(0xffD5D5D5),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    child: Image.asset(img(R.loginVoice)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      } else {
+                        return const SizedBox.shrink();
+                      }
+                    },
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 60, bottom: 20),
+                    child: StatefulBuilder(
+                      builder: (context, setState) {
+                        confirmButtonState = setState;
+                        return Button(
+                          text: "wdjvxfObjmfPg5BLx25HTw=="
+                              .aseUnlook() /* Confirm */,
+                          onClick: loginCheck,
+                          disabled: confirmButtonDisable,
+                        );
+                      },
+                    ),
+                  ),
+                  Container(
+                    // color: Colors.red,
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(top: 10, bottom: 20),
+                    child: InkWell(
+                      onTap: changeChecked,
+                      child: Row(
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            child: StatefulBuilder(
+                              builder: (context, setState) {
+                                checkedState = setState;
+                                return Image.asset(
+                                  checked
+                                      ? "images/ic_checked.png"
+                                      : "images/ic_check.png",
+                                  width: 20,
+                                );
+                              },
+                            ),
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "zZumcUEpHti6L4gMRfScww=="
+                                      .aseUnlook() /* Read and agree */,
+                                  style: TextStyle(
+                                      color: Color(0xFF999999), fontSize: 12),
+                                ),
+                                TextSpan(
+                                  text: "llacZ8koIGcJbzXGyH6P4Q=="
+                                      .aseUnlook() /*  Privacy Policy */,
+                                  style: const TextStyle(
+                                      color: AppColors.mainColor),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        RouterNames.WEB.aseUnlook(),
+                                        arguments: {
+                                          'url': Urls.WEB_URL_PRIVACY,
+                                          "0G1BpuJo1t01gRqp3BFWxA=="
+                                                  .aseUnlook() /* showTitle */ :
+                                              true
+                                        },
+                                      );
+                                    },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -421,6 +428,8 @@ class LoginPageState extends State<LoginPage> {
 
   void changeChecked() {
     checked = !checked;
+    countrycodeController.clear();
+    FocusScope.of(context).requestFocus(FocusNode());
     checkedState(() {});
   }
 
@@ -544,22 +553,9 @@ class LoginPageState extends State<LoginPage> {
       phoneFocus.requestFocus();
       return;
     }
-    if (Platform.isAndroid) {
-      try {
-        var status = await Permission.phone.request();
-        if (status.isPermanentlyDenied) {
-          showPermissionDialog();
-          return;
-        }
-        if (!status.isGranted) {
-          BotToast.showText(
-              text: "pII/ru0Pj/iXMwl4DWXNInkd8L+X6bDXQo8mFnKkVDw="
-                  .aseUnlook() /* Permission Denied */);
-          return;
-        }
-        // ignore: empty_catches
-      } catch (e) {}
-    }
+
+    countrycodeController.clear();
+    FocusScope.of(context).requestFocus(FocusNode());
 
     OperationUtils.saveOperation(OperationCode.LOGON_CLICK);
     Future.wait([login(), getDeviceInfo()]).then(
@@ -572,7 +568,7 @@ class LoginPageState extends State<LoginPage> {
               bodyParams: results[1],
               showLoading: false,
               successCallBack: (result) {
-                fLog("device_save-----success = $result");
+                fLog("device_save---device_save---success = $result");
               },
             ),
           }
@@ -602,6 +598,8 @@ class LoginPageState extends State<LoginPage> {
           } else {
             OperationUtils.saveOperation(OperationCode.LOGIN);
           }
+
+          uploadIDF();
         }
         success = true;
       },
@@ -613,10 +611,34 @@ class LoginPageState extends State<LoginPage> {
     return success;
   }
 
-  Future<String> getDeviceInfo() async {
+  Future<Map<String, dynamic>> getDeviceInfo() async {
     var deviceInfo = await DeviceUtils.getDeviceInfo();
-    deviceInfo = json.decode(deviceInfo);
-    return deviceInfo;
+
+    Map<String, dynamic> map = json.decode(deviceInfo);
+    return map;
+  }
+
+  Future<Map<String, dynamic>> idf() async {
+    var idf = await DeviceUtils.idf();
+    Map<String, dynamic> map = json.decode(idf);
+    return map;
+  }
+
+  void uploadIDF() async {
+    Map<String, dynamic> idfData = await idf();
+    if (idfData.isEmpty) {
+      return;
+    }
+
+    DioManager.getInstance().doRequest<dynamic>(
+      path: Urls.PRIVACY_TRACKING_SAVEORMODIFY,
+      method: DioMethod.POST,
+      bodyParams: idfData,
+      showLoading: false,
+      successCallBack: (result) {
+        fLog("device_save-- idf---success = $result");
+      },
+    );
   }
 
   void getUserInfo() {
@@ -631,8 +653,9 @@ class LoginPageState extends State<LoginPage> {
   }
 
   void goHome(bool loginSuccess) {
+    isOpenLoginPage = false;
     Navigator.pushNamedAndRemoveUntil(
-        context, RouterNames.HOME, (route) => false, arguments: {
+        context, RouterNames.HOME.aseUnlook(), (route) => false, arguments: {
       "6wdATu/PLoLy2oT7YCtHAA==".aseUnlook() /* loginSuccess */ : loginSuccess
     });
   }
@@ -650,6 +673,10 @@ class LoginPageState extends State<LoginPage> {
     if (timer != null) {
       timer?.cancel();
     }
+
+    countrycodeController.clear();
+    FocusScope.of(context).requestFocus(FocusNode());
+
     isOpenLoginPage = false;
     phoneController.dispose();
     codeController.dispose();

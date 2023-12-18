@@ -9,6 +9,7 @@ import 'package:loannow/config/constants.dart';
 import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
+import 'package:loannow/pages/main.dart';
 import 'package:loannow/utils/dialog_utils.dart';
 import 'package:loannow/utils/operation_utils.dart';
 import 'package:loannow/utils/phone_utils.dart';
@@ -61,7 +62,7 @@ class SettingPageState extends State<SettingPage> {
             onClick: () {
               Navigator.pushNamed(
                 context,
-                RouterNames.WEB,
+                RouterNames.WEB.aseUnlook(),
                 arguments: {
                   'url': WebPageUrl.changePhoneUrl,
                   'showTitle': false
@@ -97,28 +98,39 @@ class SettingPageState extends State<SettingPage> {
               );
             },
           ),
-          if (Constans.systemConfigBean?.testPhones != null)
-            StatefulBuilder(
-              builder: (context, state) {
-                phoneState = state;
-                return buildItem(
-                  text: "agXpaevp7DVJOx2aX521BoR8U7T7qRXv/K8fZmKxtfI="
-                      .aseUnlook() /* Account Deletion */,
-                  onClick: () {
-                    showDeleteDialog();
-                  },
-                );
-              },
-            ),
+          // if (Constans.systemConfigBean?.testPhones != null)
+          StatefulBuilder(
+            builder: (context, state) {
+              phoneState = state;
+              return buildItem(
+                text: "agXpaevp7DVJOx2aX521BoR8U7T7qRXv/K8fZmKxtfI="
+                    .aseUnlook() /* Account Deletion */,
+                onClick: () {
+                  Navigator.pushNamed(
+                    context,
+                    RouterNames.WEB.aseUnlook(),
+                    arguments: {
+                      "vW9Mk2OPXFJFZeVsVxyxVg==".aseUnlook() /* url */ :
+                          WebPageUrl.accountDeletion,
+                      "0G1BpuJo1t01gRqp3BFWxA==".aseUnlook() /* showTitle */ :
+                          false
+                    },
+                  ).then((value) {
+                    if (value != null) {}
+                  });
+                },
+              );
+            },
+          ),
           Expanded(child: Container()),
           Container(
             margin: const EdgeInsets.only(bottom: 50, left: 20, right: 20),
             child: InkWell(
               onTap: () {
                 out();
+                SpUtils.clearUser();
                 SpUtils.clearCouponAlert();
-                Navigator.pushNamedAndRemoveUntil(
-                    context, RouterNames.LOGIN, (route) => false);
+                openHome(context, isOpenLoginPage: true);
               },
               child: Container(
                 alignment: Alignment.center,
@@ -126,17 +138,17 @@ class SettingPageState extends State<SettingPage> {
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
                   border: Border.all(
-                    color: AppColors.dividerColor,
                     width: 0.5,
                     style: BorderStyle.solid,
+                    color: AppColors.dividerColor,
                   ),
                 ),
                 child: Text(
                   "rPs4qwgXds/6fFegKvfhPw==".aseUnlook() /* Logout */,
                   style: TextStyle(
+                    fontSize: 16,
                     color: AppColors.textColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
                   ),
                 ),
               ),
@@ -274,7 +286,7 @@ class SettingPageState extends State<SettingPage> {
       successCallBack: (result) {
         if (result == null) {
           Navigator.pushNamedAndRemoveUntil(
-              context, RouterNames.LOGIN, (route) => false);
+              context, RouterNames.LOGIN.aseUnlook(), (route) => false);
         } else {
           BotToast.showText(
               text: "5y2JPzT8/MfKWfy5tvhmBpAFvmWTn178R7OwFFXYERWYlbHqJ3Xd4vO2y176ALWGMQSR+Gw8uAoaGAcipdEszfIVnEb6ZBwn3e2Ty/yul6M="

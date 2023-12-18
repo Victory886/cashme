@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loannow/config/app_colors.dart';
@@ -25,7 +27,7 @@ class CouponAlertViewWidget extends StatelessWidget {
           children: [
             Container(
               height: 318,
-              margin: const EdgeInsets.only(top: 52),
+              margin: EdgeInsets.only(top: 52),
               child: MyWidget(model: model),
             ),
             Container(
@@ -44,7 +46,7 @@ class CouponAlertViewWidget extends StatelessWidget {
                       height: 30,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 150,
                     child: Image.asset(img(R.coupenBox)),
                   ),
@@ -63,24 +65,14 @@ class MyWidget extends StatelessWidget {
   final CouponAlertBean model;
 
   String formatDate(DateTime dateTime) {
-    // 使用 intl 包的 DateFormat 类来格式化日期
-    // String day = getDaySuffix(dateTime.day);
-    // String formattedDate = DateFormat("d'$day', yyyy").format(dateTime);
-    // return formattedDate;
-
-    // 使用 intl 包的 DateFormat 类来格式化日期
     String formattedDate = DateFormat('MM/dd/yyyy').format(dateTime);
     return formattedDate;
   }
 
   @override
   Widget build(BuildContext context) {
-    // 将时间戳转换为 DateTime 对象
     DateTime dateTime =
         DateTime.fromMillisecondsSinceEpoch(model.endUsableTime!);
-
-    // 使用 intl 包来格式化日期
-    // String formattedDate = formatDate(dateTime);
 
     return Container(
       width: 330,
@@ -110,7 +102,7 @@ class MyWidget extends StatelessWidget {
                         maxLines: 2,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           color: Color(0xff3C56E8),
                           fontWeight: FontWeight.bold,
                         ),
@@ -126,55 +118,65 @@ class MyWidget extends StatelessWidget {
           const SizedBox(height: 20),
 
           // 显示金额的地方
-          Container(
-            width: 265,
-            height: 75,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(img(R.coupenInfo)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                width: 245,
+                height: 75,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(img(R.coupenInfo)),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "₱${model.amount!.toStringAsFixed(0)}",
+                            style: const TextStyle(
+                              fontSize: 28,
+                              color: Color(0xff333333),
+                            ),
+                          ),
+                          Text(
+                            "Expire on ${formatDate(dateTime)}",
+                            style: const TextStyle(
+                              fontSize: 10,
+                              color: Color(0xff999999),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 70,
+                      color: Colors.transparent,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        "Coupon",
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "${model.amount!.toStringAsFixed(0)}P",
-                        style: const TextStyle(
-                          fontSize: 28,
-                          color: Color(0xff333333),
-                        ),
-                      ),
-                      Text(
-                        "Expire on ${formatDate(dateTime)}",
-                        style: const TextStyle(
-                          fontSize: 10,
-                          color: Color(0xff999999),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: 70,
-                  color: Colors.transparent,
-                  alignment: Alignment.center,
-                  child: const Text(
-                    "Coupon",
-                    style: TextStyle(color: Colors.white, fontSize: 12),
-                  ),
-                ),
-              ],
-            ),
+              Container(
+                width: 25,
+                padding: EdgeInsets.only(left: 5),
+                child: Image.asset(img(R.coupenRank)),
+              ),
+            ],
           ),
           Container(
             height: 40,
             alignment: Alignment.center,
             child: const Text(
-              "Get 1000p-2000p extra on the next loan",
+              "Get ₱1000-₱2000 extra on the next loan",
               style: TextStyle(color: Color(0xff666666), fontSize: 12),
             ),
           ),

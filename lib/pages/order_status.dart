@@ -112,7 +112,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                 onTap: () async {
                   Navigator.pushNamed(
                     context,
-                    RouterNames.WEB,
+                    RouterNames.WEB.aseUnlook(),
                     arguments: {
                       'url':
                           "${WebPageUrl.baseUrl}/history/${widget.application.id}/process",
@@ -155,7 +155,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                               onTap: () {
                                 Navigator.pushNamed(
                                   context,
-                                  RouterNames.WEB,
+                                  RouterNames.WEB.aseUnlook(),
                                   arguments: {
                                     'url':
                                         "${WebPageUrl.withdrawalUrl}/?logId=$modifyID",
@@ -377,7 +377,7 @@ class OrderStatusPageState extends State<OrderStatusPage> {
                         onTap: () {
                           Navigator.pushNamed(
                             context,
-                            RouterNames.WEB,
+                            RouterNames.WEB.aseUnlook(),
                             arguments: {
                               "vW9Mk2OPXFJFZeVsVxyxVg==".aseUnlook() /* url */ :
                                   helpUrl,

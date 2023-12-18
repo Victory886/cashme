@@ -37,15 +37,20 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
       body: Stack(
         children: [
           AspectRatio(
-            aspectRatio: 1080 / 600,
+            aspectRatio: 1080 / 750,
             child: Image.asset(img(R.meTopBG), fit: BoxFit.fill),
           ),
           Container(
             margin: EdgeInsets.only(
-                bottom: tabbarHeight + Device.appBottomPadding(context)),
+              bottom: tabbarHeight + Device.appBottomPadding(context),
+            ),
             child: ListView(
               padding: const EdgeInsets.only(
-                  left: 15, right: 15, top: 5, bottom: 35),
+                top: 5,
+                left: 15,
+                right: 15,
+                bottom: 35,
+              ),
               children: [
                 SafeArea(
                   child: Row(
@@ -57,8 +62,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "hJnwYEU5GCAilZ97G6lL0Q=="
-                                  .aseUnlook() /* LoanNow */,
+                              "Cashme Pera PH",
                               style: TextStyle(
                                 fontSize: 20,
                                 color: AppColors.textColor,
@@ -87,23 +91,27 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                           height: 30,
                         ),
                         onTap: () {
-                          Navigator.pushNamed(context, RouterNames.SETTING);
+                          Navigator.pushNamed(
+                            context,
+                            RouterNames.SETTING.aseUnlook(),
+                          );
                         },
                       )
                     ],
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 25, bottom: 5),
+                  margin: const EdgeInsets.only(top: 5, bottom: 5),
                   child: StatefulBuilder(
                     builder: (context, setState) {
                       phoneState = setState;
                       return Text(
-                        "Hi.$phone",
+                        "Hi，$phone",
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                            color: AppColors.textColor),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          color: AppColors.textColor,
+                        ),
                       );
                     },
                   ),
@@ -111,8 +119,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                 Container(
                   margin: const EdgeInsets.only(bottom: 25),
                   child: Text(
-                    "kMLSQ1IQxdCW9Aelht7mMnE0/OJS1hSp1Zb5hB41txA="
-                        .aseUnlook() /* Welcome to LoanNow */,
+                    "Welcome to Cashme Pera PH",
                     style: TextStyle(
                       fontSize: 14,
                       color: AppColors.textColorLight,
@@ -123,14 +130,17 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                   img(R.meHistory),
                   "JAsONIbSTebvXgAwKLqwuw==".aseUnlook() /* History */,
                   () {
-                    Navigator.pushNamed(context, RouterNames.HISTORY);
+                    Navigator.pushNamed(
+                      context,
+                      RouterNames.HISTORY.aseUnlook(),
+                    );
                   },
                 ),
                 buildItem(img(R.meCoupon),
                     "uwpr7AQuZH/32d71XJmDPQ==".aseUnlook() /* Coupon */, () {
                   Navigator.pushNamed(
                     context,
-                    RouterNames.WEB,
+                    RouterNames.WEB.aseUnlook(),
                     arguments: {
                       "vW9Mk2OPXFJFZeVsVxyxVg==".aseUnlook() /* url */ :
                           WebPageUrl.couponUrl,
@@ -141,9 +151,10 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                 }),
                 // buildItem(img(R.meInApp), "L6f6bd/tWQcROEzaBKn4IQ==".aseUnlook() /* In-app Enquire */, () {}),
                 buildItem(
-                    img(R.meHotline),
-                    "fZ2YvRTjhQE9m21Un6ynEQ==".aseUnlook() /* Hotline */,
-                    showHotlineDialog),
+                  img(R.meHotline),
+                  "fZ2YvRTjhQE9m21Un6ynEQ==".aseUnlook() /* Hotline */,
+                  showHotlineDialog,
+                ),
                 buildItem(img(R.meMessenger),
                     "1/cl8p1KxabIeHLNqPbQwg==".aseUnlook() /* Messenger */,
                     () async {
@@ -172,7 +183,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                   () {
                     Navigator.pushNamed(
                       context,
-                      RouterNames.WEB,
+                      RouterNames.WEB.aseUnlook(),
                       arguments: {
                         "vW9Mk2OPXFJFZeVsVxyxVg==".aseUnlook() /* url */ :
                             Urls.WEB_URL_PRIVACY,
@@ -182,6 +193,37 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                     );
                   },
                 ),
+
+                Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.email_outlined,
+                        size: 20,
+                        color: Color(0xff999999),
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        "Email：",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xff999999),
+                        ),
+                      ),
+                      Text(
+                        Constans.systemConfigBean?.dictInfo!.feedbackEmail ??
+                            "",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xff999999),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -240,7 +282,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
       phoneState(() {});
     } else {
       // ignore: use_build_context_synchronously
-      Navigator.pushNamed(context, RouterNames.LOGIN);
+      Navigator.pushNamed(context, RouterNames.LOGIN.aseUnlook());
     }
   }
 

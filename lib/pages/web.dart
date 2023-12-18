@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-11 17:35:09
+ * @LastEditTime: 2023-12-14 10:33:11
  * @FilePath: /loannow/lib/pages/web.dart
  */
 import 'dart:collection';
@@ -42,6 +42,97 @@ class WebPageState extends State<WebPage> {
   ];
 
   late bool showTitle;
+
+  Widget webWidget({dynamic arguments}) {
+    return Column(
+      children: [
+        StatefulBuilder(
+          builder: (context, setState) {
+            titleState = setState;
+            if (showTitle) {
+              return TitleBar(title: title);
+            } else {
+              return const SizedBox.shrink();
+            }
+          },
+        ),
+        Expanded(
+          child: InAppWebView(
+            initialUserScripts: UnmodifiableListView(userScripts),
+            // initialUrlRequest: URLRequest(url: Uri.parse(arguments['url'])),
+            onProgressChanged: (controller, progress) {
+              if (progress > 80) {
+                BotToast.closeAllLoading();
+              } else {
+                BotToast.showLoading();
+              }
+            },
+            onTitleChanged: (controller, title) {
+              if (showTitle) {
+                this.title = title ?? "";
+                showTitle = title != null;
+                titleState(() {});
+              }
+            },
+            onWebViewCreated: (controller) {
+              webViewController = controller;
+              int time = DateTime.now().millisecondsSinceEpoch;
+              String url = widget.urlStr ??
+                  arguments["vW9Mk2OPXFJFZeVsVxyxVg==".aseUnlook() /* url */];
+              if (!url.contains(
+                  "zYvrU7yRN7nZYqjA2aZRAQ==".aseUnlook() /* .html */)) {
+                if (url
+                    .contains("Yx5X8W4JbQW+k6UPrQpWAQ==".aseUnlook() /* ? */)) {
+                  url = "$url&t=$time";
+                } else {
+                  url = "$url?t=$time";
+                }
+              }
+
+              fLog("Terry-----web----调用了----$url");
+              Uri uri = widget.urlStr != null
+                  ? Uri.parse(widget.urlStr ?? "")
+                  : Uri.parse(url);
+              webViewController.loadUrl(urlRequest: URLRequest(url: uri));
+
+              webViewController.addJavaScriptHandler(
+                handlerName: "RsPp5dTOEB/m/aNsCxxDvQ==".aseUnlook() /* call */,
+                callback: (args) async {
+                  if (args.isEmpty) return {};
+
+                  String msg = args.last;
+
+                  if (msg.contains("HsI+F+lcH4xjucfJvLBP8Q=="
+                          .aseUnlook() /* ph_bridge */) ==
+                      false) return {};
+                  msg = msg.replaceAll(
+                      "HsI+F+lcH4xjucfJvLBP8Q==".aseUnlook() /* ph_bridge */,
+                      "");
+                  List list = json.decode(msg);
+                  for (var element in list) {
+                    Map<String, dynamic> dict = element;
+                    Map<String, dynamic> resMap =
+                        await H5ToFlutterMethodHandler.handleH5ToNativeMessage(
+                      controller,
+                      dict,
+                      "RsPp5dTOEB/m/aNsCxxDvQ==".aseUnlook() /* call */,
+                      context,
+                    );
+                    return resMap;
+                  }
+                },
+              );
+            },
+            initialOptions: InAppWebViewGroupOptions(
+              ios: IOSInAppWebViewOptions(),
+              // crossPlatform: InAppWebViewOptions(cacheEnabled: false),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     dynamic arguments;
@@ -57,94 +148,11 @@ class WebPageState extends State<WebPage> {
       showTitle = false;
     }
     return Scaffold(
-      body: Column(
-        children: [
-          StatefulBuilder(
-            builder: (context, setState) {
-              titleState = setState;
-              if (showTitle) {
-                return TitleBar(title: title);
-              } else {
-                return const SizedBox.shrink();
-              }
-            },
-          ),
-          Expanded(
-            child: InAppWebView(
-              initialUserScripts: UnmodifiableListView(userScripts),
-              // initialUrlRequest: URLRequest(url: Uri.parse(arguments['url'])),
-              onProgressChanged: (controller, progress) {
-                if (progress > 80) {
-                  BotToast.closeAllLoading();
-                } else {
-                  BotToast.showLoading();
-                }
-              },
-              onTitleChanged: (controller, title) {
-                if (showTitle) {
-                  this.title = title ?? "";
-                  showTitle = title != null;
-                  titleState(() {});
-                }
-              },
-              onWebViewCreated: (controller) {
-                webViewController = controller;
-                int time = DateTime.now().millisecondsSinceEpoch;
-                String url = widget.urlStr ??
-                    arguments["vW9Mk2OPXFJFZeVsVxyxVg==".aseUnlook() /* url */];
-                if (!url.contains(
-                    "zYvrU7yRN7nZYqjA2aZRAQ==".aseUnlook() /* .html */)) {
-                  if (url.contains(
-                      "Yx5X8W4JbQW+k6UPrQpWAQ==".aseUnlook() /* ? */)) {
-                    url = "$url&t=$time";
-                  } else {
-                    url = "$url?t=$time";
-                  }
-                }
-
-                fLog("Terry-----web----调用了----$url");
-                Uri uri = widget.urlStr != null
-                    ? Uri.parse(widget.urlStr ?? "")
-                    : Uri.parse(url);
-                webViewController.loadUrl(urlRequest: URLRequest(url: uri));
-
-                webViewController.addJavaScriptHandler(
-                  handlerName:
-                      "RsPp5dTOEB/m/aNsCxxDvQ==".aseUnlook() /* call */,
-                  callback: (args) async {
-                    if (args.isEmpty) return {};
-
-                    String msg = args.last;
-
-                    if (msg.contains("HsI+F+lcH4xjucfJvLBP8Q=="
-                            .aseUnlook() /* ph_bridge */) ==
-                        false) return {};
-                    msg = msg.replaceAll(
-                        "HsI+F+lcH4xjucfJvLBP8Q==".aseUnlook() /* ph_bridge */,
-                        "");
-                    List list = json.decode(msg);
-                    for (var element in list) {
-                      Map<String, dynamic> dict = element;
-                      Map<String, dynamic> resMap =
-                          await H5ToFlutterMethodHandler
-                              .handleH5ToNativeMessage(
-                                  controller,
-                                  dict,
-                                  "RsPp5dTOEB/m/aNsCxxDvQ=="
-                                      .aseUnlook() /* call */,
-                                  context);
-                      return resMap;
-                    }
-                  },
-                );
-              },
-              initialOptions: InAppWebViewGroupOptions(
-                ios: IOSInAppWebViewOptions(),
-                // crossPlatform: InAppWebViewOptions(cacheEnabled: false),
-              ),
-            ),
-          ),
-        ],
+      body: WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: webWidget(arguments: arguments),
       ),
     );
   }

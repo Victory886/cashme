@@ -9,6 +9,7 @@ import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/pages/mine.dart';
+import 'package:loannow/utils/phone_utils.dart';
 import 'package:loannow/utils/secure_cipher_utils.dart';
 import '../config/image_config.dart';
 import './new_home_page.dart';
@@ -26,15 +27,28 @@ class MainPage extends StatefulWidget {
   }
 }
 
+/// 用于从注销功能
+int _tabbarIndex = 0;
+late StateSetter _tabbarState;
+late PageController _pageController;
+
+/// 打开首页、并根据参数不同 打开登录页面
+void openHome(BuildContext context, {isOpenLoginPage = false}) {
+  _tabbarIndex = 0;
+  _pageController.jumpToPage(0);
+  _tabbarState(() {});
+
+  if (isOpenLoginPage) {
+    Navigator.pushNamed(context, RouterNames.LOGIN.aseUnlook());
+  }
+}
+
 class MainPageState extends State<MainPage> {
-  int tabbarIndex = 0;
   var pageList = [
     const NewHomePage(),
     const OnlineCSPage(),
     const MinePage(),
   ];
-  late StateSetter tabbarState;
-  late PageController pageController;
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
@@ -58,11 +72,10 @@ class MainPageState extends State<MainPage> {
           {
             OperationUtils.saveOperation(OperationCode.FIRST_OPEN),
             OperationUtils.sendFBNormalEvents(OperationCode.FIRST_OPEN),
-            SpUtils.setFirstOpen(),
           }
       },
     );
-    pageController = PageController(initialPage: 0);
+    _pageController = PageController(initialPage: 0);
   }
 
   @override
@@ -72,13 +85,12 @@ class MainPageState extends State<MainPage> {
         alignment: Alignment.bottomCenter,
         children: [
           Container(
-            // margin: const EdgeInsets.only(bottom: 49),
             color: Colors.transparent,
             child: PageView.builder(
               itemBuilder: (context, index) {
                 return pageList[index];
               },
-              controller: pageController,
+              controller: _pageController,
               physics: const NeverScrollableScrollPhysics(),
             ),
           ),
@@ -95,7 +107,8 @@ class MainPageState extends State<MainPage> {
                 ),
                 child: StatefulBuilder(
                   builder: (context, setState) {
-                    tabbarState = setState;
+                    fLog("bbbbbbbbbbbbbb = $_tabbarIndex");
+                    _tabbarState = setState;
                     return Stack(
                       alignment: Alignment.bottomCenter,
                       children: [
@@ -115,15 +128,18 @@ class MainPageState extends State<MainPage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        // Icon(Icons.home, color: tabbarIndex == 0 ? Colors.amber : Colors.black),
-                                        Image.asset(img(tabbarIndex == 0
-                                            ? R.tabbarCashS
-                                            : R.tabbarCashN)),
+                                        Image.asset(
+                                          img(
+                                            _tabbarIndex == 0
+                                                ? R.tabbarCashS
+                                                : R.tabbarCashN,
+                                          ),
+                                        ),
                                         Text(
                                           "iasBeV571vpJusmxiBJtcQ=="
                                               .aseUnlook() /* Cash */,
                                           style: TextStyle(
-                                            color: tabbarIndex == 0
+                                            color: _tabbarIndex == 0
                                                 ? AppColors.mainColor
                                                 : const Color(0xffCCCCCC),
                                           ),
@@ -132,9 +148,9 @@ class MainPageState extends State<MainPage> {
                                     ),
                                   ),
                                   onTap: () {
-                                    tabbarIndex = 0;
-                                    pageController.jumpToPage(0);
-                                    tabbarState(() {});
+                                    _tabbarIndex = 0;
+                                    _pageController.jumpToPage(0);
+                                    _tabbarState(() {});
                                   },
                                 ),
                               ),
@@ -148,14 +164,18 @@ class MainPageState extends State<MainPage> {
                                           MainAxisAlignment.center,
                                       children: [
                                         // Icon(Icons.settings, color: tabbarIndex == 2 ? Colors.amber : Colors.black),
-                                        Image.asset(img(tabbarIndex == 2
-                                            ? R.tabbarMeS
-                                            : R.tabbarMeN)),
+                                        Image.asset(
+                                          img(
+                                            _tabbarIndex == 2
+                                                ? R.tabbarMeS
+                                                : R.tabbarMeN,
+                                          ),
+                                        ),
                                         Text(
                                           "SheBqjxZH0yu5pUoDJjgzg=="
                                               .aseUnlook() /* Me */,
                                           style: TextStyle(
-                                            color: tabbarIndex == 2
+                                            color: _tabbarIndex == 2
                                                 ? AppColors.mainColor
                                                 : const Color(0xffCCCCCC),
                                           ),
@@ -169,14 +189,14 @@ class MainPageState extends State<MainPage> {
                                       // ignore: use_build_context_synchronously
                                       Navigator.pushNamed(
                                         context,
-                                        RouterNames.LOGIN,
+                                        RouterNames.LOGIN.aseUnlook(),
                                       );
                                       return;
                                     }
 
-                                    tabbarIndex = 2;
-                                    pageController.jumpToPage(2);
-                                    tabbarState(() {});
+                                    _tabbarIndex = 2;
+                                    _pageController.jumpToPage(2);
+                                    _tabbarState(() {});
                                   },
                                 ),
                               ),
@@ -195,13 +215,14 @@ class MainPageState extends State<MainPage> {
                             String? token = await SpUtils.getToken();
                             if (token == null) {
                               // ignore: use_build_context_synchronously
-                              Navigator.pushNamed(context, RouterNames.LOGIN);
+                              Navigator.pushNamed(
+                                  context, RouterNames.LOGIN.aseUnlook());
                               return;
                             } else {
                               // ignore: use_build_context_synchronously
                               Navigator.pushNamed(
                                 context,
-                                RouterNames.WEB,
+                                RouterNames.WEB.aseUnlook(),
                                 arguments: {
                                   "vW9Mk2OPXFJFZeVsVxyxVg=="
                                       .aseUnlook() /* url */ : WebPageUrl.csUrl,
@@ -238,7 +259,7 @@ class MainPageState extends State<MainPage> {
       method: DioMethod.GET,
       showLoading: false,
       successCallBack: (result) => {
-        if (result != null) checkBeforeFeature(result),
+        // if (result != null) checkBeforeFeature(result),
       },
     );
   }

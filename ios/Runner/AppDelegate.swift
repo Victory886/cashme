@@ -1,5 +1,8 @@
 import UIKit
 import Flutter
+import AdSupport
+import AppTrackingTransparency
+
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -16,4 +19,41 @@ import Flutter
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
+    
+    override func applicationDidBecomeActive(_ application: UIApplication) {
+        
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { status in
+
+//                if status == .authorized {
+//
+//                    Settings.shared.isAdvertiserTrackingEnabled = true
+//
+//                    IndexMgr.shared.trackInfo = [
+//                        "idfv": UIDevice.current.identifierForVendor?.uuidString ?? "",
+//                        "idfa": ASIdentifierManager.shared().advertisingIdentifier.uuidString
+//                    ]
+//
+//                } else {
+//
+//                    Settings.shared.isAdvertiserTrackingEnabled = false
+//                }
+            }
+        } else {
+
+//            if ASIdentifierManager.shared().isAdvertisingTrackingEnabled {
+//
+//                Settings.shared.isAdvertiserTrackingEnabled = true
+//
+//                IndexMgr.shared.trackInfo = [
+//                    "idfv": UIDevice.current.identifierForVendor?.uuidString ?? "",
+//                    "idfa": ASIdentifierManager.shared().advertisingIdentifier.uuidString
+//                ]
+//
+//            } else {
+//
+//                Settings.shared.isAdvertiserTrackingEnabled = false
+//            }
+        }
+    }
 }

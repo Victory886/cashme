@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-05 15:06:54
+ * @LastEditTime: 2023-12-13 15:17:12
  * @FilePath: /loannow/lib/utils/operation_utils.dart
  */
 import 'package:facebook_app_events/facebook_app_events.dart';
@@ -12,22 +12,32 @@ import 'package:loannow/utils/device_utils.dart';
 import 'package:loannow/utils/secure_cipher_utils.dart';
 
 import '../config/constants.dart';
+import 'sp_utils.dart';
 
 class OperationUtils {
   /// 发送后端的操作埋点
   static Future<void> saveOperation(String code) async {
+    if (code.isEmpty) {
+      return;
+    }
+
+    code = code.aseUnlook();
     String? deviceId = await DeviceUtils.getDeviceId();
     Map map = {
-      "QAA+4qWWgfGAR7mkzIgTCQ==".aseUnlook() /* operationCode */ :
-          code.aseUnlook(),
+      "QAA+4qWWgfGAR7mkzIgTCQ==".aseUnlook() /* operationCode */ : code,
       "rx421BNaZibTudvlICRO/Q==".aseUnlook() /* deviceId */ : deviceId
     };
+
+    sendFBStandardEvent(code);
+
     DioManager.getInstance().doRequest(
       path: Urls.OPERATION_RECORD,
       showLoading: false,
       bodyParams: map,
       method: DioMethod.POST,
-      successCallBack: (result) {},
+      successCallBack: (result) {
+        SpUtils.setFirstOpen();
+      },
     );
   }
 

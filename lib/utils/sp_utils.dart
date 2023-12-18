@@ -73,18 +73,6 @@ class SpUtils {
     return deviceId;
   }
 
-  static Future<bool> saveInstallReferrer(String referrer) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool success = await prefs.setString(SP_KEY_INSTALL_REFERRER, referrer);
-    return success;
-  }
-
-  static Future<String?> getInstallReferrer() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? referrer = prefs.getString(SP_KEY_INSTALL_REFERRER);
-    return referrer;
-  }
-
   static Future<bool> isFirstOpen() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? isFirst = prefs.getBool(SP_KEY_FIRST_OPEN);
@@ -153,8 +141,8 @@ class SpUtils {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(SP_KEY_USER);
     await prefs.remove(SP_KEY_TOKEN);
-    await prefs.remove(SP_KEY_ORDER_FINISHED);
     await prefs.remove(SP_KEY_BASIS_INFO);
+    await prefs.remove(SP_KEY_ORDER_FINISHED);
     return true;
   }
 }

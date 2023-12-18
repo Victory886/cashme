@@ -9,6 +9,7 @@ import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/utils/operation_utils.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 
 import '../config/image_config.dart';
 
@@ -135,7 +136,7 @@ class StartPageState extends State<StartPage> {
 
   void goHome() {
     timer.cancel();
-    Navigator.pushReplacementNamed(context, RouterNames.HOME);
+    Navigator.pushReplacementNamed(context, RouterNames.HOME.aseUnlook());
   }
 }
 

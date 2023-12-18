@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-27 11:39:17
+ * @LastEditTime: 2023-12-12 16:21:22
  * @FilePath: /loannow/lib/utils/phone_utils.dart
  */
 import 'package:bot_toast/bot_toast.dart';

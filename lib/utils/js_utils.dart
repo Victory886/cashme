@@ -8,6 +8,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:loannow/beans/login_info_bean.dart';
 import 'package:loannow/config/app_config.dart';
 import 'package:loannow/config/constants.dart';
+import 'package:loannow/pages/main.dart';
 import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,27 +19,27 @@ import '../generated/js_model.dart';
 import 'device_utils.dart';
 import 'operation_utils.dart';
 
-class JSUtils {
-  static void handleJSCall(InAppWebViewController controller, String args,
-      BuildContext context) async {
-    print('-------callFlutter------');
-    // print(args);
-    // Map map = jsonDecode(args);
+// class JSUtils {
+//   static void handleJSCall(InAppWebViewController controller, String args,
+//       BuildContext context) async {
+//     print('-------callFlutter------');
+//     // print(args);
+//     // Map map = jsonDecode(args);
 
-    List list = json.decode(args);
-    for (var element in list) {
-      Map<String, dynamic> dict = element;
-      Map<String, dynamic> resMap =
-          await H5ToFlutterMethodHandler.handleH5ToNativeMessage(controller,
-              dict, "RsPp5dTOEB/m/aNsCxxDvQ==".aseUnlook() /* call */, context);
-      // return resMap;
-    }
+//     List list = json.decode(args);
+//     for (var element in list) {
+//       Map<String, dynamic> dict = element;
+//       Map<String, dynamic> resMap =
+//           await H5ToFlutterMethodHandler.handleH5ToNativeMessage(controller,
+//               dict, "RsPp5dTOEB/m/aNsCxxDvQ==".aseUnlook() /* call */, context);
+//       // return resMap;
+//     }
 
-    // print(map);
-  }
-}
+//     // print(map);
+//   }
+// }
 
-typedef QYValueSetter = Map<String, dynamic> Function(Map value);
+typedef LoanValueSetter = Map<String, dynamic> Function(Map value);
 
 typedef HandleJSMethodCompletion = void Function(
     String uid, bool isSuccess, dynamic data, String exception);
@@ -69,7 +70,7 @@ class H5ToFlutterMethodHandler {
     // 2.
     //定义 callBack
 
-    QYValueSetter callBack = (info) {
+    LoanValueSetter callBack = (info) {
       return {};
     };
     if (jsInfoModel.callbackId?.isNotEmpty == true) {
@@ -152,7 +153,7 @@ class H5ToFlutterMethodHandler {
     } else if (methodName ==
         "RtoqIIVTEYFXfUs6jvxEPg==".aseUnlook() /* goLogin */) {
       Navigator.pop(context);
-      Navigator.pushNamed(context, RouterNames.LOGIN);
+      Navigator.pushNamed(context, RouterNames.LOGIN.aseUnlook());
       completion(uid, true, "", "");
     } else if (methodName ==
         "CjQvEidGaa09EtGW1mujjQ==".aseUnlook() /* goHome */) {
@@ -210,7 +211,7 @@ class H5ToFlutterMethodHandler {
             "cTJPQSwGBxUmP2gnFtlzpQ==".aseUnlook() /* CreditAgreement */)) {
           Navigator.pushNamed(
             context,
-            RouterNames.WEB,
+            RouterNames.WEB.aseUnlook(),
             arguments: {'url': url, 'showTitle': true},
           );
           completion(uid, true, true, "");
@@ -241,6 +242,18 @@ class H5ToFlutterMethodHandler {
             .aseUnlook() /* takingPicturesOfFaces */) {
       String? isOK = await FlutterDeviceCore().takeIDImage(true);
       completion(uid, true, isOK, "");
+    } else if (methodName ==
+        "QKJQgdTyC5PdXmy+G967Sw==".aseUnlook() /*"delete"*/) {
+      SpUtils.clearUser();
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      openHome(context, isOpenLoginPage: true);
+
+      completion(uid, true, "", "");
+    } else if (methodName == "redictHome") {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      openHome(context);
+
+      completion(uid, true, "", "");
     } else {
       completion(
           uid,

@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-05 18:01:15
+ * @LastEditTime: 2023-12-12 15:37:22
  * @FilePath: /loannow/lib/main.dart
  */
 import 'package:facebook_app_events/facebook_app_events.dart';
@@ -18,6 +18,7 @@ import 'package:loannow/pages/main.dart';
 import 'package:loannow/pages/setting.dart';
 import 'package:loannow/pages/start.dart';
 import 'package:loannow/pages/web.dart';
+import 'package:loannow/utils/secure_cipher_utils.dart';
 
 import 'utils/device_utils.dart';
 
@@ -37,6 +38,7 @@ Future<String> getDeviceID() async {
 Future<void> initFBSDK() async {
   // await Future.delayed(Duration(seconds: 3));
   final facebookAppEvents = FacebookAppEvents();
+  await facebookAppEvents.setAutoLogAppEventsEnabled(true);
   await facebookAppEvents.setAutoLogAppEventsEnabled(true);
   await facebookAppEvents.setAdvertiserTracking(enabled: true);
 }
@@ -58,16 +60,17 @@ class MyApp extends StatelessWidget {
       theme:
           ThemeData(primarySwatch: Colors.blue, backgroundColor: Colors.white),
       routes: {
-        RouterNames.START: (context) => const StartPage(),
-        RouterNames.HOME: (context) => const MainPage(),
-        RouterNames.LOGIN: (context) => const LoginPage(),
-        RouterNames.SETTING: (context) => const SettingPage(),
-        RouterNames.HISTORY: (context) => const HistoryPage(),
-        RouterNames.MODIFY_PHONE: (context) => const ModifyPhonePage(),
-        RouterNames.WEB: (context) => const WebPage(),
-        RouterNames.CAMERA: (context) => CameraPage(),
+        RouterNames.START.aseUnlook(): (context) => const StartPage(),
+        RouterNames.HOME.aseUnlook(): (context) => const MainPage(),
+        RouterNames.LOGIN.aseUnlook(): (context) => const LoginPage(),
+        RouterNames.SETTING.aseUnlook(): (context) => const SettingPage(),
+        RouterNames.HISTORY.aseUnlook(): (context) => const HistoryPage(),
+        RouterNames.MODIFY_PHONE.aseUnlook(): (context) =>
+            const ModifyPhonePage(),
+        RouterNames.WEB.aseUnlook(): (context) => const WebPage(),
+        RouterNames.CAMERA.aseUnlook(): (context) => CameraPage(),
       },
-      initialRoute: RouterNames.START,
+      initialRoute: RouterNames.START.aseUnlook(),
     );
   }
 }
