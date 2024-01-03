@@ -9,7 +9,6 @@ import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/pages/mine.dart';
-import 'package:loannow/utils/phone_utils.dart';
 import 'package:loannow/utils/secure_cipher_utils.dart';
 import '../config/image_config.dart';
 import './new_home_page.dart';
@@ -39,6 +38,8 @@ void openHome(BuildContext context, {isOpenLoginPage = false}) {
   _tabbarState(() {});
 
   if (isOpenLoginPage) {
+    // refreshHome(context);
+    openDefaultHomeView();
     Navigator.pushNamed(context, RouterNames.LOGIN.aseUnlook());
   }
 }
@@ -60,7 +61,7 @@ class MainPageState extends State<MainPage> {
                   "6wdATu/PLoLy2oT7YCtHAA==".aseUnlook() /* loginSuccess */) &&
               arguments[
                   "6wdATu/PLoLy2oT7YCtHAA==".aseUnlook() /* loginSuccess */]) {
-            getUploadSign();
+            // getUploadSign();
           }
         }
       });
@@ -107,7 +108,6 @@ class MainPageState extends State<MainPage> {
                 ),
                 child: StatefulBuilder(
                   builder: (context, setState) {
-                    fLog("bbbbbbbbbbbbbb = $_tabbarIndex");
                     _tabbarState = setState;
                     return Stack(
                       alignment: Alignment.bottomCenter,

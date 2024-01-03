@@ -1,7 +1,8 @@
 PODS:
   - Alamofire (5.8.0)
-  - camera_avfoundation (0.0.1):
+  - connectivity_plus (0.0.1):
     - Flutter
+    - ReachabilitySwift
   - facebook_app_events (0.0.1):
     - FBAudienceNetwork (~> 6.9.0)
     - FBSDKCoreKit (~> 14.1.0)
@@ -29,6 +30,7 @@ PODS:
   - OrderedSet (5.0.0)
   - permission_handler_apple (9.1.1):
     - Flutter
+  - ReachabilitySwift (5.0.0)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -36,7 +38,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - facebook_app_events (from `.symlinks/plugins/facebook_app_events/ios`)
   - Flutter (from `Flutter`)
   - flutter_device_core (from `.symlinks/plugins/flutter_device_core/ios`)
@@ -54,10 +56,11 @@ SPEC REPOS:
     - FBSDKCoreKit_Basics
     - KeychainAccess
     - OrderedSet
+    - ReachabilitySwift
 
 EXTERNAL SOURCES:
-  camera_avfoundation:
-    :path: ".symlinks/plugins/camera_avfoundation/ios"
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   facebook_app_events:
     :path: ".symlinks/plugins/facebook_app_events/ios"
   Flutter:
@@ -75,7 +78,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
-  camera_avfoundation: 3125e8cd1a4387f6f31c6c63abb8a55892a9eeeb
+  connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
   facebook_app_events: 62fec1942165417a9713bc06e3368e2e12b79cbd
   FBAEMKit: a899515e45476027f73aef377b5cffadcd56ca3a
   FBAudienceNetwork: 83096d73433759c10f9cf9b3bad5e5cff58694cb
@@ -87,6 +90,7 @@ SPEC CHECKSUMS:
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   url_launcher_ios: bf5ce03e0e2088bad9cc378ea97fa0ed5b49673b
 

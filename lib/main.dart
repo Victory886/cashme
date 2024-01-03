@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-12 15:37:22
+ * @LastEditTime: 2024-01-02 15:10:23
  * @FilePath: /loannow/lib/main.dart
  */
 import 'package:facebook_app_events/facebook_app_events.dart';
@@ -11,7 +11,6 @@ import 'package:loannow/config/router_names.dart';
 import 'package:loannow/pages/modify_phone.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:loannow/pages/camera.dart';
 import 'package:loannow/pages/history.dart';
 import 'package:loannow/pages/login.dart';
 import 'package:loannow/pages/main.dart';
@@ -68,7 +67,7 @@ class MyApp extends StatelessWidget {
         RouterNames.MODIFY_PHONE.aseUnlook(): (context) =>
             const ModifyPhonePage(),
         RouterNames.WEB.aseUnlook(): (context) => const WebPage(),
-        RouterNames.CAMERA.aseUnlook(): (context) => CameraPage(),
+        // RouterNames.CAMERA.aseUnlook(): (context) => CameraPage(),
       },
       initialRoute: RouterNames.START.aseUnlook(),
     );

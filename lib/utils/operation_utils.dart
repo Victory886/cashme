@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-13 15:17:12
+ * @LastEditTime: 2024-01-03 16:12:37
  * @FilePath: /loannow/lib/utils/operation_utils.dart
  */
 import 'package:facebook_app_events/facebook_app_events.dart';
@@ -28,7 +28,7 @@ class OperationUtils {
       "rx421BNaZibTudvlICRO/Q==".aseUnlook() /* deviceId */ : deviceId
     };
 
-    sendFBStandardEvent(code);
+    // sendFBStandardEvent(code);
 
     DioManager.getInstance().doRequest(
       path: Urls.OPERATION_RECORD,

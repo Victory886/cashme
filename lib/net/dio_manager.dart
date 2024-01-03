@@ -31,20 +31,47 @@ class DioManager {
     dioOptions.baseUrl = Urls.BASE_URL;
     dioOptions.connectTimeout = Constans.DIO_TIME_OUT;
     dioOptions.receiveTimeout = Constans.DIO_TIME_OUT;
+    // var headers = {
+    //   "Access-Control-Allow-Origin": "*",
+    //   // "Content-Type": "application/json",
+    //   "deviceId": deviceID,
+    //   "appId": AppConfig.APP_ID,
+    //   "version": AppConfig.APP_VERSION,
+    //   "platform": AppConfig.APP_PLATFORM,
+    //   "packet_name": AppConfig.APP_PACKAGE,
+    //   "loginPlatform": AppConfig.APP_LOGIN_PLATFORM,
+    // };
+    // try {
+    //   headers.addAll({"type": Platform.operatingSystem});
+    // } catch (e) {
+    //   headers.addAll({"type": "web"});
+    // }
     var headers = {
-      "Access-Control-Allow-Origin": "*",
-      // "Content-Type": "application/json",
-      "deviceId": deviceID,
-      "appId": AppConfig.APP_ID,
-      "version": AppConfig.APP_VERSION,
-      "platform": AppConfig.APP_PLATFORM,
-      "packet_name": AppConfig.APP_PACKAGE,
-      "loginPlatform": AppConfig.APP_LOGIN_PLATFORM,
+      "B1l2PXKdDlMrEVXiGyMLW+czLeH9BzMv44rjeSr6YVc="
+              .aseUnlook() /* Access-Control-Allow-Origin */ :
+          "45FYxKN3PEbNzJxnVjscqw==".aseUnlook() /* * */,
+      // "7uArSAnZzeLiUQsjoRZt6g==".aseUnlook() /* Content-Type */: "uqCS1lmKjwMNIF4pmZih+We4AHDB0EPjpg2JrA49VIc=".aseUnlook() /* application/json */,
+      "rx421BNaZibTudvlICRO/Q==".aseUnlook() /* deviceId */ : deviceID,
+      "zVRFG4St0vWyLu90oyLdlA==".aseUnlook() /* appId */ : AppConfig.APP_ID,
+      "xEDIAqQ5bs5YoFqE3pVfGA==".aseUnlook() /* version */ :
+          AppConfig.APP_VERSION,
+      "dXE9swsADmcsQ5cPqKdbzA==".aseUnlook() /* platform */ :
+          AppConfig.APP_PLATFORM,
+      "dcqzkeUCeOjL76LRRiLApw==".aseUnlook() /* packet_name */ :
+          AppConfig.APP_PACKAGE,
+      "/7OszbHjYo1K8GIjK97thw==".aseUnlook() /* loginPlatform */ :
+          AppConfig.APP_LOGIN_PLATFORM,
     };
     try {
-      headers.addAll({"type": Platform.operatingSystem});
+      headers.addAll({
+        "TB050ji6SdcEjfnkbULa3w==".aseUnlook() /* type */ :
+            Platform.operatingSystem
+      });
     } catch (e) {
-      headers.addAll({"type": "web"});
+      headers.addAll({
+        "TB050ji6SdcEjfnkbULa3w==".aseUnlook() /* type */ :
+            "kawb9khniP9DPn4GCbnMYQ==".aseUnlook() /* web */
+      });
     }
 
     dioOptions.headers = headers;
@@ -53,7 +80,8 @@ class DioManager {
       InterceptorsWrapper(onRequest: (options, handler) async {
         String? token = await SpUtils.getToken();
         if (token != null && token.isNotEmpty) {
-          options.headers.addAll({"token": token});
+          options.headers.addAll(
+              {"YKfMT37060wXd4ZuEgrJew==".aseUnlook() /* token */ : token});
         }
         return handler.next(options);
       }),
@@ -87,7 +115,6 @@ class DioManager {
       if (bodyParams is Map) {
         jsonString = jsonEncode(bodyParams);
       }
-      fLog("888888888888 = ${bodyParams.runtimeType} === $jsonString");
       jsonString = jsonString.aseLook(pwd: PWD.server);
 
       List<int> utf8Bytes = utf8.encode(jsonString);
@@ -156,8 +183,13 @@ class DioManager {
           BotToast.showText(text: "System upgrading, please retry later.");
           return;
         }
-        if (e.message!.contains("502")) {
+        if (e.message!.contains("502") || e.message!.contains("403")) {
           BotToast.showText(text: "System upgrading, please retry later.");
+          return;
+        }
+
+        if (e.message!.contains("The connection errored")) {
+          BotToast.showText(text: "Please check your network!");
           return;
         }
 

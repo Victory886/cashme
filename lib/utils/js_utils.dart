@@ -9,6 +9,7 @@ import 'package:loannow/beans/login_info_bean.dart';
 import 'package:loannow/config/app_config.dart';
 import 'package:loannow/config/constants.dart';
 import 'package:loannow/pages/main.dart';
+import 'package:loannow/pages/new_home_page.dart';
 import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,26 +19,6 @@ import '../config/router_names.dart';
 import '../generated/js_model.dart';
 import 'device_utils.dart';
 import 'operation_utils.dart';
-
-// class JSUtils {
-//   static void handleJSCall(InAppWebViewController controller, String args,
-//       BuildContext context) async {
-//     print('-------callFlutter------');
-//     // print(args);
-//     // Map map = jsonDecode(args);
-
-//     List list = json.decode(args);
-//     for (var element in list) {
-//       Map<String, dynamic> dict = element;
-//       Map<String, dynamic> resMap =
-//           await H5ToFlutterMethodHandler.handleH5ToNativeMessage(controller,
-//               dict, "RsPp5dTOEB/m/aNsCxxDvQ==".aseUnlook() /* call */, context);
-//       // return resMap;
-//     }
-
-//     // print(map);
-//   }
-// }
 
 typedef LoanValueSetter = Map<String, dynamic> Function(Map value);
 
@@ -141,6 +122,18 @@ class H5ToFlutterMethodHandler {
       OperationUtils.sendFBStandardEvent(eventName);
       completion(uid, true, "", "");
     } else if (methodName ==
+        "WUjrxCzeY+gDkgsE30frJQ==".aseUnlook() /* sendThirdEvent */) {
+      if (paramDict.isEmpty) {
+        completion(uid, true, "", "");
+        return;
+      }
+      String eventName =
+          paramDict["R+jJP59SdNNz74/6kSaKOg==".aseUnlook() /* eventName */] ??
+              "";
+      OperationUtils.saveOperation(eventName);
+      OperationUtils.sendFBStandardEvent(eventName);
+      completion(uid, true, "", "");
+    } else if (methodName ==
         "AZ5FeD+0/9fo2k/oMorFnQ==".aseUnlook() /* getLoginInfo */) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       String? loginInfoData = prefs.getString(SpUtils.SP_KEY_LOGIN);
@@ -158,9 +151,6 @@ class H5ToFlutterMethodHandler {
     } else if (methodName ==
         "CjQvEidGaa09EtGW1mujjQ==".aseUnlook() /* goHome */) {
       SpUtils.setOrderFinished(finished: false);
-      debugPrint(
-        "goHome pop = ${paramDict.toString()}",
-      );
       Navigator.pop(context, {
         "vcY53FoOHHGxxzJi3mnJ4Q==".aseUnlook() /* arguments */ : {
           "ElDouoU8JsIWA95o1xjc4w==".aseUnlook() /* isReload */ :
@@ -249,9 +239,14 @@ class H5ToFlutterMethodHandler {
       openHome(context, isOpenLoginPage: true);
 
       completion(uid, true, "", "");
-    } else if (methodName == "redictHome") {
+    } else if (methodName ==
+        "6/TqL9FLagk6EiN5sf2e4g==".aseUnlook() /* redictHome */) {
       Navigator.of(context).popUntil((route) => route.isFirst);
       openHome(context);
+      completion(uid, true, "", "");
+    } else if (methodName ==
+        "hQQrlEyhCl/tIrb87kjG3A==".aseUnlook() /* refreshHome */) {
+      refreshHome(context);
 
       completion(uid, true, "", "");
     } else {

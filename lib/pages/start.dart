@@ -44,14 +44,15 @@ class StartPageState extends State<StartPage> {
             child: Text(
               "Hello!",
               style: TextStyle(
-                  color: Color(0xff232732),
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold),
+                color: Color(0xff232732),
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Positioned(
             bottom: 110,
-            child: Image.asset(img(R.appStartLogoImg)),
+            child: Image.asset(img(R.appStartLogoImg), width: 80, height: 88),
           ),
           // Positioned(
           //   right: 0,
@@ -87,7 +88,8 @@ class StartPageState extends State<StartPage> {
     OperationUtils.saveOperation(OperationCode.APP_START);
     OperationUtils.sendFBNormalEvents(OperationCode.APP_START);
 
-    Future.wait([ipCheck(), getConfig()]).then(
+// ipCheck(),
+    Future.wait([getConfig()]).then(
       (results) => {
         timer = Timer.periodic(
           const Duration(seconds: 1),
@@ -104,17 +106,17 @@ class StartPageState extends State<StartPage> {
     );
   }
 
-  /// 检测ip地址
-  Future<bool> ipCheck() async {
-    await DioManager.getInstance().doRequest<IpCheckBean>(
-      path: Urls.CHECK_AREA,
-      method: DioMethod.GET,
-      successCallBack: (result) {
-        Constans.ipCheckBean = result;
-      },
-    );
-    return true;
-  }
+  // /// 检测ip地址
+  // Future<bool> ipCheck() async {
+  //   await DioManager.getInstance().doRequest<IpCheckBean>(
+  //     path: Urls.CHECK_AREA,
+  //     method: DioMethod.GET,
+  //     successCallBack: (result) {
+  //       Constans.ipCheckBean = result;
+  //     },
+  //   );
+  //   return true;
+  // }
 
   /// 获取配置信息
   Future<bool> getConfig() async {
@@ -137,17 +139,5 @@ class StartPageState extends State<StartPage> {
   void goHome() {
     timer.cancel();
     Navigator.pushReplacementNamed(context, RouterNames.HOME.aseUnlook());
-  }
-}
-
-/// 当做启动页
-class LaunchViewWidget extends StatelessWidget {
-  const LaunchViewWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text("启动页面"),
-    );
   }
 }

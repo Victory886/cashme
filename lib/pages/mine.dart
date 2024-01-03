@@ -62,7 +62,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Cashme Pera PH",
+                              "CashPH",
                               style: TextStyle(
                                 fontSize: 20,
                                 color: AppColors.textColor,
@@ -72,8 +72,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                             Container(
                               margin: const EdgeInsets.only(top: 2),
                               child: Text(
-                                "3QWgl4zDpCv6t841ZevYfeK3XmS0ZhNtCR/vZwXceUY="
-                                    .aseUnlook() /* Personal line of credit */,
+                                "Reliable Helping Hand",
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: AppColors.textColorLight,
@@ -119,7 +118,7 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                 Container(
                   margin: const EdgeInsets.only(bottom: 25),
                   child: Text(
-                    "Welcome to Cashme Pera PH",
+                    "Welcome to CashPH",
                     style: TextStyle(
                       fontSize: 14,
                       color: AppColors.textColorLight,
@@ -197,32 +196,35 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
                 Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.email_outlined,
-                        size: 20,
-                        color: Color(0xff999999),
-                      ),
-                      SizedBox(width: 5),
-                      Text(
-                        "Email：",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xff999999),
+                  child: Constans.systemConfigBean?.dictInfo == null
+                      ? Container()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.email_outlined,
+                              size: 20,
+                              color: Color(0xff999999),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              "Email：",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xff999999),
+                              ),
+                            ),
+                            Text(
+                              Constans.systemConfigBean?.dictInfo!
+                                      .feedbackEmail ??
+                                  "",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xff999999),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Text(
-                        Constans.systemConfigBean?.dictInfo!.feedbackEmail ??
-                            "",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xff999999),
-                        ),
-                      ),
-                    ],
-                  ),
                 )
               ],
             ),

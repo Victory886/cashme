@@ -2,11 +2,9 @@
  * @Author: Terry
  * @Date: 2023-10-13 16:29:57
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-15 16:57:32
+ * @LastEditTime: 2023-12-20 11:27:25
  * @FilePath: /loannow/lib/utils/device_utils.dart
  */
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter_device_core/flutter_device_core.dart';
 import 'package:loannow/utils/sp_utils.dart';
@@ -63,5 +61,9 @@ class DeviceUtils {
   static Future<String> idf() async {
     var data = await FlutterDeviceCore().idf();
     return data ?? "{}";
+  }
+
+  static Future<void> popStoreReview() async {
+    await FlutterDeviceCore().popStoreReview();
   }
 }

@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
@@ -17,6 +16,7 @@ import 'package:loannow/config/router_names.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/pages/main.dart';
+import 'package:loannow/pages/new_home_page.dart';
 import 'package:loannow/utils/device_utils.dart';
 import 'package:loannow/utils/dialog_utils.dart';
 import 'package:loannow/utils/operation_utils.dart';
@@ -25,8 +25,8 @@ import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
 import 'package:loannow/widget/button.dart';
 import 'package:loannow/widget/titleBar.dart';
-import 'package:permission_handler/permission_handler.dart';
 
+import '../beans/system_config_bean.dart';
 import '../config/app_config.dart';
 import '../config/image_config.dart';
 
@@ -424,6 +424,24 @@ class LoginPageState extends State<LoginPage> {
     SpUtils.clearUser();
     phoneFocus.addListener(_onFocusChange);
     OperationUtils.saveOperation("nMCVwuVpicWBpkdi/1pJqA==" /*"/login"*/);
+
+    if (Constans.systemConfigBean == null) {
+      getConfig();
+
+      firstOpen();
+    }
+  }
+
+  void firstOpen() {
+    SpUtils.isFirstOpen().then(
+      (value) => {
+        if (value)
+          {
+            OperationUtils.saveOperation(OperationCode.FIRST_OPEN),
+            OperationUtils.sendFBNormalEvents(OperationCode.FIRST_OPEN),
+          }
+      },
+    );
   }
 
   void changeChecked() {
@@ -600,6 +618,10 @@ class LoginPageState extends State<LoginPage> {
           }
 
           uploadIDF();
+
+          if (Constans.systemConfigBean == null) {
+            getConfig();
+          }
         }
         success = true;
       },
@@ -609,6 +631,18 @@ class LoginPageState extends State<LoginPage> {
       },
     );
     return success;
+  }
+
+  /// 获取配置信息
+  Future<bool> getConfig() async {
+    await DioManager.getInstance().doRequest<SystemConfigBean>(
+      path: Urls.SYSTEM_CONFIG,
+      method: DioMethod.GET,
+      successCallBack: (result) {
+        Constans.systemConfigBean = result;
+      },
+    );
+    return true;
   }
 
   Future<Map<String, dynamic>> getDeviceInfo() async {
@@ -653,11 +687,17 @@ class LoginPageState extends State<LoginPage> {
   }
 
   void goHome(bool loginSuccess) {
+    // openHome(context);
     isOpenLoginPage = false;
+
+    // Navigator.pushNamedAndRemoveUntil(
+    //     context, RouterNames.HOME.aseUnlook(), (route) => false);
     Navigator.pushNamedAndRemoveUntil(
         context, RouterNames.HOME.aseUnlook(), (route) => false, arguments: {
       "6wdATu/PLoLy2oT7YCtHAA==".aseUnlook() /* loginSuccess */ : loginSuccess
     });
+
+    // refreshHome(context);
   }
 
   void showPermissionDialog() {

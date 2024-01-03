@@ -1,7 +1,11 @@
 // ignore_for_file: non_constant_identifier_names
 
 class ApplicationStatusUtils {
-  static var ApplicationExamineStatus = [ApplicationStatus.APPLYING.status, ApplicationStatus.FIRST_EXAMINE.status, ApplicationStatus.REEXAMINE.status];
+  static var ApplicationExamineStatus = [
+    ApplicationStatus.APPLYING.status,
+    ApplicationStatus.FIRST_EXAMINE.status,
+    ApplicationStatus.REEXAMINE.status
+  ];
 
   static var ApplicationRefuseStatus = [
     ApplicationStatus.REFUSEED.status,
@@ -11,6 +15,7 @@ class ApplicationStatusUtils {
   static var ApplicationRollbackStatus = [
     ApplicationStatus.ROLLBACK.status,
     ApplicationStatus.ROLLBACK_RELOAN.status,
+    ApplicationStatus.CANCELLED.status,
   ];
 
   static var ApplicationAbandonStatus = [
@@ -20,7 +25,10 @@ class ApplicationStatusUtils {
     ApplicationStatus.USERABANDONEXPIRE.status,
   ];
 
-  static var ApplicationPassStatus = [ApplicationStatus.PASSED.status, ApplicationStatus.LOAN_STATUS_PAY_FAIL.status];
+  static var ApplicationPassStatus = [
+    ApplicationStatus.PASSED.status,
+    ApplicationStatus.LOAN_STATUS_PAY_FAIL.status
+  ];
 
   static var ApplicationWithdrawalsStatus = [
     ApplicationStatus.WITHDRAW.status,
@@ -35,7 +43,10 @@ class ApplicationStatusUtils {
 
   static var ApplicationOverdueStatus = [ApplicationStatus.COLLECTION.status];
 
-  static var ApplicationCloseStatus = [ApplicationStatus.CLOSED.status, ApplicationStatus.EXCEPTION_CLOSED.status];
+  static var ApplicationCloseStatus = [
+    ApplicationStatus.CLOSED.status,
+    ApplicationStatus.EXCEPTION_CLOSED.status
+  ];
 
   static var ApplicationCancelStatus = [ApplicationStatus.CANCELLED.status];
 

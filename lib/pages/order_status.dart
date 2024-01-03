@@ -9,6 +9,7 @@ import 'package:loannow/config/app_config.dart';
 import 'package:loannow/config/urls.dart';
 import 'package:loannow/net/dio_manager.dart';
 import 'package:loannow/utils/application_status_utils.dart';
+import 'package:loannow/utils/device_utils.dart';
 import 'package:loannow/utils/operation_utils.dart';
 import 'package:loannow/utils/secure_cipher_utils.dart';
 import 'package:loannow/utils/sp_utils.dart';
@@ -58,6 +59,8 @@ class OrderStatusPageState extends State<OrderStatusPage> {
   late String titleStr = "";
 
   late String content;
+
+  bool isShowCommentBox = false;
 
   final MyInputFormatter _inputFormatter = MyInputFormatter();
 
@@ -260,7 +263,11 @@ class OrderStatusPageState extends State<OrderStatusPage> {
               if (showConfirm)
                 Container(
                   margin: const EdgeInsets.only(
-                      top: 15, left: 20, right: 20, bottom: 30),
+                    top: 15,
+                    left: 20,
+                    right: 20,
+                    bottom: 30,
+                  ),
                   // color: randomColor(),
                   child: InkWell(
                     onTap: () {
@@ -422,11 +429,42 @@ class OrderStatusPageState extends State<OrderStatusPage> {
     initStatus();
   }
 
+  void appPopCommentBox() {
+    DioManager.getInstance().doRequest<bool>(
+      path: Urls.MEMBER_GOOGLE_COMMENT,
+      method: DioMethod.GET,
+      successCallBack: (result) {
+        if (result as bool) {
+          // 原生交互
+          notificationServer();
+          if (isShowCommentBox == false) {
+            DeviceUtils.popStoreReview();
+          }
+          isShowCommentBox = true;
+        }
+      },
+    );
+  }
+
+  /// 通知后端已弹出评论框了
+  void notificationServer() {
+    DioManager.getInstance().doRequest<Map>(
+      path: Urls.MEMBER_SUB_GOOGLE_COMMENT,
+      method: DioMethod.POST,
+      successCallBack: (result) {},
+    );
+  }
+
   /// 检查是否可以修改渠道
-  void isModifyWithdrawal({int type = 0}) {
+  void isModifyWithdrawal({int type = 0}) async {
     /*
     TODO: 是否显示修改渠道入口,需要调用接口,加密处理
     */
+
+    String? token = await SpUtils.getToken();
+    if (token == null) {
+      return;
+    }
 
     showModifyView = false;
     // modifyState(() {});
@@ -469,6 +507,9 @@ class OrderStatusPageState extends State<OrderStatusPage> {
       content =
           "Please pay attention to incoming calls or SMS, \nyour loan will be reviewed shortly.";
       isModifyWithdrawal();
+      appPopCommentBox();
+
+      ///
     } else if (ApplicationStatusUtils.isRollback(status) ||
         ApplicationStatusUtils.isRefuse(status)) {
       statusImage = "images/img_disapproved.png";

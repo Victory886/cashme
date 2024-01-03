@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-12-04 15:24:04
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-18 11:34:06
+ * @LastEditTime: 2024-01-03 17:34:09
  * @FilePath: /loannow/lib/config/image_config.dart
  */
 class R {
@@ -25,7 +25,7 @@ class R {
   static String appStartImg = "images/app_start";
 
   /// app启动图的上logo
-  static String appStartLogoImg = "images/start_logo";
+  static String appStartLogoImg = "images/start_logo_new";
 
   /// Tabbar 客服
   static String tabbarCS = "images/tabbar/tabbar_cs";

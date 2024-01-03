@@ -4,25 +4,17 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-18 13:58:44
+ * @LastEditTime: 2024-01-03 16:04:27
  * @FilePath: /loannow/lib/config/urls.dart
  */
 
 import 'package:loannow/utils/secure_cipher_utils.dart';
 
 class Urls {
-  ///正式环境：https://apinew.cashme.ph/
-  static String BASE_URL =
-      "b8II4UY2sNejgGaNcdHzBXNUR5ImPu/9kAic0HvAmYcFvHM1ZVdx5SBTelY6JgZ1"
-          .aseUnlook() /* http://api.cashloan.phdev.bowenfin.com/h5/ */;
+  static String BASE_URL = "https://houd.cashpera.com/h5/";
 
   static String WEB_URL_PRIVACY =
-      "mYn8rSjyPmPokpYMUrxGeIAGoXmvnVe5y2uKZnq+RrtU0p0mgKmyhgz8XpzNDTFMTJARpElMTzHwo7zQpn40HRpm6REIQKrCXc58M9KAmPU="
-          .aseUnlook() /* http://agreement-phdev.bowenfin.com/app/cashmepera/PrivacyPolicy.html */;
-
-  static String WEB_URL_REPAY =
-      "TXj4dCnhvisFTa/75tcrxLXB61UV+EketA4r1A85AAtL1nHEAGZTrHkVub2G6TNk9CjNh+JDLbWTFwaiNw9wRIcR06F4keREMCW4rEpme46uDwTjlveoBuwTCRzPC+hu"
-          .aseUnlook() /* http://mgr.cashloan.phdev.bowenfin.com/openapi/application/repayment-url/Mz09&LOdxHIQ/ */;
+      "https://www.cashpera.com/app/cashph/PrivacyPolicy.html";
 
   static String LOGIN_VERFIFY_CODE =
       "Hxg8OBkhRR74Saha3prBycuJAXLohkwHL0kepihd9A4="
@@ -109,24 +101,23 @@ class Urls {
   static String APPLICATION_CHECK_BEFORE_FEATURE =
       "uthIfouOgV1j6w23IRBwfdz4Y/7yOhFZa0jt8RleTyw="
           .aseUnlook() /* /application/checkBeforeFeature */;
+
+  /// 检查是否弹出评论框
+  static String MEMBER_GOOGLE_COMMENT =
+      "Q2/I/Fu4r+P/TRCJkMzmd2G2sdDLN7H/czwz8btwrcg="
+          .aseUnlook() /* /member/googleComment */;
+
+  /// 弹出评论框之后通知后端
+  static String MEMBER_SUB_GOOGLE_COMMENT =
+      "V1SME0wHyr/whtA25npCn1B6Q5+2fLzjcNeeaCBFzNY="
+          .aseUnlook() /* /member/subGoogleComment */;
 }
 
 class WebPageUrl {
-  /// 基础地址
-  static String baseUrl =
-      "wsqitI49rMBS74eiiKGTmO7HFRffoRbrWeE13H/5p7d6i7ls/WYwuMk0z2OUzqX1"
-          .aseUnlook() /* http://cashmepera-phdev.bowenfin.com */;
-  // static String baseUrl = "VSsCzD+ZN/pba9Qnh8EWpnodbcDiodhouhBp3U4hbbs=".aseUnlook() /* http://192.168.200.171:8000 */;
-
-  ///正式环境：https://h5.cashme.ph/
+  static String baseUrl = "https://hfive.cashpera.com";
 
   /// 基本信息页面地址
   static String applyStepBasalUrl = "$baseUrl/apply-step/basal";
-
-  /// QA
-  static String qaUrl =
-      "vetGFQAtOfwQSEoghtg5F2UaxqS552+2JUyfdGAoLFchRZat5rrgMP4PVl2Dwrjb"
-          .aseUnlook() /* http://www.phdev.bowenfin.com/madaPh/Q_A.html */;
 
   /// 客服页面
   static String csUrl = "$baseUrl/customer-service";
@@ -149,3 +140,13 @@ class WebPageUrl {
   /// 注销页面
   static String accountDeletion = "$baseUrl/accountDeletion";
 }
+
+
+// openssl req -new -key cashph.pem -out CertificateSigningRequest.certSigningRequest -subj "/C=PH/ST=Manila/L=Manila/O=DC TECH MICRO SERVICES, INC./CN=PH"
+// openssl x509 -inform der -in ios_distribution.cer -out distribution.pem
+
+// openssl pkcs12 -export -clcerts -inkey cashph.pem -in distribution.pem -out cashph_dis.p12 -name "cashph_dis" -passout pass:123456
+
+
+// pjsd-hhiy-xdww-vien
+// ios-uploader -u ilya1ahfpan@mail.com -p pjsd-hhiy-xdww-vien -f

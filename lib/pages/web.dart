@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-14 10:33:11
+ * @LastEditTime: 2023-12-19 18:44:07
  * @FilePath: /loannow/lib/pages/web.dart
  */
 import 'dart:collection';
@@ -42,6 +42,12 @@ class WebPageState extends State<WebPage> {
   ];
 
   late bool showTitle;
+
+  @override
+  void initState() {
+    super.initState();
+    fLog("refreshHome----------0000");
+  }
 
   Widget webWidget({dynamic arguments}) {
     return Column(

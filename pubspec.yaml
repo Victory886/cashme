@@ -41,10 +41,10 @@ dependencies:
   url_launcher: ^6.1.14
   intl: ^0.18.1
   flutter_inappwebview: ^5.7.2+3
-  # flutter_native_contact_picker: ^0.0.4
-  camera_camera: ^3.0.0
+  # camera_camera: ^3.0.0
   encrypt: ^5.0.1
   facebook_app_events: ^0.17.0
+  connectivity_plus: ^4.0.1
 
   # flutter_device_core:
   #   git:

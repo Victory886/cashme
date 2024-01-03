@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-18 17:28:58
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-18 13:44:05
+ * @LastEditTime: 2024-01-03 18:03:31
  * @FilePath: /loannow/lib/pages/new_home_page.dart
  */
 
@@ -33,6 +33,22 @@ bool isRolaodOrder = false;
 /// 通过NewLoanPage页面的交互结果刷新这个状态
 late StateSetter pageState;
 
+ApplicationBean? _applicationBean;
+
+/// 还款完成之后点击刷新按钮
+void refreshHome(BuildContext context) {
+  _applicationBean = null;
+  isRolaodOrder = true;
+  pageState(() {});
+
+  // getLatestApplication();
+}
+
+void openDefaultHomeView() {
+  _applicationBean = null;
+  pageState(() {});
+}
+
 /// 新的首页
 class NewHomePage extends StatefulWidget {
   const NewHomePage({super.key});
@@ -44,8 +60,6 @@ class NewHomePage extends StatefulWidget {
 class NewHomePageState extends State<NewHomePage>
     with AutomaticKeepAliveClientMixin {
   bool showLoading = true;
-
-  ApplicationBean? applicationBean;
 
 // String? token = await SpUtils.getToken();
 
@@ -69,20 +83,15 @@ class NewHomePageState extends State<NewHomePage>
           ),
           StatefulBuilder(
             builder: (context, setState) {
-              fLog("nm0TzpbFZVXPl2DPEx40ct3isoEchh96leVqBt1x/VA="
-                  .aseUnlook() /* 000000000000 = StatefulBuilder */);
+              fLog("refreshHome----------StatefulBuilder");
               pageState = setState;
               if (showLoading) {
                 return const SizedBox.shrink();
               } else {
-                if (applicationBean != null) {
+                if (_applicationBean != null) {
                   if (ApplicationStatusUtils.isRepay(
-                      applicationBean!.status!)) {
-                    // return RepayingPage(
-                    //   refreshClick: getLatestApplication,
-                    //   application: applicationBean!,
-                    // );
-
+                    _applicationBean!.status!,
+                  )) {
                     OperationUtils.saveOperation("2m/LfU5GSAca1AkZ5DmQTA=="
                         .aseUnlook() /* /home/repay */);
                     return Container(
@@ -92,7 +101,7 @@ class NewHomePageState extends State<NewHomePage>
                   }
                   return OrderStatusPage(
                     finishClick: finishiOrder,
-                    application: applicationBean!,
+                    application: _applicationBean!,
                     refreshClick: getLatestApplication,
                   );
                 } else {
@@ -124,7 +133,6 @@ class NewHomePageState extends State<NewHomePage>
     );
   }
 
-  /// TODO: 1、(取消、回退、拒绝到期)；或者 2、订单接口没有数据的时候
   /// 优惠卷弹框
   void alertCoupon() async {
     DioManager.getInstance().doRequest<CouponAlertBean>(
@@ -133,9 +141,10 @@ class NewHomePageState extends State<NewHomePage>
       successCallBack: (result) async {
         if (result != null) {
           String? cid = await SpUtils.getCouponAlert();
-          if (result.id.toString() != cid) {
-            // ignore: use_build_context_synchronously
-            showDialogFunction(result);
+          if (result.id! > 0) {
+            if (result.id.toString() != cid) {
+              showDialogFunction(result);
+            }
           }
         }
       },
@@ -171,17 +180,24 @@ class NewHomePageState extends State<NewHomePage>
 
   Future<void> finishiOrder() async {
     showLoading = false;
-    applicationBean = null;
+    _applicationBean = null;
     pageState(() {});
   }
 
   Future<bool> getLatestApplication({bool isInit = false}) async {
+    String? token = await SpUtils.getToken();
+    if (token == null) {
+      finishiOrder();
+      return true;
+    }
+
+    fLog("refreshHome----------getLatestApplication");
     await DioManager.getInstance().doRequest<ApplicationBean>(
       path: Urls.APPLICATION_LATEST,
       method: DioMethod.GET,
       showLoading: !showLoading,
       successCallBack: (result) {
-        applicationBean = result;
+        _applicationBean = result;
         isRolaodOrder = false;
         if (!isInit) {
           showLoading = false;

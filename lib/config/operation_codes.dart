@@ -2,7 +2,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-11-23 15:38:01
+ * @LastEditTime: 2024-01-02 17:36:19
  * @FilePath: /loannow/lib/config/operation_codes.dart
  */
 // ignore_for_file: constant_identifier_names

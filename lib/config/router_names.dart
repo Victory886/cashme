@@ -4,7 +4,7 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-11 17:53:35
+ * @LastEditTime: 2023-12-18 17:17:16
  * @FilePath: /loannow/lib/config/router_names.dart
  */
 
@@ -20,4 +20,20 @@ class RouterNames {
 
   static const String WEB = "O+7YHS9dNVjjFBOAzZ0qAw==" /* /web */;
   static const String CAMERA = "CepfrCfb7lKF/PdM+9S8BA==" /* /camera */;
+}
+
+enum ConnectivityResult {
+  /// 蓝牙连接网络
+
+  /// wifi 连接网络
+  wifi,
+
+  /// 以太网
+  ethernet,
+
+  /// 移动网络
+  mobile,
+
+  /// 没有连接到网络
+  none
 }

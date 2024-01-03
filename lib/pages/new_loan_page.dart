@@ -4,7 +4,7 @@
  * @Author: Terry
  * @Date: 2023-10-19 09:48:06
  * @LastEditors: Terry
- * @LastEditTime: 2023-12-18 11:02:29
+ * @LastEditTime: 2024-01-02 18:16:03
  * @FilePath: /loannow/lib/pages/new_loan_page.dart
  */
 
@@ -136,7 +136,7 @@ class _NewLoanPageState extends State<NewLoanPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: Device.appTopPadding(context)),
-                      Image.asset(img(R.homeLogo)),
+                      Image.asset(img(R.homeLogo), width: 24, height: 23),
                       SizedBox(height: 10),
                       Row(
                         children: [
@@ -150,8 +150,7 @@ class _NewLoanPageState extends State<NewLoanPage> {
                           ),
                           SizedBox(width: 15),
                           Text(
-                            "njNyrMRXX0FrxrH/YIwdAA=="
-                                .aseUnlook() /* Cashme Pera PH */,
+                            "CashPH",
                             style: TextStyle(
                               color: Color(0xff232732),
                               fontWeight: FontWeight.bold,
@@ -277,7 +276,7 @@ class LoanPageApplyLoanWidget extends StatelessWidget {
           alignment: AlignmentDirectional.center,
           children: [
             Text(
-              "EolD6BGI53TM4Gf6Wh9pVw==".aseUnlook() /* Apply Loan */,
+              "Apply",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
