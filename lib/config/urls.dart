@@ -4,14 +4,16 @@
  * @Author: Terry
  * @Date: 2023-10-12 15:05:06
  * @LastEditors: Terry
- * @LastEditTime: 2024-01-03 16:04:27
+ * @LastEditTime: 2024-01-03 18:44:41
  * @FilePath: /loannow/lib/config/urls.dart
  */
 
 import 'package:loannow/utils/secure_cipher_utils.dart';
 
 class Urls {
-  static String BASE_URL = "https://houd.cashpera.com/h5/";
+  // static String BASE_URL = "https://houd.cashpera.com/h5/";
+
+  static String BASE_URL = "http://api.cashloan.phdev.bowenfin.com/h5/";
 
   static String WEB_URL_PRIVACY =
       "https://www.cashpera.com/app/cashph/PrivacyPolicy.html";
@@ -114,7 +116,9 @@ class Urls {
 }
 
 class WebPageUrl {
-  static String baseUrl = "https://hfive.cashpera.com";
+  // static String baseUrl = "https://hfive.cashpera.com";
+
+  static String baseUrl = "http://cashmepera-phdev.bowenfin.com";
 
   /// 基本信息页面地址
   static String applyStepBasalUrl = "$baseUrl/apply-step/basal";
